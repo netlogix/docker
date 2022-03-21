@@ -1,0 +1,20 @@
+# syntax=docker/dockerfile:1
+
+ARG HTTPD_VERSION=2.4
+
+FROM httpd:${HTTPD_VERSION}-alpine as base
+ENV FPM_BACKEND=php-fpm:9000
+COPY config/defaults /usr/local/apache2/conf/
+RUN echo "Include conf/http_custom.conf" >> /usr/local/apache2/conf/httpd.conf
+
+FROM base AS webserver-typo3
+COPY config/typo3 /usr/local/apache2/vhosts
+
+FROM base AS webserver-neos
+COPY config/neos /usr/local/apache2/vhosts
+
+FROM base AS webserver-shopware
+COPY config/shopware /usr/local/apache2/vhosts
+
+FROM base AS webserver-static
+COPY config/static /usr/local/apache2/vhosts

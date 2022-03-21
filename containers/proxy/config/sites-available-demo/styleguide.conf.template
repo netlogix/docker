@@ -1,0 +1,32 @@
+server {
+    listen 443 ssl http2;
+
+    server_name ${STYLEGUIDE_DOMAIN};
+
+    include proxy_params;
+
+    location / {
+        proxy_pass http://styleguide;
+    }
+
+    location ~ ^/(branches|releases)/[^/]+/scripts?/.*\.js$ {
+        # For some reason Chrome does not send Authorization headers for these files. As we are unable to get Chrome to do the
+        # right thing, we just disable basic auth. If at one point Chrome is fixed, basic auth can be enabled again.
+        auth_basic off;
+        allow all;
+        add_header 'Access-Control-Allow-Origin' '*';
+        add_header 'Access-Control-Allow-Credentials' 'true';
+        proxy_pass http://styleguide;
+    }
+
+    location ~ "\.(ttf|woff2?|eot|svg|css|json)$" {
+        auth_basic off;
+        allow all;
+        add_header 'Access-Control-Allow-Origin' '*';
+        add_header 'Access-Control-Allow-Credentials' 'true';
+        proxy_pass http://styleguide;
+    }
+
+    ssl_certificate /etc/nginx/ssl/${STYLEGUIDE_SSL_CERTIFICATE:-cert.pem};
+    ssl_certificate_key /etc/nginx/ssl/${STYLEGUIDE_SSL_CERTIFICATE_KEY:-cert.key};
+}

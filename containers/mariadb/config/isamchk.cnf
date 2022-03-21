@@ -1,0 +1,5 @@
+[isamchk]
+key_buffer_size = 128M
+read_buffer_size = 4M
+sort_buffer_size = 128M
+write_buffer_size = 4M
