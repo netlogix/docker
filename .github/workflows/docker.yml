@@ -88,7 +88,7 @@ jobs:
             build-args: 'PHP_VERSION=8.1'
 
     env:
-      DOCKER_IMAGE: ghcr.io/nlx-sascha/docker/${{ matrix.image.name }}:latest
+      DOCKER_IMAGE: ghcr.io/netlogix/docker/${{ matrix.image.name }}:latest
 
     steps:
       - name: Checkout
