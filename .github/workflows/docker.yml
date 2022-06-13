@@ -58,62 +58,62 @@ jobs:
             context: ./containers/php
             target: 'php-fpm'
             build-args: |
-              'PHP_VERSION=7.4'
-              'UBUNTU_VERSION=20.04'
+              PHP_VERSION=7.4
+              UBUNTU_VERSION=20.04
           - name: php-7.4-fpm-dev
             context: ./containers/php
             target: 'php-fpm-dev'
             build-args: |
-              'PHP_VERSION=7.4'
-              'UBUNTU_VERSION=20.04'
+              PHP_VERSION=7.4
+              UBUNTU_VERSION=20.04
           - name: php-7.4-cli
             context: ./containers/php
             target: 'php-cli'
             build-args: |
-              'PHP_VERSION=7.4'
-              'UBUNTU_VERSION=20.04'
+              PHP_VERSION=7.4
+              UBUNTU_VERSION=20.04
           - name: php-7.4-cli-dev
             context: ./containers/php
             target: 'php-cli-dev'
             build-args: |
-              'PHP_VERSION=7.4'
-              'UBUNTU_VERSION=20.04'
+              PHP_VERSION=7.4
+              UBUNTU_VERSION=20.04
           - name: php-7.4-cron
             context: ./containers/php
             target: 'php-cron'
             build-args: |
-              'PHP_VERSION=7.4'
-              'UBUNTU_VERSION=20.04'
+              PHP_VERSION=7.4
+              UBUNTU_VERSION=20.04
           - name: php-8.1-fpm
             context: ./containers/php
             target: 'php-fpm'
             build-args: |
-              'PHP_VERSION=8.1'
-              'UBUNTU_VERSION=22.04'
+              PHP_VERSION=8.1
+              UBUNTU_VERSION=22.04
           - name: php-8.1-fpm-dev
             context: ./containers/php
             target: 'php-fpm-dev'
             build-args: |
-              'PHP_VERSION=8.1'
-              'UBUNTU_VERSION=22.04'
+              PHP_VERSION=8.1
+              UBUNTU_VERSION=22.04
           - name: php-8.1-cli
             context: ./containers/php
             target: 'php-cli'
             build-args: |
-              'PHP_VERSION=8.1'
-              'UBUNTU_VERSION=22.04'
+              PHP_VERSION=8.1
+              UBUNTU_VERSION=22.04
           - name: php-8.1-cli-dev
             context: ./containers/php
             target: 'php-cli-dev'
             build-args: |
-              'PHP_VERSION=8.1'
-              'UBUNTU_VERSION=22.04'
+              PHP_VERSION=8.1
+              UBUNTU_VERSION=22.04
           - name: php-8.1-cron
             context: ./containers/php
             target: 'php-cron'
             build-args: |
-              'PHP_VERSION=8.1'
-              'UBUNTU_VERSION=22.04'
+              PHP_VERSION=8.1
+              UBUNTU_VERSION=22.04
 
     env:
       DOCKER_IMAGE: ghcr.io/netlogix/docker/${{ matrix.image.name }}:latest
