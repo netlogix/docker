@@ -1,0 +1,37 @@
+client_max_body_size 128m;
+
+include includes/proxy_params;
+
+location / {
+    proxy_pass http://varnish;
+}
+
+location ~ ^/neos/|^[/a-z0-9.-]+@|^/_Resources/.*\.map$ {
+    proxy_pass http://webserver;
+    allow 10.242.2.0/24;
+    allow 172.24.0.0/16;
+    allow 192.168.24.0/24;
+    deny all;
+    error_page 403 =404 /404;
+}
+
+location ~ /_Resources/.*\.(ttf|woff2?|eot|svg|css)$ {
+    # Required for Neos Assets in Backend Modules
+    add_header 'Access-Control-Allow-Origin' '*';
+    add_header 'Access-Control-Allow-Credentials' 'true';
+    add_header Strict-Transport-Security "max-age=31536000" always;
+    add_header X-Frame-Options "SAMEORIGIN" always;
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header Referrer-Policy "same-origin" always;
+    add_header X-XSS-Protection "1; mode=block" always;
+
+    proxy_pass http://varnish;
+}
+
+# Increase buffer size for X-Cache-Tags header
+proxy_buffer_size 64k;
+proxy_buffers 8 64k;
+
+include includes/clear_headers;
+include includes/security_headers;
+include includes/parsed_accept;

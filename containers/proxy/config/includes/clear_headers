@@ -1,0 +1,5 @@
+more_clear_headers Server;
+more_clear_headers Via;
+more_clear_headers X-Varnish;
+more_clear_headers X-Flow-Powered;
+more_clear_headers X-Powered-By;

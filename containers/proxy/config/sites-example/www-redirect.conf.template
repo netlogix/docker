@@ -1,7 +1,6 @@
 server {
     listen 80;
-
-    server_name ${STYLEGUIDE_DOMAIN} ${STYLEGUIDE_PUBLIC_DOMAIN};
+    server_name www.${DOMAIN} ${DOMAIN};
 
     location / {
         return 301 https://$$host$$request_uri;

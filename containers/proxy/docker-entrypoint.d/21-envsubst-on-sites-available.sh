@@ -27,7 +27,6 @@ auto_envsubst() {
     envsubst "$defined_envs" < "$template" > "$output_path"
   done
   rm -rf "$template_dir"
-  rm -rf "/etc/nginx/sites-available-demo"
 }
 
 auto_envsubst

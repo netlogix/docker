@@ -1,0 +1,29 @@
+map $$http_host $$redirect_location_domains_to_urls {
+    hostnames;
+    include redirects/domains-to-urls.conf;
+}
+
+server {
+    listen 80 default_server;
+    listen 443 default_server ssl http2;
+
+    server_name redirect-default;
+
+    error_page 404 @deny;
+
+    location / {
+        return 404;
+    }
+
+    location @deny {
+        root /usr/share/nginx/html;
+        try_files /default.html =500;
+    }
+
+    if ($$redirect_location_domains_to_urls) {
+        return 301 $$redirect_location_domains_to_urls;
+    }
+
+    ssl_certificate /etc/nginx/ssl/${DOMAIN_REDIRECT_SSL_CERTIFICATE:-cert.pem};
+    ssl_certificate_key /etc/nginx/ssl/${DOMAIN_REDIRECT_SSL_CERTIFICATE_KEY:-cert.key};
+}
