@@ -52,7 +52,7 @@ jobs:
             build-args: ''
           - name: styleguide
             context: ./containers/styleguide
-            target: 'styleguide'
+            target: ''
             build-args: ''
           - name: php-7.4-fpm
             context: ./containers/php
