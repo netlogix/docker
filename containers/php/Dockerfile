@@ -46,10 +46,20 @@ RUN set -eux; \
     && apt-get autoremove \
     && rm -rf /var/lib/apt/lists/*
 
+RUN ln -s /usr/sbin/php-fpm${PHP_VERSION} /usr/sbin/php-fpm
+
+RUN mkdir -p "/run/php/" \
+    && chown -R www-data:www-data /run/php/ \
+    && chmod 755 /run/php/
+
 # Config files
 COPY config/cli/conf.d /etc/php/${PHP_VERSION}/cli/conf.d/
+COPY config/cli/conf.d /etc/php/${PHP_VERSION}/fpm/conf.d/
 COPY config/fpm/pool.d /etc/php/${PHP_VERSION}/fpm/pool.d/
-COPY config/cli/conf.d/99-php.ini /etc/php/${PHP_VERSION}/fpm/conf.d/99-php.ini
+
+# Test php-fpm config and php info
+RUN php-fpm -t
+RUN php -i
 
 WORKDIR /var/www
 
