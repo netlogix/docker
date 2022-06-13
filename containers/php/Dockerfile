@@ -50,7 +50,9 @@ RUN ln -s /usr/sbin/php-fpm${PHP_VERSION} /usr/sbin/php-fpm
 
 RUN mkdir -p "/run/php/" \
     && chown -R www-data:www-data /run/php/ \
-    && chmod 755 /run/php/
+    && chmod 755 /run/php/ \
+    && touch /var/log/xdebug.log \
+    && chown www-data:www-data /var/log/xdebug.log
 
 # Config files
 COPY config/cli/conf.d /etc/php/${PHP_VERSION}/cli/conf.d/
