@@ -50,6 +50,10 @@ jobs:
             context: ./containers/webserver
             target: 'webserver-static'
             build-args: ''
+          - name: styleguide
+            context: ./containers/styleguide
+            target: 'styleguide'
+            build-args: ''
           - name: php-7.4-fpm
             context: ./containers/php
             target: 'php-fpm'

@@ -12,6 +12,7 @@ DOCKER_BUILDKIT=1 docker build -t proxy:${VERSION} -f containers/proxy/Dockerfil
 DOCKER_BUILDKIT=1 docker build -t redis:${VERSION} -f containers/redis/Dockerfile containers/redis
 DOCKER_BUILDKIT=1 docker build -t varnish:${VERSION} -f containers/varnish/Dockerfile containers/varnish
 DOCKER_BUILDKIT=1 docker build -t elasticsearch:${VERSION} -f containers/elasticsearch/Dockerfile containers/elasticsearch
+DOCKER_BUILDKIT=1 docker build -t styleguide:${VERSION} -f containers/styleguide/Dockerfile containers/styleguide
 DOCKER_BUILDKIT=1 docker build -t webserver-neos:${VERSION} -f containers/webserver/Dockerfile --target=webserver-neos containers/webserver
 DOCKER_BUILDKIT=1 docker build -t webserver-static:${VERSION} -f containers/webserver/Dockerfile --target=webserver-static containers/webserver
 
