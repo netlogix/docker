@@ -54,6 +54,36 @@ jobs:
             context: ./containers/styleguide
             target: ''
             build-args: ''
+          - name: php-7.2-fpm
+            context: ./containers/php
+            target: 'php-fpm'
+            build-args: |
+              PHP_VERSION=7.2
+              UBUNTU_VERSION=18.04
+          - name: php-7.2-fpm-dev
+            context: ./containers/php
+            target: 'php-fpm-dev'
+            build-args: |
+              PHP_VERSION=7.2
+              UBUNTU_VERSION=18.04
+          - name: php-7.2-cli
+            context: ./containers/php
+            target: 'php-cli'
+            build-args: |
+              PHP_VERSION=7.2
+              UBUNTU_VERSION=18.04
+          - name: php-7.2-cli-dev
+            context: ./containers/php
+            target: 'php-cli-dev'
+            build-args: |
+              PHP_VERSION=7.2
+              UBUNTU_VERSION=18.04
+          - name: php-7.2-cron
+            context: ./containers/php
+            target: 'php-cron'
+            build-args: |
+              PHP_VERSION=7.2
+              UBUNTU_VERSION=18.04
           - name: php-7.4-fpm
             context: ./containers/php
             target: 'php-fpm'

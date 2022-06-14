@@ -16,6 +16,12 @@ docker buildx build -t styleguide:${VERSION} -f containers/styleguide/Dockerfile
 docker buildx build -t webserver-neos:${VERSION} -f containers/webserver/Dockerfile --target=webserver-neos containers/webserver
 docker buildx build -t webserver-static:${VERSION} -f containers/webserver/Dockerfile --target=webserver-static containers/webserver
 
+docker buildx build -t php-7.2-fpm:${VERSION} --build-arg PHP_VERSION=7.2 --build-arg UBUNTU_VERSION=18.04 -f containers/php/Dockerfile --target=php-fpm containers/php
+docker buildx build -t php-7.2-cli:${VERSION} --build-arg PHP_VERSION=7.2 --build-arg UBUNTU_VERSION=18.04 -f containers/php/Dockerfile --target=php-cli containers/php
+docker buildx build -t php-7.2-fpm-dev:${VERSION} --build-arg PHP_VERSION=7.2 --build-arg UBUNTU_VERSION=18.04 -f containers/php/Dockerfile --target=php-fpm-dev containers/php
+docker buildx build -t php-7.2-cli-dev:${VERSION} --build-arg PHP_VERSION=7.2 --build-arg UBUNTU_VERSION=18.04 -f containers/php/Dockerfile --target=php-cli-dev containers/php
+docker buildx build -t php-7.2-cron:${VERSION} --build-arg PHP_VERSION=7.2 --build-arg UBUNTU_VERSION=18.04 -f containers/php/Dockerfile --target=php-cron containers/php
+
 docker buildx build -t php-7.4-fpm:${VERSION} --build-arg PHP_VERSION=7.4 --build-arg UBUNTU_VERSION=20.04 -f containers/php/Dockerfile --target=php-fpm containers/php
 docker buildx build -t php-7.4-cli:${VERSION} --build-arg PHP_VERSION=7.4 --build-arg UBUNTU_VERSION=20.04 -f containers/php/Dockerfile --target=php-cli containers/php
 docker buildx build -t php-7.4-fpm-dev:${VERSION} --build-arg PHP_VERSION=7.4 --build-arg UBUNTU_VERSION=20.04 -f containers/php/Dockerfile --target=php-fpm-dev containers/php

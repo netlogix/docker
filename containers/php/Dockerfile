@@ -58,6 +58,7 @@ RUN mkdir -p "/run/php/" \
 COPY config/cli/conf.d /etc/php/${PHP_VERSION}/cli/conf.d/
 COPY config/cli/conf.d /etc/php/${PHP_VERSION}/fpm/conf.d/
 COPY config/fpm/pool.d /etc/php/${PHP_VERSION}/fpm/pool.d/
+COPY config/fpm-${PHP_VERSION}/pool.d /etc/php/${PHP_VERSION}/fpm/pool.d/
 
 # Test php-fpm config and php info
 RUN php-fpm -t
