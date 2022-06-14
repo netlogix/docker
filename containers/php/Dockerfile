@@ -13,8 +13,7 @@ ENV PHP_XDEBUG_MODE=off
 ENV TZ=UTC
 ENV LANG="C.UTF-8"
 
-RUN set -eux; \
-    apt-get update && \
+RUN apt-get update && \
     apt-get -y install --no-install-suggests --no-install-recommends \
         ca-certificates \
         curl \
@@ -44,7 +43,8 @@ RUN set -eux; \
         php${PHP_VERSION}-yaml \
         php${PHP_VERSION}-zip \
     && apt-get autoremove \
-    && rm -rf /var/lib/apt/lists/*
+    && find /var/log -type f -name "*.log" -delete \
+    && rm -rf /var/lib/apt/lists/* /var/cache/ldconfig/aux-cache
 
 RUN ln -s /usr/sbin/php-fpm${PHP_VERSION} /usr/sbin/php-fpm
 
@@ -87,12 +87,12 @@ CMD ["php", "-a"]
 
 FROM php-cli AS php-cron
 
-RUN set -eux; \
-    apt-get update && \
+RUN apt-get update && \
     apt-get -y install --no-install-suggests --no-install-recommends \
       cron \
     && apt-get autoremove \
-    && rm -rf /var/lib/apt/lists/*
+    && find /var/log -type f -name "*.log" -delete \
+    && rm -rf /var/lib/apt/lists/* /var/cache/ldconfig/aux-cache
 
 ENTRYPOINT ['crond', '-f', '-l', '8']
 CMD ['crond', '-f', '-l', '8']
@@ -101,20 +101,34 @@ FROM php-fpm AS php-fpm-dev
 
 ENV PHP_ASSERT=1
 
-RUN set -eux; \
-    apt-get update && \
+RUN apt-get update && \
     apt-get -y install --no-install-suggests --no-install-recommends \
-      php${PHP_VERSION}-xdebug \
+      make php${PHP_VERSION}-dev php-pear \
+    && mkdir -p /tmp/pear/cache \
+    && pecl channel-update pecl.php.net \
+    && pecl install xdebug-3.1.5 \
+    && echo "zend_extension=xdebug.so" > /etc/php/${PHP_VERSION}/mods-available/xdebug.ini \
+    && phpenmod xdebug \
+    && apt-get -y autoremove --purge make php${PHP_VERSION}-dev php-pear \
     && apt-get autoremove \
-    && rm -rf /var/lib/apt/lists/*
+    && find /var/log -type f -name "*.log" -delete \
+    && rm -rf /root/.pearrc \
+    && rm -rf /tmp/pear \
+    && rm -rf /var/lib/php/modules/${PHP_VERSION}/cli/disabled_by_maint \
+    && rm -rf /var/lib/php/modules/${PHP_VERSION}/fpm/disabled_by_maint \
+    && rm -rf /usr/share/php/.registry /usr/share/php/.depdb /usr/share/php/.filemap \
+    && rm -rf /usr/share/bug/file \
+    && rm -rf /usr/share/doc/file \
+    && rm -rf /var/lib/apt/lists/* /var/cache/ldconfig/aux-cache \
+    && touch /var/log/xdebug.log \
+    && chown www-data:www-data /var/log/xdebug.log
 
-FROM php-cli AS php-cli-dev
+FROM php-fpm-dev AS php-cli-dev
 
-ENV PHP_ASSERT=1
+ENV PHP_MEMORY_LIMIT=-1
+ENV PHP_MAX_EXECUTION_TIME=-1
 
-RUN set -eux; \
-    apt-get update && \
-    apt-get -y install --no-install-suggests --no-install-recommends \
-      php${PHP_VERSION}-xdebug \
-    && apt-get autoremove \
-    && rm -rf /var/lib/apt/lists/*
+COPY cli/docker-php-entrypoint /usr/local/bin/
+
+ENTRYPOINT ["docker-php-entrypoint"]
+CMD ["php", "-a"]
