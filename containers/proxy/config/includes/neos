@@ -10,6 +10,8 @@ location ~ ^/neos/|^[/a-z0-9.-]+@|^/_Resources/.*\.map$ {
     proxy_pass http://webserver;
     allow 10.242.2.0/24;
     allow 172.24.0.0/16;
+    # this is the private network in docker-compose
+    allow 172.25.0.0/16;
     allow 192.168.24.0/24;
     deny all;
     error_page 403 =404 /404;
