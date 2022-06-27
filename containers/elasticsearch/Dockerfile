@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-ARG ELASTICSEARCH_VERSION=7.17.1
+ARG ELASTICSEARCH_VERSION=7.17.4
 FROM elasticsearch:${ELASTICSEARCH_VERSION}
 
 ENV discovery.type=single-node

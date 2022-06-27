@@ -17,136 +17,162 @@ jobs:
           - name: mariadb
             context: ./containers/mariadb
             target: ''
+            version: 10.7
             build-args: ''
           - name: proxy
             context: ./containers/proxy
             target: ''
+            version: 1.22
             build-args: ''
           - name: redis
             context: ./containers/redis
             target: ''
+            version: 6.2
             build-args: ''
           - name: varnish
             context: ./containers/varnish
             target: ''
+            version: 6.6
             build-args: ''
           - name: elasticsearch
             context: ./containers/elasticsearch
             target: ''
+            version: 7.17
             build-args: ''
           - name: webserver-neos
             context: ./containers/webserver
             target: 'webserver-neos'
+            version: 2.4
             build-args: ''
           - name: webserver-typo3
             context: ./containers/webserver
             target: 'webserver-typo3'
+            version: 2.4
             build-args: ''
           - name: webserver-shopware
             context: ./containers/webserver
             target: 'webserver-shopware'
+            version: 2.4
             build-args: ''
           - name: webserver-static
             context: ./containers/webserver
             target: 'webserver-static'
+            version: 2.4
             build-args: ''
           - name: styleguide
             context: ./containers/styleguide
             target: ''
+            version: 1.22
             build-args: ''
-          - name: php-7.2-fpm
+          - name: php-fpm
             context: ./containers/php
             target: 'php-fpm'
+            version: 7.2
             build-args: |
               PHP_VERSION=7.2
               UBUNTU_VERSION=18.04
-          - name: php-7.2-fpm-dev
+          - name: php-fpm-dev
             context: ./containers/php
             target: 'php-fpm-dev'
+            version: 7.2
             build-args: |
               PHP_VERSION=7.2
               UBUNTU_VERSION=18.04
-          - name: php-7.2-cli
+          - name: php-cli
             context: ./containers/php
             target: 'php-cli'
+            version: 7.2
             build-args: |
               PHP_VERSION=7.2
               UBUNTU_VERSION=18.04
-          - name: php-7.2-cli-dev
+          - name: php-cli-dev
             context: ./containers/php
             target: 'php-cli-dev'
+            version: 7.2
             build-args: |
               PHP_VERSION=7.2
               UBUNTU_VERSION=18.04
-          - name: php-7.2-cron
+          - name: php-cron
             context: ./containers/php
             target: 'php-cron'
+            version: 7.2
             build-args: |
               PHP_VERSION=7.2
               UBUNTU_VERSION=18.04
-          - name: php-7.4-fpm
+          - name: php-fpm
             context: ./containers/php
             target: 'php-fpm'
+            version: 7.4
             build-args: |
               PHP_VERSION=7.4
               UBUNTU_VERSION=20.04
-          - name: php-7.4-fpm-dev
+          - name: php-fpm-dev
             context: ./containers/php
             target: 'php-fpm-dev'
+            version: 7.4
             build-args: |
               PHP_VERSION=7.4
               UBUNTU_VERSION=20.04
-          - name: php-7.4-cli
+          - name: php-cli
             context: ./containers/php
             target: 'php-cli'
+            version: 7.4
             build-args: |
               PHP_VERSION=7.4
               UBUNTU_VERSION=20.04
-          - name: php-7.4-cli-dev
+          - name: php-cli-dev
             context: ./containers/php
             target: 'php-cli-dev'
+            version: 7.4
             build-args: |
               PHP_VERSION=7.4
               UBUNTU_VERSION=20.04
-          - name: php-7.4-cron
+          - name: php-cron
             context: ./containers/php
             target: 'php-cron'
+            version: 7.4
             build-args: |
               PHP_VERSION=7.4
               UBUNTU_VERSION=20.04
-          - name: php-8.1-fpm
+          - name: php-fpm
             context: ./containers/php
             target: 'php-fpm'
+            version: 8.1
             build-args: |
               PHP_VERSION=8.1
               UBUNTU_VERSION=22.04
-          - name: php-8.1-fpm-dev
+          - name: php-fpm-dev
             context: ./containers/php
             target: 'php-fpm-dev'
+            version: 8.1
             build-args: |
               PHP_VERSION=8.1
               UBUNTU_VERSION=22.04
-          - name: php-8.1-cli
+          - name: php-cli
             context: ./containers/php
             target: 'php-cli'
+            version: 8.1
             build-args: |
               PHP_VERSION=8.1
               UBUNTU_VERSION=22.04
-          - name: php-8.1-cli-dev
+          - name: php-cli-dev
             context: ./containers/php
             target: 'php-cli-dev'
+            version: 8.1
             build-args: |
               PHP_VERSION=8.1
               UBUNTU_VERSION=22.04
-          - name: php-8.1-cron
+          - name: php-cron
             context: ./containers/php
             target: 'php-cron'
+            version: 8.1
             build-args: |
               PHP_VERSION=8.1
               UBUNTU_VERSION=22.04
 
     env:
-      DOCKER_IMAGE: ghcr.io/netlogix/docker/${{ matrix.image.name }}:latest
+      DOCKER_IMAGE_LATEST: ghcr.io/netlogix/docker/${{ matrix.image.name }}:latest
+      DOCKER_IMAGE_VERSION: ghcr.io/netlogix/docker/${{ matrix.image.name }}:${{ matrix.image.version }}
 
     steps:
       - name: Checkout
@@ -176,7 +202,7 @@ jobs:
           file: ${{ matrix.image.context }}/Dockerfile
           build-args: ${{ matrix.image.build-args }}
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ env.DOCKER_IMAGE }}
+          tags: ${{ env.DOCKER_IMAGE_LATEST }},${{ env.DOCKER_IMAGE_VERSION }}
           platforms: linux/amd64,linux/arm64
 #          cache-from: type=gha, scope=${{ github.workflow }}
 #          cache-to: type=gha, scope=${{ github.workflow }}
