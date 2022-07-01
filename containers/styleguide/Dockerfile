@@ -3,5 +3,5 @@
 ARG NGINX_VERSION=1.22
 
 FROM nginx:${NGINX_VERSION}
-COPY sites-enabled/styleguide.conf /etc/nginx/conf.d/default.conf
+COPY etc/ /etc/
 RUN mkdir -p /var/www

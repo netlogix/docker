@@ -7,7 +7,7 @@ server {
 
     server_name ${STYLEGUIDE_DOMAIN};
 
-    include proxy_params;
+    include includes/proxy_params;
 
     location / {
         proxy_pass http://styleguide;
