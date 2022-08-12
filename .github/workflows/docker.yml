@@ -23,47 +23,56 @@ jobs:
             context: ./containers/proxy
             target: ''
             version: 1.22
-            build-args: ''
+            build-args: |
+              NGINX_VERSION=1.22
           - name: redis
             context: ./containers/redis
             target: ''
             version: 6.2
-            build-args: ''
+            build-args: |
+              REDIS_VERSION=6.2
           - name: varnish
             context: ./containers/varnish
             target: ''
             version: 6.6
-            build-args: ''
+            build-args: |
+              VARNISH_VERSION=6.6
           - name: elasticsearch
             context: ./containers/elasticsearch
             target: ''
             version: 7.17
-            build-args: ''
+            build-args: |
+              ELASTICSEARCH_VERSION=7.17
           - name: webserver-neos
             context: ./containers/webserver
             target: 'webserver-neos'
             version: 2.4
-            build-args: ''
+            build-args: |
+              HTTPD_VERSION=2.4
           - name: webserver-typo3
             context: ./containers/webserver
             target: 'webserver-typo3'
             version: 2.4
-            build-args: ''
+            build-args: |
+              HTTPD_VERSION=2.4
           - name: webserver-shopware
             context: ./containers/webserver
             target: 'webserver-shopware'
             version: 2.4
-            build-args: ''
+            build-args: |
+              HTTPD_VERSION=2.4
           - name: webserver-static
             context: ./containers/webserver
             target: 'webserver-static'
             version: 2.4
-            build-args: ''
+            build-args: |
+              HTTPD_VERSION=2.4
           - name: styleguide
             context: ./containers/styleguide
             target: ''
             version: 1.22
-            build-args: ''
+            build-args: |
+              NGINX_VERSION=1.22
           - name: php-fpm
             context: ./containers/php
             target: 'php-fpm'
