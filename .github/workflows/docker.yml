@@ -22,9 +22,9 @@ jobs:
           - name: proxy
             context: ./containers/proxy
             target: ''
-            version: 1.22
+            version: 1.23
             build-args: |
-              NGINX_VERSION=1.22
+              NGINX_VERSION=1.23
           - name: redis
             context: ./containers/redis
             target: ''
