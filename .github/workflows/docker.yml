@@ -47,26 +47,22 @@ jobs:
             context: ./containers/webserver
             target: 'webserver-neos'
             version: 2.4
-            build-args: |
-              HTTPD_VERSION=2.4
+            build-args: ''
           - name: webserver-typo3
             context: ./containers/webserver
             target: 'webserver-typo3'
             version: 2.4
-            build-args: |
-              HTTPD_VERSION=2.4
+            build-args: ''
           - name: webserver-shopware
             context: ./containers/webserver
             target: 'webserver-shopware'
             version: 2.4
-            build-args: |
-              HTTPD_VERSION=2.4
+            build-args: ''
           - name: webserver-static
             context: ./containers/webserver
             target: 'webserver-static'
             version: 2.4
-            build-args: |
-              HTTPD_VERSION=2.4
+            build-args: ''
           - name: styleguide
             context: ./containers/styleguide
             target: ''

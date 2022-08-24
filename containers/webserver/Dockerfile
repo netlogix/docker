@@ -1,10 +1,8 @@
 # syntax=docker/dockerfile:1
-
-ARG HTTPD_VERSION=2.4
-
-FROM httpd:${HTTPD_VERSION}-alpine as base
+FROM httpd:2.4-alpine as base
 ENV FPM_BACKEND=php-fpm:9000
 COPY config/defaults /usr/local/apache2/conf/
+RUN sed -i 's/LoadModule autoindex_module/#LoadModule autoindex_module/g' /usr/local/apache2/conf/httpd.conf
 RUN echo "Include conf/http_custom.conf" >> /usr/local/apache2/conf/httpd.conf
 
 FROM base AS webserver-typo3
