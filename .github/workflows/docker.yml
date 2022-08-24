@@ -70,9 +70,8 @@ jobs:
           - name: styleguide
             context: ./containers/styleguide
             target: ''
-            version: 1.22
-            build-args: |
-              NGINX_VERSION=1.22
+            version: 1.23
+            build-args: ''
           - name: php-fpm
             context: ./containers/php
             target: 'php-fpm'
