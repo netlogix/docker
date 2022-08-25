@@ -55,8 +55,8 @@ RUN mkdir -p "/run/php/" \
     && chown www-data:www-data /var/log/xdebug.log
 
 # Config files
-COPY config/cli/conf.d /etc/php/${PHP_VERSION}/cli/conf.d/
-COPY config/cli/conf.d /etc/php/${PHP_VERSION}/fpm/conf.d/
+COPY config/conf.d /etc/php/${PHP_VERSION}/cli/conf.d/
+COPY config/conf.d /etc/php/${PHP_VERSION}/fpm/conf.d/
 COPY config/fpm/pool.d /etc/php/${PHP_VERSION}/fpm/pool.d/
 COPY config/fpm-${PHP_VERSION}/pool.d /etc/php/${PHP_VERSION}/fpm/pool.d/
 
