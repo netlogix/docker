@@ -17,13 +17,15 @@ RUN apt-get update && \
     apt-get -y install --no-install-suggests --no-install-recommends \
         ca-certificates \
         curl \
-        tar \
-        openssl \
+        gifsicle \
         imagemagick \
         jpegoptim \
+        openssl \
         optipng \
         pngquant \
+        tar \
         unzip \
+        webp \
         zip \
         php${PHP_VERSION}-apcu \
         php${PHP_VERSION}-bcmath \
