@@ -97,8 +97,8 @@ RUN apt-get update && \
     && find /var/log -type f -name "*.log" -delete \
     && rm -rf /var/lib/apt/lists/* /var/cache/ldconfig/aux-cache
 
-ENTRYPOINT ['crond', '-f', '-l', '8']
-CMD ['crond', '-f', '-l', '8']
+ENTRYPOINT ['crond']
+CMD ['-f', '-l', '8']
 
 FROM php-fpm AS php-fpm-dev
 
