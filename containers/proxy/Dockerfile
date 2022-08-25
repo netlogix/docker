@@ -85,8 +85,5 @@ RUN curl -L https://github.com/a8m/envsubst/releases/download/v1.2.0/envsubst-Li
 COPY config /etc/nginx
 COPY docker-entrypoint.d /docker-entrypoint.d
 
-# Generate new dhparam file
-RUN openssl dhparam -out /etc/nginx/dhparam.pem 4096
-
 # Test nginx config
 RUN nginx -t
