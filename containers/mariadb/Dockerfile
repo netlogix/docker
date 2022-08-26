@@ -1,6 +1,4 @@
 # syntax=docker/dockerfile:1
-
-ARG MARIADB_VERSION=10.7
-FROM mariadb:${MARIADB_VERSION}
+FROM mariadb:10.7
 
 COPY config /etc/mysql/conf.d
