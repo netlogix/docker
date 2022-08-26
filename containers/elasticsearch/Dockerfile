@@ -1,7 +1,5 @@
 # syntax=docker/dockerfile:1
-
-ARG ELASTICSEARCH_VERSION=7.17.4
-FROM elasticsearch:${ELASTICSEARCH_VERSION}
+FROM elasticsearch:7.17.4
 
 ENV discovery.type=single-node
 ENV bootstrap.memory_lock=true
