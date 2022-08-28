@@ -1,8 +1,5 @@
 # syntax=docker/dockerfile:1
-
-ARG NGINX_VERSION=1.21
-
-FROM nginx:${NGINX_VERSION}
+FROM nginx:1.23.1
 
 RUN apt-get update && apt-get install -y \
     nginx-extras \
