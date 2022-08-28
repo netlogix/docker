@@ -2,28 +2,31 @@
 ARG UBUNTU_VERSION=22.04
 FROM ubuntu:${UBUNTU_VERSION} as base
 ARG PHP_VERSION=8.1
-ENV DEBIAN_FRONTEND=noninteractive
 
-ENV PHP_MEMORY_LIMIT=128m
-ENV PHP_MAX_EXECUTION_TIME=30
-ENV PHP_MAX_INPUT_VARS=1500
-ENV PHP_ASSERT=-1
-ENV PHP_XDEBUG_MODE=off
+ENV DEBIAN_FRONTEND=noninteractive \
+    TZ=UTC \
+    LANG="C.UTF-8"
 
-ENV TZ=UTC
-ENV LANG="C.UTF-8"
+ENV PHP_VERSION=${PHP_VERSION} \
+    PHP_MEMORY_LIMIT=128m \
+    PHP_MAX_EXECUTION_TIME=30 \
+    PHP_MAX_INPUT_VARS=1500 \
+    PHP_ASSERT=-1 \
+    PHP_XDEBUG_MODE=off
 
 RUN apt-get update && \
     apt-get -y install --no-install-suggests --no-install-recommends \
         ca-certificates \
         curl \
-        tar \
-        openssl \
+        gifsicle \
         imagemagick \
         jpegoptim \
+        openssl \
         optipng \
         pngquant \
+        tar \
         unzip \
+        webp \
         zip \
         php${PHP_VERSION}-apcu \
         php${PHP_VERSION}-bcmath \
@@ -55,13 +58,13 @@ RUN mkdir -p "/run/php/" \
     && chown www-data:www-data /var/log/xdebug.log
 
 # Config files
-COPY config/cli/conf.d /etc/php/${PHP_VERSION}/cli/conf.d/
-COPY config/cli/conf.d /etc/php/${PHP_VERSION}/fpm/conf.d/
+COPY config/conf.d /etc/php/${PHP_VERSION}/cli/conf.d/
+COPY config/conf.d /etc/php/${PHP_VERSION}/fpm/conf.d/
 COPY config/fpm/pool.d /etc/php/${PHP_VERSION}/fpm/pool.d/
 COPY config/fpm-${PHP_VERSION}/pool.d /etc/php/${PHP_VERSION}/fpm/pool.d/
 
 # Test php-fpm config and php info
-RUN php-fpm -t
+RUN php-fpm -tt
 RUN php -i
 
 WORKDIR /var/www
@@ -78,8 +81,8 @@ CMD ["php-fpm"]
 
 FROM base AS php-cli
 
-ENV PHP_MEMORY_LIMIT=-1
-ENV PHP_MAX_EXECUTION_TIME=-1
+ENV PHP_MEMORY_LIMIT=-1 \
+    PHP_MAX_EXECUTION_TIME=-1
 
 COPY cli/docker-php-entrypoint /usr/local/bin/
 
@@ -95,8 +98,8 @@ RUN apt-get update && \
     && find /var/log -type f -name "*.log" -delete \
     && rm -rf /var/lib/apt/lists/* /var/cache/ldconfig/aux-cache
 
-ENTRYPOINT ['crond', '-f', '-l', '8']
-CMD ['crond', '-f', '-l', '8']
+ENTRYPOINT ['crond']
+CMD ['-f', '-l', '8']
 
 FROM php-fpm AS php-fpm-dev
 
