@@ -1,2 +1,2 @@
 # syntax=docker/dockerfile:1
-FROM redis:6.2-alpine
+FROM redis:7.0.4-alpine
