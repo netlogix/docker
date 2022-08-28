@@ -29,6 +29,11 @@ jobs:
             target: ''
             version: ''
             build-args: ''
+          - name: rabbitmq
+            context: ./containers/rabbitmq
+            target: ''
+            version: ''
+            build-args: ''
           - name: redis
             context: ./containers/redis
             target: ''
