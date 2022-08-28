@@ -1,6 +1,23 @@
 #!/bin/sh
 set -e
 
+# PHP-FPM settings
+if [ ! -z "${PHP_FPM_PM_MAX_CHILDREN}" ]; then
+	sed -i "s|pm.max_children =.*|pm.max_children = ${PHP_FPM_PM_MAX_CHILDREN}|i" /etc/php/${PHP_VERSION}/fpm/pool.d/www.conf
+fi
+if [ ! -z "${PHP_FPM_PM_START_SERVERS}" ]; then
+	sed -i "s|pm.start_servers =.*|pm.start_servers = ${PHP_FPM_PM_START_SERVERS}|i" /etc/php/${PHP_VERSION}/fpm/pool.d/www.conf
+fi
+if [ ! -z "${PHP_FPM_PM_MIN_SPARE_SERVERS}" ]; then
+	sed -i "s|pm.min_spare_servers =.*|pm.min_spare_servers = ${PHP_FPM_PM_MIN_SPARE_SERVERS}|i" /etc/php/${PHP_VERSION}/fpm/pool.d/www.conf
+fi
+if [ ! -z "${PHP_FPM_PM_MAX_SPARE_SERVERS}" ]; then
+	sed -i "s|pm.max_spare_servers =.*|pm.max_spare_servers = ${PHP_FPM_PM_MAX_SPARE_SERVERS}|i" /etc/php/${PHP_VERSION}/fpm/pool.d/www.conf
+fi
+if [ ! -z "${PHP_FPM_PM_MAX_REQUESTS}" ]; then
+	sed -i "s|pm.max_requests =.*|pm.max_requests = ${PHP_FPM_PM_MAX_REQUESTS}|i" /etc/php/${PHP_VERSION}/fpm/pool.d/www.conf
+fi
+
 # first arg is `-f` or `--some-option`
 if [ "${1#-}" != "$1" ]; then
 	set -- php-fpm "$@"
