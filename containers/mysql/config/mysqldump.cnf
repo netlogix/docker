@@ -1,0 +1,4 @@
+[mysqldump]
+max_allowed_packet = 16M
+quick
+quote-names
