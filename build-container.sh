@@ -8,6 +8,7 @@ if [ "${VERSION:-}" = "" ]; then
 fi
 
 docker buildx build -t mariadb:${VERSION} -f containers/mariadb/Dockerfile containers/mariadb
+docker buildx build -t mysql:${VERSION} -f containers/mysql/Dockerfile containers/mysql
 docker buildx build -t proxy:${VERSION} -f containers/proxy/Dockerfile containers/proxy
 docker buildx build -t rabbitmq:${VERSION} -f containers/rabbitmq/Dockerfile containers/rabbitmq
 docker buildx build -t redis:${VERSION} -f containers/redis/Dockerfile containers/redis

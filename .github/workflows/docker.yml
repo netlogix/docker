@@ -24,6 +24,11 @@ jobs:
             target: ''
             version: ''
             build-args: ''
+          - name: mysql
+            context: ./containers/mysql
+            target: ''
+            version: ''
+            build-args: ''
           - name: proxy
             context: ./containers/proxy
             target: ''
