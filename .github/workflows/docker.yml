@@ -44,6 +44,11 @@ jobs:
             target: ''
             version: ''
             build-args: ''
+          - name: solr
+            context: ./containers/solr
+            target: ''
+            version: ''
+            build-args: ''
           - name: varnish
             context: ./containers/varnish
             target: ''

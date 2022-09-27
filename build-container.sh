@@ -12,6 +12,7 @@ docker buildx build -t mysql:${VERSION} -f containers/mysql/Dockerfile container
 docker buildx build -t proxy:${VERSION} -f containers/proxy/Dockerfile containers/proxy
 docker buildx build -t rabbitmq:${VERSION} -f containers/rabbitmq/Dockerfile containers/rabbitmq
 docker buildx build -t redis:${VERSION} -f containers/redis/Dockerfile containers/redis
+docker buildx build -t solr:${VERSION} -f containers/solr/Dockerfile containers/solr
 docker buildx build -t varnish:${VERSION} -f containers/varnish/Dockerfile containers/varnish
 docker buildx build -t elasticsearch:${VERSION} -f containers/elasticsearch/Dockerfile containers/elasticsearch
 docker buildx build -t styleguide:${VERSION} -f containers/styleguide/Dockerfile containers/styleguide
