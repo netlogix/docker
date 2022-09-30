@@ -99,16 +99,21 @@ RUN apt-get update && \
     && find /var/log -type f -name "*.log" -delete \
     && rm -rf /var/lib/apt/lists/* /var/cache/ldconfig/aux-cache
 
-ENTRYPOINT ['crond']
-CMD ['-f', '-l', '8']
+ENTRYPOINT ["crond"]
+CMD ["-f", "-l", "8"]
 
+# Dev PHP fpm
 FROM php-fpm AS php-fpm-dev
 
-ENV PHP_ASSERT=1
+ENV PHP_ASSERT=1 \
+    COMPOSER_CACHE_DIR=/.cache/composer/ \
+    YARN_CACHE_FOLDER=/.cache/yarn/ \
+    npm_config_cache=/.cache/npm/ \
+    TERM=xterm-256color
 
 RUN apt-get update && \
     apt-get -y install --no-install-suggests --no-install-recommends \
-      make php${PHP_VERSION}-dev php-pear \
+      make php${PHP_VERSION}-dev php-pear openssh-client git patch \
     && mkdir -p /tmp/pear/cache \
     && pecl channel-update pecl.php.net \
     && pecl install xdebug-3.1.5 \
@@ -128,6 +133,11 @@ RUN apt-get update && \
     && touch /var/log/xdebug.log \
     && chown www-data:www-data /var/log/xdebug.log
 
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+COPY dev/scripts/ /usr/local/bin/
+COPY dev/bash/ /root/
+
+# Dev PHP cli
 FROM php-fpm-dev AS php-cli-dev
 
 ENV PHP_MEMORY_LIMIT=-1

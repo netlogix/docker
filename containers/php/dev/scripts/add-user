@@ -1,0 +1,31 @@
+#!/bin/bash
+
+if [[ $# -eq 0 ]]; then
+  echo "No user and uid specified"
+  echo "USE: add-user 501 sascha.nowak"
+  exit 1
+fi
+
+uid=$1
+user=$2
+
+# Create user to run commands so local user can read/write to all files created
+# https://github.com/docker/hub-feedback/issues/2263
+useradd -l -G www-data,root -u $uid -d /home/$user $user
+mkdir -p /home/$user
+chown -R $user:$user /home/$user
+touch /run/php/php$PHP_VERSION-fpm.pid
+chown $user:www-data /run/php/php$PHP_VERSION-fpm.pid
+touch /var/log/xdebug.log
+chown $user:www-data /var/log/xdebug.log
+cp /root/.bashrc /home/$user/
+
+# Create cache directories
+mkdir -p $COMPOSER_CACHE_DIR
+chown -R $user:www-data $COMPOSER_CACHE_DIR
+
+mkdir -p $YARN_CACHE_FOLDER
+chown -R $user:www-data $YARN_CACHE_FOLDER
+
+mkdir -p $npm_config_cache
+chown -R $user:www-data $npm_config_cache
