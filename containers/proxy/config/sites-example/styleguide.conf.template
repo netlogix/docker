@@ -1,11 +1,7 @@
-upstream styleguide {
-    server ${STYLEGUIDE_BACKEND:-styleguide:80};
-}
-
 server {
     listen 443 ssl http2;
 
-    server_name ${STYLEGUIDE_DOMAIN};
+    server_name ${DOMAIN_STYLEGUIDE};
 
     include includes/proxy_params;
 
@@ -19,7 +15,7 @@ server {
 
 server {
     listen 80;
-    server_name ${STYLEGUIDE_DOMAIN};
+    server_name ${DOMAIN_STYLEGUIDE};
 
     location / {
         return 301 https://$$host$$request_uri;
