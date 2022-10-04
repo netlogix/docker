@@ -1,0 +1,16 @@
+#!/bin/bash
+
+if [[ $# -eq 0 ]]; then
+  echo "No nodejs version specified"
+  echo "USE: install-node 16"
+  exit 1
+fi
+
+curl -fsSL https://deb.nodesource.com/setup_$1.x | bash -
+
+apt-get -yq update &&
+  apt-get -yqq install --no-install-suggests --no-install-recommends nodejs &&
+  apt-get autoremove &&
+  find /var/log -type f -name "*.log" -delete &&
+  rm -rf /var/lib/apt/lists/* /var/cache/ldconfig/aux-cache &&
+  npm install -g yarn

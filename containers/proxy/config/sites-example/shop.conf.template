@@ -1,0 +1,28 @@
+map $$request_uri $$redirect_location_default {
+    include redirects/domain.conf;
+}
+
+server {
+    listen 443 ssl http2;
+
+    server_name ${DOMAIN_ENV};
+
+    if ($$redirect_location_default) {
+        return 301 $$redirect_location_default;
+    }
+
+    include includes/shop;
+
+    ssl_certificate /etc/nginx/ssl/${DOMAIN_ENV_SSL_CERTIFICATE:-cert.pem};
+    ssl_certificate_key /etc/nginx/ssl/${DOMAIN_ENV_SSL_CERTIFICATE_KEY:-cert.key};
+}
+
+server {
+    listen 80;
+
+    server_name ${DOMAIN_ENV};
+
+    location / {
+        return 301 https://$$host$$request_uri;
+    }
+}
