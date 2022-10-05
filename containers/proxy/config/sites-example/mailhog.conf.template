@@ -1,8 +1,3 @@
-map $$http_upgrade $$connection_upgrade {
-    default upgrade;
-    ''      close;
-}
-
 server {
     listen 443 ssl http2;
 
@@ -12,13 +7,4 @@ server {
 
     ssl_certificate /etc/nginx/ssl/${DOMAIN_ENV_SSL_CERTIFICATE:-cert.pem};
     ssl_certificate_key /etc/nginx/ssl/${DOMAIN_ENV_SSL_CERTIFICATE_KEY:-cert.key};
-}
-
-server {
-    listen 80;
-    server_name ${DOMAIN_MAILHOG};
-
-    location / {
-        return 301 https://$$host$$request_uri;
-    }
 }
