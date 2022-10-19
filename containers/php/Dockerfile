@@ -12,6 +12,7 @@ ENV PHP_VERSION=${PHP_VERSION} \
     PHP_MAX_EXECUTION_TIME=30 \
     PHP_MAX_INPUT_VARS=1500 \
     PHP_ASSERT=-1 \
+    PHP_XDEBUG_HOST=host.docker.internal \
     PHP_XDEBUG_MODE=off
 
 RUN apt-get update && \
