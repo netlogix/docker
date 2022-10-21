@@ -79,6 +79,11 @@ jobs:
             target: 'webserver-static'
             version: ''
             build-args: ''
+          - name: flow-debugproxy
+            context: ./containers/flow-debugproxy
+            target: 'flow-debugproxy'
+            version: ''
+            build-args: ''
           - name: styleguide
             context: ./containers/styleguide
             target: ''
