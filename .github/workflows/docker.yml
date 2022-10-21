@@ -82,7 +82,7 @@ jobs:
           - name: flow-debugproxy
             context: ./containers/flow-debugproxy
             target: 'flow-debugproxy'
-            version: ''
+            version: 'master'
             build-args: ''
           - name: styleguide
             context: ./containers/styleguide
