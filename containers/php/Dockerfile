@@ -98,10 +98,16 @@ RUN apt-get update && \
       cron \
     && apt-get autoremove \
     && find /var/log -type f -name "*.log" -delete \
-    && rm -rf /var/lib/apt/lists/* /var/cache/ldconfig/aux-cache
+    && rm -rf /var/lib/apt/lists/* /var/cache/ldconfig/aux-cache \
+    && rm -rf /etc/cron.*/*
 
-ENTRYPOINT ["crond"]
-CMD ["-f", "-l", "8"]
+WORKDIR /var/www
+
+COPY cron/docker-cron-entrypoint /usr/local/bin/
+
+HEALTHCHECK --interval=5s --timeout=3s CMD ps aux | grep '[c]ron' || exit 1
+ENTRYPOINT ["docker-cron-entrypoint"]
+CMD ["cron","-f", "-l", "2"]
 
 # Dev PHP fpm
 FROM php-fpm AS php-fpm-dev

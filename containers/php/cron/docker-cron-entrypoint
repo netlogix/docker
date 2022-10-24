@@ -1,0 +1,14 @@
+#!/bin/sh
+set -e
+
+env >> /etc/environment
+
+# init crontab file
+if [ -f "/var/www/Configuration/crontab" ]; then
+  echo "$(
+    echo "VHOST_PATH=/var/www"
+    cat /var/www/Configuration/crontab
+  )" | crontab -u www-data -
+fi
+
+exec "$@"
