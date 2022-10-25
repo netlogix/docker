@@ -21,6 +21,10 @@ sub vcl_init {
 }
 
 sub vcl_recv {
+	# https://info.varnish-software.com/blog/blog-sysadmin-monitoring-health-varnish-cache
+	if (req.method == "GET" && req.url == "/health") {
+		return(synth(200, "health"));
+	}
 
 	# Remove tracking parameter from url and normalize query arguments
 	include "includes/cache_hitrate_booster.vcl";
