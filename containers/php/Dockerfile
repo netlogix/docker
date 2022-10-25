@@ -105,7 +105,6 @@ WORKDIR /var/www
 
 COPY cron/docker-cron-entrypoint /usr/local/bin/
 
-HEALTHCHECK --interval=5s --timeout=3s CMD ps aux | grep '[c]ron' || exit 1
 ENTRYPOINT ["docker-cron-entrypoint"]
 CMD ["cron","-f", "-l", "2"]
 
