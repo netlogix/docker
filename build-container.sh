@@ -18,6 +18,8 @@ docker buildx build -t elasticsearch:${VERSION} -f containers/elasticsearch/Dock
 docker buildx build -t styleguide:${VERSION} -f containers/styleguide/Dockerfile containers/styleguide
 docker buildx build -t webserver-neos:${VERSION} -f containers/webserver/Dockerfile --target=webserver-neos containers/webserver
 docker buildx build -t webserver-static:${VERSION} -f containers/webserver/Dockerfile --target=webserver-static containers/webserver
+docker buildx build -t webserver-typo3:${VERSION} -f containers/webserver/Dockerfile --target=webserver-typo3 containers/webserver
+docker buildx build -t webserver-shopware:${VERSION} -f containers/webserver/Dockerfile --target=webserver-shopware containers/webserver
 docker buildx build -t flow-debugproxy:${VERSION} -f containers/flow-debugproxy/Dockerfile containers/flow-debugproxy
 
 docker buildx build -t php-7.2-fpm:${VERSION} --build-arg PHP_VERSION=7.2 --build-arg UBUNTU_VERSION=18.04 -f containers/php/Dockerfile --target=php-fpm containers/php
