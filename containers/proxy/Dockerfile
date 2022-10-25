@@ -87,3 +87,5 @@ COPY docker-entrypoint.d /docker-entrypoint.d
 
 # Test nginx config
 RUN nginx -t
+
+HEALTHCHECK --interval=2s --timeout=20s --retries=10 CMD curl --silent --fail http://127.0.0.1:90/health || exit 1
