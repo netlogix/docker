@@ -17,6 +17,7 @@ ENV PHP_VERSION=${PHP_VERSION} \
 
 RUN apt-get update && \
     apt-get -y install --no-install-suggests --no-install-recommends \
+        libfcgi-bin \
         ca-certificates \
         curl \
         gifsicle \
@@ -73,11 +74,12 @@ WORKDIR /var/www
 
 FROM base AS php-fpm
 
-COPY fpm/docker-php-entrypoint /usr/local/bin/
+COPY fpm/ /usr/local/bin/
 
 STOPSIGNAL SIGQUIT
 EXPOSE 9000
 
+HEALTHCHECK --interval=2s --timeout=5s --retries=10 CMD php-fpm-healthcheck || exit 1
 ENTRYPOINT ["docker-php-entrypoint"]
 CMD ["php-fpm"]
 
