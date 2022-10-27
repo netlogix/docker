@@ -84,6 +84,11 @@ jobs:
             target: 'flow-debugproxy'
             version: 'master'
             build-args: ''
+          - name: chromium
+            context: ./containers/chromium
+            target: 'chromium'
+            version: 'stable'
+            build-args: ''
           - name: styleguide
             context: ./containers/styleguide
             target: ''
