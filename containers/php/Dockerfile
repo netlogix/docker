@@ -19,6 +19,7 @@ RUN apt-get update && \
     apt-get -y install --no-install-suggests --no-install-recommends \
         ca-certificates \
         curl \
+        ghostscript \
         gifsicle \
         imagemagick \
         jpegoptim \
