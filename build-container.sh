@@ -20,6 +20,7 @@ docker buildx build -t webserver-neos:${VERSION} -f containers/webserver/Dockerf
 docker buildx build -t webserver-static:${VERSION} -f containers/webserver/Dockerfile --target=webserver-static containers/webserver
 docker buildx build -t flow-debugproxy:${VERSION} -f containers/flow-debugproxy/Dockerfile containers/flow-debugproxy
 docker buildx build -t chromium:${VERSION} -f containers/chromium/Dockerfile containers/chromium
+docker buildx build -t mailhog:${VERSION} -f containers/mailhog/Dockerfile containers/mailhog
 
 docker buildx build -t php-7.2-fpm:${VERSION} --build-arg PHP_VERSION=7.2 --build-arg UBUNTU_VERSION=18.04 -f containers/php/Dockerfile --target=php-fpm containers/php
 docker buildx build -t php-7.2-cli:${VERSION} --build-arg PHP_VERSION=7.2 --build-arg UBUNTU_VERSION=18.04 -f containers/php/Dockerfile --target=php-cli containers/php
