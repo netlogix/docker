@@ -118,6 +118,9 @@ ENV PHP_ASSERT=1 \
     npm_config_cache=/.cache/npm/ \
     TERM=xterm-256color
 
+# enable debugging with PhpStorm
+ENV PHP_IDE_CONFIG="serverName=localhost"
+
 RUN apt-get update && \
     apt-get -y install --no-install-suggests --no-install-recommends \
       make php${PHP_VERSION}-dev php-pear openssh-client git patch \
