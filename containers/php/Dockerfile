@@ -13,12 +13,22 @@ ENV PHP_VERSION=${PHP_VERSION} \
     PHP_MAX_INPUT_VARS=1500 \
     PHP_ASSERT=-1 \
     PHP_XDEBUG_HOST=host.docker.internal \
-    PHP_XDEBUG_MODE=off
+    PHP_XDEBUG_MODE=off \
+    TIDEWAYS_APIKEY="" \
+    TIDEWAYS_DAEMON="tcp://tideways-daemon:9135" \
+    TIDEWAYS_SAMPLERATE=25
 
 RUN apt-get update && \
     apt-get -y install --no-install-suggests --no-install-recommends \
         ca-certificates \
         curl \
+        gnupg2
+
+RUN echo 'deb https://packages.tideways.com/apt-packages-main any-version main' > /etc/apt/sources.list.d/tideways.list && \
+    curl -L -sS 'https://packages.tideways.com/key.gpg' | apt-key add -
+
+RUN apt-get update && \
+    apt-get -y install --no-install-suggests --no-install-recommends \
         ghostscript \
         gifsicle \
         imagemagick \
@@ -48,6 +58,8 @@ RUN apt-get update && \
         php${PHP_VERSION}-xml \
         php${PHP_VERSION}-yaml \
         php${PHP_VERSION}-zip \
+        tideways-php \
+        tideways-cli \
     && apt-get autoremove \
     && find /var/log -type f -name "*.log" -delete \
     && rm -rf /var/lib/apt/lists/* /var/cache/ldconfig/aux-cache
@@ -107,7 +119,7 @@ WORKDIR /var/www
 COPY cron/docker-cron-entrypoint /usr/local/bin/
 
 ENTRYPOINT ["docker-cron-entrypoint"]
-CMD ["cron","-f", "-l", "2"]
+CMD ["cron", "-f", "-l", "2"]
 
 # Dev PHP fpm
 FROM php-fpm AS php-fpm-dev

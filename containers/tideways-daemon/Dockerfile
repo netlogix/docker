@@ -20,4 +20,4 @@ EXPOSE 9135
 
 USER tideways
 
-ENTRYPOINT ["tideways-daemon","--hostname=tideways-daemon","--address=0.0.0.0:9135"]
+ENTRYPOINT ["tideways-daemon", "--hostname=tideways-daemon", "--address=0.0.0.0:9135"]
