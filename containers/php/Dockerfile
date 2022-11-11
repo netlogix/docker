@@ -135,7 +135,7 @@ ENV PHP_IDE_CONFIG="serverName=localhost"
 
 RUN apt-get update && \
     apt-get -y install --no-install-suggests --no-install-recommends \
-      make php${PHP_VERSION}-dev php-pear openssh-client git patch \
+      make php${PHP_VERSION}-dev php${PHP_VERSION}-sqlite3 php-pear openssh-client git patch \
     && mkdir -p /tmp/pear/cache \
     && pecl channel-update pecl.php.net \
     && pecl install xdebug-3.1.5 \
