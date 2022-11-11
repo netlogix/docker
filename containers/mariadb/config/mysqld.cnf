@@ -62,3 +62,12 @@ tmp_table_size = 48M
 #user = mysql
 #userstat = 1
 wait_timeout = 60
+collation-server = utf8mb4_unicode_ci
+init-connect='SET NAMES utf8mb4'
+character-set-server = utf8mb4
+
+[client]
+default-character-set=utf8mb4
+
+[mysql]
+default-character-set=utf8mb4

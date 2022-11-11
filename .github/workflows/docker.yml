@@ -84,6 +84,21 @@ jobs:
             target: 'flow-debugproxy'
             version: 'master'
             build-args: ''
+          - name: chromium
+            context: ./containers/chromium
+            target: 'chromium'
+            version: 'stable'
+            build-args: ''
+          - name: mailhog
+            context: ./containers/mailhog
+            target: 'mailhog'
+            version: '1.1.0'
+            build-args: ''
+          - name: tideways-daemon
+            context: ./containers/tideways-daemon
+            target: 'tideways-daemon'
+            version: '1.8'
+            build-args: ''
           - name: styleguide
             context: ./containers/styleguide
             target: ''

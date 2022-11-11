@@ -21,6 +21,9 @@ docker buildx build -t webserver-static:${VERSION} -f containers/webserver/Docke
 docker buildx build -t webserver-typo3:${VERSION} -f containers/webserver/Dockerfile --target=webserver-typo3 containers/webserver
 docker buildx build -t webserver-shopware:${VERSION} -f containers/webserver/Dockerfile --target=webserver-shopware containers/webserver
 docker buildx build -t flow-debugproxy:${VERSION} -f containers/flow-debugproxy/Dockerfile containers/flow-debugproxy
+docker buildx build -t chromium:${VERSION} -f containers/chromium/Dockerfile containers/chromium
+docker buildx build -t mailhog:${VERSION} -f containers/mailhog/Dockerfile containers/mailhog
+docker buildx build -t tideways-daemon:${VERSION} -f containers/tideways-daemon/Dockerfile containers/tideways-daemon
 
 docker buildx build -t php-7.2-fpm:${VERSION} --build-arg PHP_VERSION=7.2 --build-arg UBUNTU_VERSION=18.04 -f containers/php/Dockerfile --target=php-fpm containers/php
 docker buildx build -t php-7.2-cli:${VERSION} --build-arg PHP_VERSION=7.2 --build-arg UBUNTU_VERSION=18.04 -f containers/php/Dockerfile --target=php-cli containers/php

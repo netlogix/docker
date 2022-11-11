@@ -3,7 +3,7 @@
 # SEE https://github.com/nginxinc/docker-nginx/tree/master/modules
 FROM nginx:1.23.2 as builder
 
-ENV ENABLED_MODULES="ndk headers-more lua subs-filter"
+ENV ENABLED_MODULES="ndk headers-more lua subs-filter geoip2 njs"
 
 RUN set -ex \
     && if [ "$ENABLED_MODULES" = "" ]; then \
