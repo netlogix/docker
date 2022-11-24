@@ -1,8 +1,11 @@
 FROM debian:bullseye-slim AS chromium
 
-RUN apt-get update && apt-get install -y \
+RUN sed -i -e's/ main/ main contrib/g' /etc/apt/sources.list && \
+    echo "ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true" | debconf-set-selections  && \
+    apt-get update && apt-get install -y \
     curl \
     chromium \
+    ttf-mscorefonts-installer \
     --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
