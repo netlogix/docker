@@ -21,8 +21,18 @@ jobs:
         image:
           - name: mariadb
             context: ./containers/mariadb
-            target: ''
-            version: ''
+            target: 'mariadb'
+            version: '10.10'
+            build-args: ''
+          - name: mariadb
+            context: ./containers/mariadb
+            target: 'mariadb_106'
+            version: '10.6'
+            build-args: ''
+          - name: mariadb
+            context: ./containers/mariadb
+            target: 'mariadb_103'
+            version: '10.3'
             build-args: ''
           - name: mysql
             context: ./containers/mysql
