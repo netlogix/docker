@@ -29,4 +29,4 @@ USER solr
 COPY --from=builder --chown=solr:solr /tmp/solr/Resources/Private/Solr /var/solr/data
 RUN mkdir -p /var/solr/data/data
 
-HEALTHCHECK --interval=2s --timeout=20s --retries=10 CMD curl -s -A 'healthcheck' http://localhost:$$SOLR_PORT/solr/$$HEALTHCHECK_CORE/admin/ping?wt=json | grep -q '"status":"OK"'
+HEALTHCHECK --interval=2s --timeout=20s --retries=10 CMD curl -s -A 'healthcheck' http://localhost:$SOLR_PORT/solr/$HEALTHCHECK_CORE/admin/ping?wt=json | grep -q '"status":"OK"'
