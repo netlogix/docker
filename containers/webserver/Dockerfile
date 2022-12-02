@@ -16,5 +16,8 @@ COPY config/neos /usr/local/apache2/vhosts
 FROM base AS webserver-shopware
 COPY config/shopware /usr/local/apache2/vhosts
 
+FROM base AS webserver-shopware6
+COPY config/shopware6 /usr/local/apache2/vhosts
+
 FROM base AS webserver-static
 COPY config/static /usr/local/apache2/vhosts

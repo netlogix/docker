@@ -84,6 +84,11 @@ jobs:
             target: 'webserver-shopware'
             version: ''
             build-args: ''
+          - name: webserver-shopware6
+            context: ./containers/webserver
+            target: 'webserver-shopware6'
+            version: ''
+            build-args: ''
           - name: webserver-static
             context: ./containers/webserver
             target: 'webserver-static'
