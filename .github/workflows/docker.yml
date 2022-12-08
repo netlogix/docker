@@ -280,7 +280,7 @@ jobs:
 
       - name: Read version from dockerfile or matrix
         id: docker
-        run: echo ::set-output name=version::$(./extract-version.sh ${{ matrix.image.context }}/Dockerfile ${{ matrix.image.version }})
+        run: echo "version=$(./extract-version.sh ${{ matrix.image.context }}/Dockerfile ${{ matrix.image.version }})" >> $GITHUB_OUTPUT
 
       - name: Login to ghcr
         if: github.event_name != 'pull_request'
