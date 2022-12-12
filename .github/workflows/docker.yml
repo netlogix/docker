@@ -94,11 +94,6 @@ jobs:
             target: 'webserver-static'
             version: ''
             build-args: ''
-          - name: flow-debugproxy
-            context: ./containers/flow-debugproxy
-            target: 'flow-debugproxy'
-            version: 'master'
-            build-args: ''
           - name: chromium
             context: ./containers/chromium
             target: 'chromium'
