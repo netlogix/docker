@@ -224,6 +224,46 @@ jobs:
             build-args: |
               PHP_VERSION=8.1
               UBUNTU_VERSION=22.04
+          - name: php-fpm
+            context: ./containers/php
+            target: 'php-fpm'
+            version: 8.2
+            file: 8.2.dockerfile
+            build-args: |
+              PHP_VERSION=8.2
+              UBUNTU_VERSION=22.04
+          - name: php-fpm-dev
+            context: ./containers/php
+            target: 'php-fpm-dev'
+            version: 8.2
+            file: 8.2.dockerfile
+            build-args: |
+              PHP_VERSION=8.2
+              UBUNTU_VERSION=22.04
+          - name: php-cli
+            context: ./containers/php
+            target: 'php-cli'
+            version: 8.2
+            file: 8.2.dockerfile
+            build-args: |
+              PHP_VERSION=8.2
+              UBUNTU_VERSION=22.04
+          - name: php-cli-dev
+            context: ./containers/php
+            target: 'php-cli-dev'
+            version: 8.2
+            file: 8.2.dockerfile
+            build-args: |
+              PHP_VERSION=8.2
+              UBUNTU_VERSION=22.04
+          - name: php-cron
+            context: ./containers/php
+            target: 'php-cron'
+            version: 8.2
+            file: 8.2.dockerfile
+            build-args: |
+              PHP_VERSION=8.2
+              UBUNTU_VERSION=22.04
 
     env:
       DOCKER_IMAGE: ghcr.io/netlogix/docker/${{ matrix.image.name }}
@@ -240,7 +280,7 @@ jobs:
 
       - name: Read version from dockerfile or matrix
         id: docker
-        run: echo ::set-output name=version::$(./extract-version.sh ${{ matrix.image.context }}/Dockerfile ${{ matrix.image.version }})
+        run: echo "version=$(./extract-version.sh ${{ matrix.image.context }}/Dockerfile ${{ matrix.image.version }})" >> $GITHUB_OUTPUT
 
       - name: Login to ghcr
         if: github.event_name != 'pull_request'
@@ -257,7 +297,7 @@ jobs:
           builder: ${{ steps.buildx.outputs.name }}
           context: ${{ matrix.image.context }}
           target: ${{ matrix.image.target }}
-          file: ${{ matrix.image.context }}/Dockerfile
+          file: ${{ matrix.image.context }}/${{ matrix.image.file || 'Dockerfile' }}
           build-args: ${{ matrix.image.build-args }}
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ env.DOCKER_IMAGE }}:latest,${{ env.DOCKER_IMAGE }}:${{ steps.docker.outputs.version }}

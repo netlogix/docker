@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 ARG UBUNTU_VERSION=22.04
 FROM ubuntu:${UBUNTU_VERSION} as base
-ARG PHP_VERSION=8.1
+ARG PHP_VERSION=8.2
 
 ENV DEBIAN_FRONTEND=noninteractive \
     TZ=UTC \
@@ -20,6 +20,8 @@ ENV PHP_VERSION=${PHP_VERSION} \
 
 RUN apt-get update && \
     apt-get -y install --no-install-suggests --no-install-recommends \
+        software-properties-common \
+        apt-transport-https\
         libfcgi-bin \
         ca-certificates \
         curl \
@@ -27,6 +29,9 @@ RUN apt-get update && \
 
 RUN echo 'deb https://packages.tideways.com/apt-packages-main any-version main' > /etc/apt/sources.list.d/tideways.list && \
     curl -L -sS 'https://packages.tideways.com/key.gpg' | apt-key add -
+
+RUN add-apt-repository ppa:ondrej/php -y && \
+    apt-get update
 
 RUN apt-get update && \
     apt-get -y install --no-install-suggests --no-install-recommends \
@@ -41,26 +46,25 @@ RUN apt-get update && \
         unzip \
         webp \
         zip \
-        php${PHP_VERSION}-apcu \
+        php${PHP_VERSION} \
+        php-apcu \
         php${PHP_VERSION}-bcmath \
         php${PHP_VERSION}-common \
         php${PHP_VERSION}-cli \
         php${PHP_VERSION}-curl \
         php${PHP_VERSION}-fpm \
         php${PHP_VERSION}-gd \
-        php${PHP_VERSION}-igbinary \
-        php${PHP_VERSION}-imagick \
+        php-igbinary \
+        php-imagick \
         php${PHP_VERSION}-intl \
         php${PHP_VERSION}-mbstring \
         php${PHP_VERSION}-mysql \
         php${PHP_VERSION}-opcache \
         php${PHP_VERSION}-readline \
-        php${PHP_VERSION}-redis \
+        php-redis \
         php${PHP_VERSION}-xml \
-        php${PHP_VERSION}-yaml \
+        php-yaml \
         php${PHP_VERSION}-zip \
-        tideways-php \
-        tideways-cli \
     && apt-get autoremove \
     && find /var/log -type f -name "*.log" -delete \
     && rm -rf /var/lib/apt/lists/* /var/cache/ldconfig/aux-cache
@@ -140,7 +144,7 @@ RUN apt-get update && \
       make php${PHP_VERSION}-dev php${PHP_VERSION}-sqlite3 php-pear openssh-client git patch \
     && mkdir -p /tmp/pear/cache \
     && pecl channel-update pecl.php.net \
-    && pecl install xdebug-3.1.6 \
+    && pecl install xdebug-3.2.0 \
     && echo "zend_extension=xdebug.so" > /etc/php/${PHP_VERSION}/mods-available/xdebug.ini \
     && phpenmod xdebug \
     && apt-get -y autoremove --purge make php${PHP_VERSION}-dev php-pear \
