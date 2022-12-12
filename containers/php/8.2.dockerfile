@@ -144,7 +144,7 @@ RUN apt-get update && \
       make php${PHP_VERSION}-dev php${PHP_VERSION}-sqlite3 php-pear openssh-client git patch \
     && mkdir -p /tmp/pear/cache \
     && pecl channel-update pecl.php.net \
-    && pecl install xdebug-3.2.0RC2 \
+    && pecl install xdebug-3.2.0 \
     && echo "zend_extension=xdebug.so" > /etc/php/${PHP_VERSION}/mods-available/xdebug.ini \
     && phpenmod xdebug \
     && apt-get -y autoremove --purge make php${PHP_VERSION}-dev php-pear \
