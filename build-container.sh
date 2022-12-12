@@ -23,6 +23,7 @@ docker buildx build -t webserver-shopware:${VERSION} -f containers/webserver/Doc
 docker buildx build -t flow-debugproxy:${VERSION} -f containers/flow-debugproxy/Dockerfile containers/flow-debugproxy
 docker buildx build -t chromium:${VERSION} -f containers/chromium/Dockerfile containers/chromium
 docker buildx build -t mailhog:${VERSION} -f containers/mailhog/Dockerfile containers/mailhog
+docker buildx build -t cfssl:${VERSION} -f containers/cfssl/Dockerfile containers/cfssl
 docker buildx build -t tideways-daemon:${VERSION} -f containers/tideways-daemon/Dockerfile containers/tideways-daemon
 
 docker buildx build -t php-fpm:7.2 --build-arg PHP_VERSION=7.2 --build-arg UBUNTU_VERSION=18.04 -f containers/php/Dockerfile --target=php-fpm containers/php
