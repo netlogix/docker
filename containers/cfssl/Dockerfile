@@ -17,12 +17,19 @@ RUN CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -ldflags "-s -w
 RUN CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -ldflags "-s -w -X github.com/cloudflare/cfssl/cli/version.version=1.6.3" -o /out/mkbundle ./cmd/mkbundle
 RUN CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -ldflags "-s -w -X github.com/cloudflare/cfssl/cli/version.version=1.6.3" -o /out/multirootca ./cmd/multirootca
 
-FROM gcr.io/distroless/static-debian11 AS cfssl
+FROM gcr.io/distroless/static-debian11 AS cfssl-server
 
 COPY --from=builder /out/* /
 
 VOLUME /etc/cfssl
 
 EXPOSE 8080
+
+CMD ["/cfssl"]
+
+FROM gcr.io/distroless/static-debian11 AS cfssl
+
+COPY --from=gcr.io/distroless/static-debian11:debug /busybox /bin
+COPY --from=builder /out/* /
 
 CMD ["/cfssl"]

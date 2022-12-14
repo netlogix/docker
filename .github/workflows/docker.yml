@@ -109,6 +109,11 @@ jobs:
             target: 'cfssl'
             version: '1.6'
             build-args: ''
+          - name: cfssl-server
+            context: ./containers/cfssl
+            target: 'cfssl-server'
+            version: '1.6'
+            build-args: ''
           - name: tideways-daemon
             context: ./containers/tideways-daemon
             target: 'tideways-daemon'
