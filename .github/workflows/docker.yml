@@ -94,6 +94,11 @@ jobs:
             target: 'webserver-static'
             version: ''
             build-args: ''
+          - name: webserver-symfony
+            context: ./containers/webserver
+            target: 'webserver-symfony'
+            version: ''
+            build-args: ''
           - name: chromium
             context: ./containers/chromium
             target: 'chromium'
