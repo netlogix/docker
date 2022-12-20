@@ -32,21 +32,25 @@ docker buildx build -t php-cli:7.2 --build-arg PHP_VERSION=7.2 --build-arg UBUNT
 docker buildx build -t php-fpm-dev:7.2 --build-arg PHP_VERSION=7.2 --build-arg UBUNTU_VERSION=18.04 -f containers/php/Dockerfile --target=php-fpm-dev containers/php
 docker buildx build -t php-cli-dev:7.2 --build-arg PHP_VERSION=7.2 --build-arg UBUNTU_VERSION=18.04 -f containers/php/Dockerfile --target=php-cli-dev containers/php
 docker buildx build -t php-cron:7.2 --build-arg PHP_VERSION=7.2 --build-arg UBUNTU_VERSION=18.04 -f containers/php/Dockerfile --target=php-cron containers/php
+docker buildx build -t php-supervisor:7.2 --build-arg PHP_VERSION=7.2 --build-arg UBUNTU_VERSION=18.04 -f containers/php/Dockerfile --target=php-supervisor containers/php
 
 docker buildx build -t php-fpm:7.4 --build-arg PHP_VERSION=7.4 --build-arg UBUNTU_VERSION=20.04 -f containers/php/Dockerfile --target=php-fpm containers/php
 docker buildx build -t php-cli:7.4 --build-arg PHP_VERSION=7.4 --build-arg UBUNTU_VERSION=20.04 -f containers/php/Dockerfile --target=php-cli containers/php
 docker buildx build -t php-fpm-dev:7.4 --build-arg PHP_VERSION=7.4 --build-arg UBUNTU_VERSION=20.04 -f containers/php/Dockerfile --target=php-fpm-dev containers/php
 docker buildx build -t php-cli-dev:7.4 --build-arg PHP_VERSION=7.4 --build-arg UBUNTU_VERSION=20.04 -f containers/php/Dockerfile --target=php-cli-dev containers/php
 docker buildx build -t php-cron:7.4 --build-arg PHP_VERSION=7.4 --build-arg UBUNTU_VERSION=20.04 -f containers/php/Dockerfile --target=php-cron containers/php
+docker buildx build -t php-supervisor:7.4 --build-arg PHP_VERSION=7.4 --build-arg UBUNTU_VERSION=20.04 -f containers/php/Dockerfile --target=php-supervisor containers/php
 
 docker buildx build -t php-fpm:8.1 --build-arg PHP_VERSION=8.1 --build-arg UBUNTU_VERSION=22.04 -f containers/php/Dockerfile --target=php-fpm containers/php
 docker buildx build -t php-cli:8.1 --build-arg PHP_VERSION=8.1 --build-arg UBUNTU_VERSION=22.04 -f containers/php/Dockerfile --target=php-cli containers/php
 docker buildx build -t php-fpm-dev:8.1 --build-arg PHP_VERSION=8.1 --build-arg UBUNTU_VERSION=22.04 -f containers/php/Dockerfile --target=php-fpm-dev containers/php
 docker buildx build -t php-cli-dev:8.1 --build-arg PHP_VERSION=8.1 --build-arg UBUNTU_VERSION=22.04 -f containers/php/Dockerfile --target=php-cli-dev containers/php
 docker buildx build -t php-cron:8.1 --build-arg PHP_VERSION=8.1 --build-arg UBUNTU_VERSION=22.04 -f containers/php/Dockerfile --target=php-cron containers/php
+docker buildx build -t php-supervisor:8.1 --build-arg PHP_VERSION=8.1 --build-arg UBUNTU_VERSION=22.04 -f containers/php/Dockerfile --target=php-supervisor containers/php
 
 docker buildx build -t php-fpm:8.2 --build-arg PHP_VERSION=8.2 --build-arg UBUNTU_VERSION=22.04 -f containers/php/8.2.dockerfile --target=php-fpm containers/php
 docker buildx build -t php-cli:8.2 --build-arg PHP_VERSION=8.2 --build-arg UBUNTU_VERSION=22.04 -f containers/php/8.2.dockerfile --target=php-cli containers/php
 docker buildx build -t php-fpm-dev:8.2 --build-arg PHP_VERSION=8.2 --build-arg UBUNTU_VERSION=22.04 -f containers/php/8.2.dockerfile --target=php-fpm-dev containers/php
 docker buildx build -t php-cli-dev:8.2 --build-arg PHP_VERSION=8.2 --build-arg UBUNTU_VERSION=22.04 -f containers/php/8.2.dockerfile --target=php-cli-dev containers/php
 docker buildx build -t php-cron:8.2 --build-arg PHP_VERSION=8.2 --build-arg UBUNTU_VERSION=22.04 -f containers/php/8.2.dockerfile --target=php-cron containers/php
+docker buildx build -t php-supervisor:8.2 --build-arg PHP_VERSION=8.2 --build-arg UBUNTU_VERSION=22.04 -f containers/php/8.2.dockerfile --target=php-supervisor containers/php

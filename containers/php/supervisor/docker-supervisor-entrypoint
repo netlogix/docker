@@ -1,0 +1,9 @@
+#!/bin/sh
+set -e
+
+# init flow supervisor configuration
+if [ -d "/var/www/Packages/Application/Netlogix.Supervisor" ]; then
+  ./flow supervisor:create
+fi
+
+exec "$@"
