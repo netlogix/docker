@@ -164,6 +164,13 @@ jobs:
             build-args: |
               PHP_VERSION=7.2
               UBUNTU_VERSION=18.04
+          - name: php-supervisor
+            context: ./containers/php
+            target: 'php-supervisor'
+            version: 7.2
+            build-args: |
+              PHP_VERSION=7.2
+              UBUNTU_VERSION=18.04
           - name: php-fpm
             context: ./containers/php
             target: 'php-fpm'
@@ -199,6 +206,13 @@ jobs:
             build-args: |
               PHP_VERSION=7.4
               UBUNTU_VERSION=20.04
+          - name: php-supervisor
+            context: ./containers/php
+            target: 'php-supervisor'
+            version: 7.4
+            build-args: |
+              PHP_VERSION=7.4
+              UBUNTU_VERSION=20.04
           - name: php-fpm
             context: ./containers/php
             target: 'php-fpm'
@@ -234,6 +248,13 @@ jobs:
             build-args: |
               PHP_VERSION=8.1
               UBUNTU_VERSION=22.04
+          - name: php-supervisor
+            context: ./containers/php
+            target: 'php-supervisor'
+            version: 8.1
+            build-args: |
+              PHP_VERSION=8.1
+              UBUNTU_VERSION=22.04
           - name: php-fpm
             context: ./containers/php
             target: 'php-fpm'
@@ -269,6 +290,14 @@ jobs:
           - name: php-cron
             context: ./containers/php
             target: 'php-cron'
+            version: 8.2
+            file: 8.2.dockerfile
+            build-args: |
+              PHP_VERSION=8.2
+              UBUNTU_VERSION=22.04
+          - name: php-supervisor
+            context: ./containers/php
+            target: 'php-supervisor'
             version: 8.2
             file: 8.2.dockerfile
             build-args: |

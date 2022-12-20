@@ -127,6 +127,29 @@ COPY cron/docker-cron-entrypoint /usr/local/bin/
 ENTRYPOINT ["docker-cron-entrypoint"]
 CMD ["cron", "-f", "-l", "2"]
 
+FROM php-cli AS php-supervisor
+
+RUN apt-get update && \
+    apt-get -y install --no-install-suggests --no-install-recommends \
+      supervisor \
+    && apt-get autoremove \
+    && find /var/log -type f -name "*.log" -delete \
+    && rm -rf /var/lib/apt/lists/* /var/cache/ldconfig/aux-cache \
+    && rm -rf /etc/cron.*/*
+
+RUN touch /var/run/supervisord.pid \
+    && chown www-data:www-data /var/run/supervisord.pid
+
+WORKDIR /var/www
+
+COPY supervisor/docker-supervisor-entrypoint /usr/local/bin/
+COPY supervisor/supervisord.conf /etc/supervisor/supervisord.conf
+
+USER www-data
+
+ENTRYPOINT ["docker-supervisor-entrypoint"]
+CMD ["supervisord", "-n", "-c", "/etc/supervisor/supervisord.conf"]
+
 # Dev PHP fpm
 FROM php-fpm AS php-fpm-dev
 
