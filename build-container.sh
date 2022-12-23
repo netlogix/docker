@@ -27,6 +27,11 @@ docker buildx build -t cfssl:${VERSION} -f containers/cfssl/Dockerfile --target=
 docker buildx build -t cfssl-server:${VERSION} -f containers/cfssl/Dockerfile --target=cfssl-server containers/cfssl
 docker buildx build -t tideways-daemon:${VERSION} -f containers/tideways-daemon/Dockerfile containers/tideways-daemon
 
+docker buildx build -t php-fpm:7.0 -f containers/php/7.0.Dockerfile --target=php-fpm containers/php
+docker buildx build -t php-cli:7.0 -f containers/php/7.0.Dockerfile --target=php-cli containers/php
+docker buildx build -t php-fpm-dev:7.0 -f containers/php/7.0.Dockerfile --target=php-fpm-dev containers/php
+docker buildx build -t php-cli-dev:7.0 -f containers/php/7.0.Dockerfile --target=php-cli-dev containers/php
+
 docker buildx build -t php-fpm:7.2 --build-arg PHP_VERSION=7.2 --build-arg UBUNTU_VERSION=18.04 -f containers/php/Dockerfile --target=php-fpm containers/php
 docker buildx build -t php-cli:7.2 --build-arg PHP_VERSION=7.2 --build-arg UBUNTU_VERSION=18.04 -f containers/php/Dockerfile --target=php-cli containers/php
 docker buildx build -t php-fpm-dev:7.2 --build-arg PHP_VERSION=7.2 --build-arg UBUNTU_VERSION=18.04 -f containers/php/Dockerfile --target=php-fpm-dev containers/php

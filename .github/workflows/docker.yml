@@ -6,6 +6,7 @@ on:
   push:
     branches:
       - main
+      - php-legacy
   pull_request:
     branches:
       - main
@@ -19,290 +20,18 @@ jobs:
     strategy:
       matrix:
         image:
-          - name: mariadb
-            context: ./containers/mariadb
-            target: 'mariadb'
-            version: '10.10'
-            build-args: ''
-          - name: mariadb
-            context: ./containers/mariadb
-            target: 'mariadb_106'
-            version: '10.6'
-            build-args: ''
-          - name: mariadb
-            context: ./containers/mariadb
-            target: 'mariadb_103'
-            version: '10.3'
-            build-args: ''
-          - name: mysql
-            context: ./containers/mysql
-            target: ''
-            version: ''
-            build-args: ''
-          - name: proxy
-            context: ./containers/proxy
-            target: ''
-            version: ''
-            build-args: ''
-          - name: rabbitmq
-            context: ./containers/rabbitmq
-            target: ''
-            version: ''
-            build-args: ''
-          - name: redis
-            context: ./containers/redis
-            target: ''
-            version: ''
-            build-args: ''
-          - name: solr
-            context: ./containers/solr
-            target: ''
-            version: ''
-            build-args: ''
-          - name: varnish
-            context: ./containers/varnish
-            target: ''
-            version: ''
-            build-args: ''
-          - name: elasticsearch
-            context: ./containers/elasticsearch
-            target: ''
-            version: ''
-            build-args: ''
-          - name: webserver-neos
-            context: ./containers/webserver
-            target: 'webserver-neos'
-            version: ''
-            build-args: ''
-          - name: webserver-typo3
-            context: ./containers/webserver
-            target: 'webserver-typo3'
-            version: ''
-            build-args: ''
-          - name: webserver-shopware
-            context: ./containers/webserver
-            target: 'webserver-shopware'
-            version: ''
-            build-args: ''
-          - name: webserver-shopware6
-            context: ./containers/webserver
-            target: 'webserver-shopware6'
-            version: ''
-            build-args: ''
-          - name: webserver-static
-            context: ./containers/webserver
-            target: 'webserver-static'
-            version: ''
-            build-args: ''
-          - name: webserver-symfony
-            context: ./containers/webserver
-            target: 'webserver-symfony'
-            version: ''
-            build-args: ''
-          - name: chromium
-            context: ./containers/chromium
-            target: 'chromium'
-            version: 'stable'
-            build-args: ''
-          - name: mailhog
-            context: ./containers/mailhog
-            target: 'mailhog'
-            version: '1.1.0'
-            build-args: ''
-          - name: cfssl
-            context: ./containers/cfssl
-            target: 'cfssl'
-            version: '1.6'
-            build-args: ''
-          - name: cfssl-server
-            context: ./containers/cfssl
-            target: 'cfssl-server'
-            version: '1.6'
-            build-args: ''
-          - name: tideways-daemon
-            context: ./containers/tideways-daemon
-            target: 'tideways-daemon'
-            version: '1.8'
-            build-args: ''
-          - name: styleguide
-            context: ./containers/styleguide
-            target: ''
-            version: ''
-            build-args: ''
           - name: php-fpm
             context: ./containers/php
             target: 'php-fpm'
-            version: 7.2
-            build-args: |
-              PHP_VERSION=7.2
-              UBUNTU_VERSION=18.04
           - name: php-fpm-dev
             context: ./containers/php
             target: 'php-fpm-dev'
-            version: 7.2
-            build-args: |
-              PHP_VERSION=7.2
-              UBUNTU_VERSION=18.04
           - name: php-cli
             context: ./containers/php
             target: 'php-cli'
-            version: 7.2
-            build-args: |
-              PHP_VERSION=7.2
-              UBUNTU_VERSION=18.04
           - name: php-cli-dev
             context: ./containers/php
             target: 'php-cli-dev'
-            version: 7.2
-            build-args: |
-              PHP_VERSION=7.2
-              UBUNTU_VERSION=18.04
-          - name: php-cron
-            context: ./containers/php
-            target: 'php-cron'
-            version: 7.2
-            build-args: |
-              PHP_VERSION=7.2
-              UBUNTU_VERSION=18.04
-          - name: php-supervisor
-            context: ./containers/php
-            target: 'php-supervisor'
-            version: 7.2
-            build-args: |
-              PHP_VERSION=7.2
-              UBUNTU_VERSION=18.04
-          - name: php-fpm
-            context: ./containers/php
-            target: 'php-fpm'
-            version: 7.4
-            build-args: |
-              PHP_VERSION=7.4
-              UBUNTU_VERSION=20.04
-          - name: php-fpm-dev
-            context: ./containers/php
-            target: 'php-fpm-dev'
-            version: 7.4
-            build-args: |
-              PHP_VERSION=7.4
-              UBUNTU_VERSION=20.04
-          - name: php-cli
-            context: ./containers/php
-            target: 'php-cli'
-            version: 7.4
-            build-args: |
-              PHP_VERSION=7.4
-              UBUNTU_VERSION=20.04
-          - name: php-cli-dev
-            context: ./containers/php
-            target: 'php-cli-dev'
-            version: 7.4
-            build-args: |
-              PHP_VERSION=7.4
-              UBUNTU_VERSION=20.04
-          - name: php-cron
-            context: ./containers/php
-            target: 'php-cron'
-            version: 7.4
-            build-args: |
-              PHP_VERSION=7.4
-              UBUNTU_VERSION=20.04
-          - name: php-supervisor
-            context: ./containers/php
-            target: 'php-supervisor'
-            version: 7.4
-            build-args: |
-              PHP_VERSION=7.4
-              UBUNTU_VERSION=20.04
-          - name: php-fpm
-            context: ./containers/php
-            target: 'php-fpm'
-            version: 8.1
-            build-args: |
-              PHP_VERSION=8.1
-              UBUNTU_VERSION=22.04
-          - name: php-fpm-dev
-            context: ./containers/php
-            target: 'php-fpm-dev'
-            version: 8.1
-            build-args: |
-              PHP_VERSION=8.1
-              UBUNTU_VERSION=22.04
-          - name: php-cli
-            context: ./containers/php
-            target: 'php-cli'
-            version: 8.1
-            build-args: |
-              PHP_VERSION=8.1
-              UBUNTU_VERSION=22.04
-          - name: php-cli-dev
-            context: ./containers/php
-            target: 'php-cli-dev'
-            version: 8.1
-            build-args: |
-              PHP_VERSION=8.1
-              UBUNTU_VERSION=22.04
-          - name: php-cron
-            context: ./containers/php
-            target: 'php-cron'
-            version: 8.1
-            build-args: |
-              PHP_VERSION=8.1
-              UBUNTU_VERSION=22.04
-          - name: php-supervisor
-            context: ./containers/php
-            target: 'php-supervisor'
-            version: 8.1
-            build-args: |
-              PHP_VERSION=8.1
-              UBUNTU_VERSION=22.04
-          - name: php-fpm
-            context: ./containers/php
-            target: 'php-fpm'
-            version: 8.2
-            file: 8.2.dockerfile
-            build-args: |
-              PHP_VERSION=8.2
-              UBUNTU_VERSION=22.04
-          - name: php-fpm-dev
-            context: ./containers/php
-            target: 'php-fpm-dev'
-            version: 8.2
-            file: 8.2.dockerfile
-            build-args: |
-              PHP_VERSION=8.2
-              UBUNTU_VERSION=22.04
-          - name: php-cli
-            context: ./containers/php
-            target: 'php-cli'
-            version: 8.2
-            file: 8.2.dockerfile
-            build-args: |
-              PHP_VERSION=8.2
-              UBUNTU_VERSION=22.04
-          - name: php-cli-dev
-            context: ./containers/php
-            target: 'php-cli-dev'
-            version: 8.2
-            file: 8.2.dockerfile
-            build-args: |
-              PHP_VERSION=8.2
-              UBUNTU_VERSION=22.04
-          - name: php-cron
-            context: ./containers/php
-            target: 'php-cron'
-            version: 8.2
-            file: 8.2.dockerfile
-            build-args: |
-              PHP_VERSION=8.2
-              UBUNTU_VERSION=22.04
-          - name: php-supervisor
-            context: ./containers/php
-            target: 'php-supervisor'
-            version: 8.2
-            file: 8.2.dockerfile
-            build-args: |
-              PHP_VERSION=8.2
-              UBUNTU_VERSION=22.04
 
     env:
       DOCKER_IMAGE: ghcr.io/netlogix/docker/${{ matrix.image.name }}
@@ -316,10 +45,6 @@ jobs:
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
-
-      - name: Read version from dockerfile or matrix
-        id: docker
-        run: echo "version=$(./extract-version.sh ${{ matrix.image.context }}/Dockerfile ${{ matrix.image.version }})" >> $GITHUB_OUTPUT
 
       - name: Login to ghcr
         if: github.event_name != 'pull_request'
@@ -336,10 +61,10 @@ jobs:
           builder: ${{ steps.buildx.outputs.name }}
           context: ${{ matrix.image.context }}
           target: ${{ matrix.image.target }}
-          file: ${{ matrix.image.context }}/${{ matrix.image.file || 'Dockerfile' }}
+          file: ${{ matrix.image.context }}/7.0.Dockerfile
           build-args: ${{ matrix.image.build-args }}
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ env.DOCKER_IMAGE }}:latest,${{ env.DOCKER_IMAGE }}:${{ steps.docker.outputs.version }}
+          tags: ${{ env.DOCKER_IMAGE }}:7.0,${{ env.DOCKER_IMAGE }}:7.0.33
           platforms: linux/amd64,linux/arm64
 #          cache-from: type=gha, scope=${{ github.workflow }}
 #          cache-to: type=gha, scope=${{ github.workflow }}
