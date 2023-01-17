@@ -65,7 +65,9 @@ RUN apt-get update && \
     && find /var/log -type f -name "*.log" -delete \
     && rm -rf /var/lib/apt/lists/* /var/cache/ldconfig/aux-cache
 
-RUN ln -s /usr/sbin/php-fpm${PHP_VERSION} /usr/sbin/php-fpm
+RUN ln -s /usr/sbin/php-fpm${PHP_VERSION} /usr/sbin/php-fpm \
+    && PHP_EXTENSION_DIR=`php -r 'echo ini_get("extension_dir");'` \
+    && ln -sf /usr/lib/tideways/tideways-php-${PHP_VERSION}.so ${PHP_EXTENSION_DIR}/tideways.so
 
 RUN mkdir -p "/run/php/" \
     && chown -R www-data:www-data /run/php/ \
