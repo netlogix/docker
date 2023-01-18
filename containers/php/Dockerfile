@@ -59,6 +59,7 @@ RUN apt-get update && \
         php${PHP_VERSION}-xml \
         php${PHP_VERSION}-yaml \
         php${PHP_VERSION}-zip \
+    && apt-get -y install --no-install-suggests --no-install-recommends \
         tideways-php \
         tideways-cli \
     && apt-get autoremove \
