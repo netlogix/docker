@@ -6,6 +6,9 @@ location / {
     proxy_pass http://varnish;
 }
 
+# SSL certificate validation
+include includes/pki_validation;
+
 # Increase buffer size for X-Cache-Tags header
 proxy_buffer_size 64k;
 proxy_buffers 8 64k;

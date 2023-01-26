@@ -9,6 +9,9 @@ server {
         proxy_pass http://styleguide;
     }
 
+    # SSL certificate validation
+    include includes/pki_validation;
+
     ssl_certificate /etc/nginx/ssl/${STYLEGUIDE_SSL_CERTIFICATE:-cert.pem};
     ssl_certificate_key /etc/nginx/ssl/${STYLEGUIDE_SSL_CERTIFICATE_KEY:-cert.key};
 }
