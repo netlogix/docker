@@ -17,6 +17,7 @@ jobs:
     name: 'Build docker container'
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         image:
           - name: mariadb
@@ -341,5 +342,5 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ env.DOCKER_IMAGE }}:latest,${{ env.DOCKER_IMAGE }}:${{ steps.docker.outputs.version }}
           platforms: linux/amd64,linux/arm64
-#          cache-from: type=gha, scope=${{ github.workflow }}
-#          cache-to: type=gha, scope=${{ github.workflow }}
+          cache-from: type=gha, scope=${{ github.workflow }}-${{ matrix.image.name }}-${{ matrix.image.version }}
+          cache-to: type=gha, scope=${{ github.workflow }}-${{ matrix.image.name }}-${{ matrix.image.version }}, mode=max
