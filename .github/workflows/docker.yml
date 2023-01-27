@@ -217,6 +217,54 @@ jobs:
           - name: php-fpm
             context: ./containers/php
             target: 'php-fpm'
+            version: 8.0
+            file: 8.0.dockerfile
+            build-args: |
+              PHP_VERSION=8.0
+              UBUNTU_VERSION=20.04
+          - name: php-fpm-dev
+            context: ./containers/php
+            target: 'php-fpm-dev'
+            version: 8.0
+            file: 8.0.dockerfile
+            build-args: |
+              PHP_VERSION=8.0
+              UBUNTU_VERSION=20.04
+          - name: php-cli
+            context: ./containers/php
+            target: 'php-cli'
+            version: 8.0
+            file: 8.0.dockerfile
+            build-args: |
+              PHP_VERSION=8.0
+              UBUNTU_VERSION=20.04
+          - name: php-cli-dev
+            context: ./containers/php
+            target: 'php-cli-dev'
+            version: 8.0
+            file: 8.0.dockerfile
+            build-args: |
+              PHP_VERSION=8.0
+              UBUNTU_VERSION=20.04
+          - name: php-cron
+            context: ./containers/php
+            target: 'php-cron'
+            version: 8.0
+            file: 8.0.dockerfile
+            build-args: |
+              PHP_VERSION=8.0
+              UBUNTU_VERSION=20.04
+          - name: php-supervisor
+            context: ./containers/php
+            target: 'php-supervisor'
+            version: 8.0
+            file: 8.0.dockerfile
+            build-args: |
+              PHP_VERSION=8.0
+              UBUNTU_VERSION=20.04
+          - name: php-fpm
+            context: ./containers/php
+            target: 'php-fpm'
             version: 8.1
             build-args: |
               PHP_VERSION=8.1
