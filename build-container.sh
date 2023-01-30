@@ -22,7 +22,6 @@ docker buildx build -t webserver-neos:${VERSION} -f containers/webserver/Dockerf
 docker buildx build -t webserver-static:${VERSION} -f containers/webserver/Dockerfile --target=webserver-static containers/webserver
 docker buildx build -t webserver-typo3:${VERSION} -f containers/webserver/Dockerfile --target=webserver-typo3 containers/webserver
 docker buildx build -t webserver-shopware:${VERSION} -f containers/webserver/Dockerfile --target=webserver-shopware containers/webserver
-docker buildx build -t flow-debugproxy:${VERSION} -f containers/flow-debugproxy/Dockerfile containers/flow-debugproxy
 docker buildx build -t chromium:${VERSION} -f containers/chromium/Dockerfile containers/chromium
 docker buildx build -t mailhog:${VERSION} -f containers/mailhog/Dockerfile containers/mailhog
 docker buildx build -t cfssl:${VERSION} -f containers/cfssl/Dockerfile --target=cfssl containers/cfssl
