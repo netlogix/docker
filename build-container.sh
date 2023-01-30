@@ -26,6 +26,7 @@ docker buildx build -t mailhog:${VERSION} -f containers/mailhog/Dockerfile conta
 docker buildx build -t cfssl:${VERSION} -f containers/cfssl/Dockerfile --target=cfssl containers/cfssl
 docker buildx build -t cfssl-server:${VERSION} -f containers/cfssl/Dockerfile --target=cfssl-server containers/cfssl
 docker buildx build -t tideways-daemon:${VERSION} -f containers/tideways-daemon/Dockerfile containers/tideways-daemon
+docker buildx build -t docker-proxy:${VERSION} -f containers/docker-proxy/Dockerfile containers/docker-proxy
 
 docker buildx build -t php-fpm:7.2 --build-arg PHP_VERSION=7.2 --build-arg UBUNTU_VERSION=18.04 -f containers/php/Dockerfile --target=php-fpm containers/php
 docker buildx build -t php-cli:7.2 --build-arg PHP_VERSION=7.2 --build-arg UBUNTU_VERSION=18.04 -f containers/php/Dockerfile --target=php-cli containers/php
