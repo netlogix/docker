@@ -7,6 +7,8 @@ if [ "${VERSION:-}" = "" ]; then
   export VERSION=latest
 fi
 
+docker buildx build -t serverspec:${VERSION} -f containers/serverspec/Dockerfile containers/serverspec
+
 docker buildx build -t mariadb:${VERSION} -f containers/mariadb/Dockerfile containers/mariadb
 docker buildx build -t mysql:${VERSION} -f containers/mysql/Dockerfile containers/mysql
 docker buildx build -t proxy:${VERSION} -f containers/proxy/Dockerfile containers/proxy
