@@ -125,6 +125,11 @@ jobs:
             target: 'tideways-daemon'
             version: '1.8'
             build-args: ''
+          - name: docker-proxy
+            context: ./containers/docker-proxy
+            target: 'docker-proxy'
+            version: 'latest'
+            build-args: ''
           - name: styleguide
             context: ./containers/styleguide
             target: ''
