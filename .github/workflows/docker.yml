@@ -13,8 +13,40 @@ on:
     inputs: {}
 
 jobs:
-  docker:
-    name: 'Build docker container'
+  build-test-image:
+    name: 'Build Docker Serverspec image'
+    runs-on: ubuntu-latest
+    env:
+      DOCKER_IMAGE: ghcr.io/netlogix/docker/serverspec
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup QEMU
+        uses: docker/setup-qemu-action@v2
+
+      - name: Setup Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Login to GHCR
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v3
+        with:
+          builder: ${{ steps.buildx.outputs.name }}
+          context: './containers/serverspec'
+          file: './containers/serverspec/Dockerfile'
+          push: true
+          tags: ${{ env.DOCKER_IMAGE }}:${{ github.sha }}
+
+  build-docker-images:
+    needs: [build-test-image]
+    name: 'Build Docker Images'
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -25,116 +57,139 @@ jobs:
             target: 'mariadb'
             version: '10.10'
             build-args: ''
+            spec-file: ''
           - name: mariadb
             context: ./containers/mariadb
             target: 'mariadb_106'
             version: '10.6'
             build-args: ''
+            spec-file: ''
           - name: mariadb
             context: ./containers/mariadb
             target: 'mariadb_103'
             version: '10.3'
             build-args: ''
+            spec-file: ''
           - name: mysql
             context: ./containers/mysql
             target: ''
             version: ''
             build-args: ''
+            spec-file: ''
           - name: proxy
             context: ./containers/proxy
             target: ''
             version: ''
             build-args: ''
+            spec-file: ''
           - name: rabbitmq
             context: ./containers/rabbitmq
             target: ''
             version: ''
             build-args: ''
+            spec-file: ''
           - name: redis
             context: ./containers/redis
             target: ''
             version: ''
             build-args: ''
+            spec-file: ''
           - name: solr
             context: ./containers/solr
             target: ''
             version: ''
             build-args: ''
+            spec-file: ''
           - name: varnish
             context: ./containers/varnish
             target: ''
             version: ''
             build-args: ''
+            spec-file: ''
           - name: elasticsearch
             context: ./containers/elasticsearch
             target: ''
             version: ''
             build-args: ''
+            spec-file: ''
           - name: webserver-neos
             context: ./containers/webserver
             target: 'webserver-neos'
             version: ''
             build-args: ''
+            spec-file: ''
           - name: webserver-typo3
             context: ./containers/webserver
             target: 'webserver-typo3'
             version: ''
             build-args: ''
+            spec-file: ''
           - name: webserver-shopware
             context: ./containers/webserver
             target: 'webserver-shopware'
             version: ''
             build-args: ''
+            spec-file: ''
           - name: webserver-shopware6
             context: ./containers/webserver
             target: 'webserver-shopware6'
             version: ''
             build-args: ''
+            spec-file: ''
           - name: webserver-static
             context: ./containers/webserver
             target: 'webserver-static'
             version: ''
             build-args: ''
+            spec-file: ''
           - name: webserver-symfony
             context: ./containers/webserver
             target: 'webserver-symfony'
             version: ''
             build-args: ''
+            spec-file: ''
           - name: chromium
             context: ./containers/chromium
             target: 'chromium'
             version: 'stable'
             build-args: ''
+            spec-file: ''
           - name: mailhog
             context: ./containers/mailhog
             target: 'mailhog'
             version: '1.1.0'
             build-args: ''
+            spec-file: ''
           - name: cfssl
             context: ./containers/cfssl
             target: 'cfssl'
             version: '1.6'
             build-args: ''
+            spec-file: ''
           - name: cfssl-server
             context: ./containers/cfssl
             target: 'cfssl-server'
             version: '1.6'
             build-args: ''
+            spec-file: ''
           - name: tideways-daemon
             context: ./containers/tideways-daemon
             target: 'tideways-daemon'
             version: '1.8'
             build-args: ''
+            spec-file: ''
           - name: docker-proxy
             context: ./containers/docker-proxy
             target: 'docker-proxy'
             version: 'latest'
             build-args: ''
+            spec-file: ''
           - name: styleguide
             context: ./containers/styleguide
             target: ''
             version: ''
             build-args: ''
+            spec-file: ''
           - name: php-fpm
             context: ./containers/php
             target: 'php-fpm'
@@ -142,6 +197,7 @@ jobs:
             build-args: |
               PHP_VERSION=7.2
               UBUNTU_VERSION=18.04
+            spec-file: ''
           - name: php-fpm-dev
             context: ./containers/php
             target: 'php-fpm-dev'
@@ -149,6 +205,7 @@ jobs:
             build-args: |
               PHP_VERSION=7.2
               UBUNTU_VERSION=18.04
+            spec-file: ''
           - name: php-cli
             context: ./containers/php
             target: 'php-cli'
@@ -156,6 +213,7 @@ jobs:
             build-args: |
               PHP_VERSION=7.2
               UBUNTU_VERSION=18.04
+            spec-file: ''
           - name: php-cli-dev
             context: ./containers/php
             target: 'php-cli-dev'
@@ -163,6 +221,7 @@ jobs:
             build-args: |
               PHP_VERSION=7.2
               UBUNTU_VERSION=18.04
+            spec-file: ''
           - name: php-cron
             context: ./containers/php
             target: 'php-cron'
@@ -170,6 +229,7 @@ jobs:
             build-args: |
               PHP_VERSION=7.2
               UBUNTU_VERSION=18.04
+            spec-file: ''
           - name: php-supervisor
             context: ./containers/php
             target: 'php-supervisor'
@@ -177,6 +237,7 @@ jobs:
             build-args: |
               PHP_VERSION=7.2
               UBUNTU_VERSION=18.04
+            spec-file: ''
           - name: php-fpm
             context: ./containers/php
             target: 'php-fpm'
@@ -184,6 +245,7 @@ jobs:
             build-args: |
               PHP_VERSION=7.4
               UBUNTU_VERSION=20.04
+            spec-file: 'php/php-fpm_7_4_spec.rb'
           - name: php-fpm-dev
             context: ./containers/php
             target: 'php-fpm-dev'
@@ -191,6 +253,7 @@ jobs:
             build-args: |
               PHP_VERSION=7.4
               UBUNTU_VERSION=20.04
+            spec-file: ''
           - name: php-cli
             context: ./containers/php
             target: 'php-cli'
@@ -198,6 +261,7 @@ jobs:
             build-args: |
               PHP_VERSION=7.4
               UBUNTU_VERSION=20.04
+            spec-file: ''
           - name: php-cli-dev
             context: ./containers/php
             target: 'php-cli-dev'
@@ -205,6 +269,7 @@ jobs:
             build-args: |
               PHP_VERSION=7.4
               UBUNTU_VERSION=20.04
+            spec-file: ''
           - name: php-cron
             context: ./containers/php
             target: 'php-cron'
@@ -212,6 +277,7 @@ jobs:
             build-args: |
               PHP_VERSION=7.4
               UBUNTU_VERSION=20.04
+            spec-file: ''
           - name: php-supervisor
             context: ./containers/php
             target: 'php-supervisor'
@@ -219,6 +285,7 @@ jobs:
             build-args: |
               PHP_VERSION=7.4
               UBUNTU_VERSION=20.04
+            spec-file: ''
           - name: php-fpm
             context: ./containers/php
             target: 'php-fpm'
@@ -226,6 +293,7 @@ jobs:
             build-args: |
               PHP_VERSION=8.1
               UBUNTU_VERSION=22.04
+            spec-file: ''
           - name: php-fpm-dev
             context: ./containers/php
             target: 'php-fpm-dev'
@@ -233,6 +301,7 @@ jobs:
             build-args: |
               PHP_VERSION=8.1
               UBUNTU_VERSION=22.04
+            spec-file: ''
           - name: php-cli
             context: ./containers/php
             target: 'php-cli'
@@ -240,6 +309,7 @@ jobs:
             build-args: |
               PHP_VERSION=8.1
               UBUNTU_VERSION=22.04
+            spec-file: ''
           - name: php-cli-dev
             context: ./containers/php
             target: 'php-cli-dev'
@@ -247,6 +317,7 @@ jobs:
             build-args: |
               PHP_VERSION=8.1
               UBUNTU_VERSION=22.04
+            spec-file: ''
           - name: php-cron
             context: ./containers/php
             target: 'php-cron'
@@ -254,6 +325,7 @@ jobs:
             build-args: |
               PHP_VERSION=8.1
               UBUNTU_VERSION=22.04
+            spec-file: ''
           - name: php-supervisor
             context: ./containers/php
             target: 'php-supervisor'
@@ -261,6 +333,7 @@ jobs:
             build-args: |
               PHP_VERSION=8.1
               UBUNTU_VERSION=22.04
+            spec-file: ''
           - name: php-fpm
             context: ./containers/php
             target: 'php-fpm'
@@ -269,6 +342,7 @@ jobs:
             build-args: |
               PHP_VERSION=8.2
               UBUNTU_VERSION=22.04
+            spec-file: ''
           - name: php-fpm-dev
             context: ./containers/php
             target: 'php-fpm-dev'
@@ -277,6 +351,7 @@ jobs:
             build-args: |
               PHP_VERSION=8.2
               UBUNTU_VERSION=22.04
+            spec-file: ''
           - name: php-cli
             context: ./containers/php
             target: 'php-cli'
@@ -285,6 +360,7 @@ jobs:
             build-args: |
               PHP_VERSION=8.2
               UBUNTU_VERSION=22.04
+            spec-file: ''
           - name: php-cli-dev
             context: ./containers/php
             target: 'php-cli-dev'
@@ -293,6 +369,7 @@ jobs:
             build-args: |
               PHP_VERSION=8.2
               UBUNTU_VERSION=22.04
+            spec-file: ''
           - name: php-cron
             context: ./containers/php
             target: 'php-cron'
@@ -301,6 +378,7 @@ jobs:
             build-args: |
               PHP_VERSION=8.2
               UBUNTU_VERSION=22.04
+            spec-file: ''
           - name: php-supervisor
             context: ./containers/php
             target: 'php-supervisor'
@@ -309,6 +387,7 @@ jobs:
             build-args: |
               PHP_VERSION=8.2
               UBUNTU_VERSION=22.04
+            spec-file: ''
 
     env:
       DOCKER_IMAGE: ghcr.io/netlogix/docker/${{ matrix.image.name }}
@@ -317,17 +396,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Set up QEMU
+      - name: Setup QEMU
         uses: docker/setup-qemu-action@v2
 
-      - name: Set up Docker Buildx
+      - name: Setup Docker Buildx
         uses: docker/setup-buildx-action@v2
 
-      - name: Read version from dockerfile or matrix
+      - name: Read version from Dockerfile or matrix
         id: docker
         run: echo "version=$(./extract-version.sh ${{ matrix.image.context }}/Dockerfile ${{ matrix.image.version }})" >> $GITHUB_OUTPUT
 
-      - name: Login to ghcr
+      - name: Login to GHCR
         if: github.event_name != 'pull_request'
         uses: docker/login-action@v2
         with:
@@ -335,8 +414,25 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and push
-        id: docker_build
+      - name: Build and export to Docker
+        uses: docker/build-push-action@v3
+        with:
+          builder: ${{ steps.buildx.outputs.name }}
+          context: ${{ matrix.image.context }}
+          target: ${{ matrix.image.target }}
+          file: ${{ matrix.image.context }}/${{ matrix.image.file || 'Dockerfile' }}
+          build-args: ${{ matrix.image.build-args }}
+          load: true
+          tags: ${{ matrix.image.name }}:${{ steps.docker.outputs.version }}
+          cache-from: type=gha, scope=${{ github.workflow }}-${{ matrix.image.name }}-${{ matrix.image.version }}
+          cache-to: type=gha, scope=${{ github.workflow }}-${{ matrix.image.name }}-${{ matrix.image.version }}, mode=max
+
+      - name: Test
+        if: matrix.image.spec-file != ''
+        run: './test-container.sh ghcr.io/netlogix/docker/serverspec:${{ github.sha }} ${{ matrix.image.spec-file }}'
+
+      - name: Build and push to GHCR
+        id: docker_push
         uses: docker/build-push-action@v3
         with:
           builder: ${{ steps.buildx.outputs.name }}
