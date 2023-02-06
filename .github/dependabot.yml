@@ -10,7 +10,7 @@ updates:
       interval: "daily"
       time: "07:00"
   - package-ecosystem: docker
-    directory: "containers/elasticsearch"
+    directory: "elasticsearch"
     schedule:
       interval: "daily"
       time: "07:00"
@@ -21,12 +21,12 @@ updates:
     target-branch: main
     reviewers:
       - nlx-sascha
-      - phroust
-      - liwo
+      - nlx-lars
+      - nlx-klein
     labels:
       - dependencies
   - package-ecosystem: docker
-    directory: "containers/mariadb"
+    directory: "mariadb"
     schedule:
       interval: "daily"
       time: "07:00"
@@ -37,12 +37,11 @@ updates:
     target-branch: main
     reviewers:
       - nlx-sascha
-      - phroust
-      - liwo
+      - nlx-lars
     labels:
       - dependencies
   - package-ecosystem: docker
-    directory: "containers/proxy"
+    directory: "proxy"
     schedule:
       interval: "daily"
       time: "07:00"
@@ -53,12 +52,11 @@ updates:
     target-branch: main
     reviewers:
       - nlx-sascha
-      - phroust
-      - liwo
+      - nlx-lars
     labels:
       - dependencies
   - package-ecosystem: docker
-    directory: "containers/rabbitmq"
+    directory: "rabbitmq"
     schedule:
       interval: "daily"
       time: "07:00"
@@ -72,7 +70,7 @@ updates:
     labels:
       - dependencies
   - package-ecosystem: docker
-    directory: "containers/redis"
+    directory: "redis"
     schedule:
       interval: "daily"
       time: "07:00"
@@ -83,12 +81,11 @@ updates:
     target-branch: main
     reviewers:
       - nlx-sascha
-      - phroust
-      - liwo
+      - nlx-lars
     labels:
       - dependencies
   - package-ecosystem: docker
-    directory: "containers/styleguide"
+    directory: "styleguide"
     schedule:
       interval: "daily"
       time: "07:00"
@@ -99,12 +96,11 @@ updates:
     target-branch: main
     reviewers:
       - nlx-sascha
-      - phroust
-      - liwo
+      - nlx-lars
     labels:
       - dependencies
   - package-ecosystem: docker
-    directory: "containers/varnish"
+    directory: "varnish"
     schedule:
       interval: "daily"
       time: "07:00"
@@ -115,12 +111,11 @@ updates:
     target-branch: main
     reviewers:
       - nlx-sascha
-      - phroust
-      - liwo
+      - nlx-lars
     labels:
       - dependencies
   - package-ecosystem: docker
-    directory: "containers/webserver"
+    directory: "webserver"
     schedule:
       interval: "daily"
       time: "07:00"
@@ -131,7 +126,6 @@ updates:
     target-branch: main
     reviewers:
       - nlx-sascha
-      - phroust
-      - liwo
+      - nlx-lars
     labels:
       - dependencies
