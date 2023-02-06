@@ -17,3 +17,6 @@ jobs:
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
+        commit-message: 'FEATURE: Update dependabot.yml'
+        title: 'Update dependabot.yml'
+        assignees: nlx-sascha
