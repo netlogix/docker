@@ -2,8 +2,10 @@ name: Generate dependabot.yml
 
 on:
   push:
-  repository_dispatch:
+    branches:
+      - main
   workflow_dispatch:
+    inputs: {}
 
 jobs:
   generate:
