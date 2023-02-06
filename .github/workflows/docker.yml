@@ -16,6 +16,8 @@ jobs:
   build-test-image:
     name: 'Build Docker Serverspec image'
     runs-on: ubuntu-latest
+    permissions:
+      packages: write
     env:
       DOCKER_IMAGE: ghcr.io/netlogix/docker/serverspec
     steps:
