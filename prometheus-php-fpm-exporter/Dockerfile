@@ -15,5 +15,8 @@ FROM alpine:3.17 AS prometheus-php-fpm-exporter
 
 COPY --from=builder /out/* /
 
+# Run as non-root user for secure environments
+USER 59000:59000
+
 EXPOSE 9253
 ENTRYPOINT [ "/php-fpm_exporter", "server" ]
