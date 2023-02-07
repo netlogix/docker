@@ -30,3 +30,11 @@ COPY --from=builder --chown=solr:solr /tmp/solr/Resources/Private/Solr /var/solr
 RUN mkdir -p /var/solr/data/data
 
 HEALTHCHECK --interval=2s --timeout=20s --retries=10 CMD curl -s -A 'healthcheck' http://localhost:$SOLR_PORT/solr/$HEALTHCHECK_CORE/admin/ping?wt=json | grep -q '"status":"OK"'
+
+FROM solr:8.11.2
+
+ENV JAVA_HEAP=32M
+
+RUN contrib/prometheus-exporter/bin/solr-exporter -p 9231 -b http://localhost:8080/solr -f contrib/prometheus-exporter/conf/solr-exporter-config.xml
+
+EXPOSE 9231
