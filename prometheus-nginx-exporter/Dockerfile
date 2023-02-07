@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM --platform=$BUILDPLATFORM golang:1.20-bullseye AS builder
+FROM --platform=$BUILDPLATFORM golang:1.20-alpine AS builder
 
 ARG TARGETOS
 ARG TARGETARCH
@@ -7,6 +7,7 @@ ARG EXPORTER_VERSION='v0.11.0'
 
 WORKDIR /src
 
+RUN apk --no-cache add ca-certificates git
 RUN git clone -b $EXPORTER_VERSION --single-branch --depth 1 https://github.com/nginxinc/nginx-prometheus-exporter.git .
 
 RUN CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -o /out/nginx_exporter
