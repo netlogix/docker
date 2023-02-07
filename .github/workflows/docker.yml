@@ -216,6 +216,12 @@ jobs:
             version: ''
             build-args: ''
             spec-file: ''
+          - name: prometheus-solr-exporter
+            context: ./prometheus-solr-exporter
+            target: 'prometheus-solr-exporter'
+            version: ''
+            build-args: ''
+            spec-file: ''
           - name: prometheus-varnish-exporter
             context: ./prometheus-varnish-exporter
             target: 'prometheus-varnish-exporter'
