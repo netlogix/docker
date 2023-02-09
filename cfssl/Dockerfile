@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM --platform=$BUILDPLATFORM golang:1.19-bullseye AS builder
+FROM --platform=$BUILDPLATFORM golang:1.20-bullseye AS builder
 
 ARG TARGETOS
 ARG TARGETARCH
