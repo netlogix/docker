@@ -141,6 +141,118 @@ updates:
     labels:
       - dependencies
   - package-ecosystem: docker
+    directory: /prometheus-apache-exporter
+    schedule:
+      interval: daily
+      time: '07:00'
+    ignore:
+      - dependency-name: '*'
+        update-types:
+          - version-update:semver-major
+    target-branch: main
+    reviewers:
+      - nlx-sascha
+      - nlx-lars
+      - nlx-klein
+    labels:
+      - dependencies
+  - package-ecosystem: docker
+    directory: /prometheus-elasticsearch-exporter
+    schedule:
+      interval: daily
+      time: '07:00'
+    ignore:
+      - dependency-name: '*'
+        update-types:
+          - version-update:semver-major
+    target-branch: main
+    reviewers:
+      - nlx-sascha
+      - nlx-lars
+      - nlx-klein
+    labels:
+      - dependencies
+  - package-ecosystem: docker
+    directory: /prometheus-nginx-exporter
+    schedule:
+      interval: daily
+      time: '07:00'
+    ignore:
+      - dependency-name: '*'
+        update-types:
+          - version-update:semver-major
+    target-branch: main
+    reviewers:
+      - nlx-sascha
+      - nlx-lars
+      - nlx-klein
+    labels:
+      - dependencies
+  - package-ecosystem: docker
+    directory: /prometheus-php-fpm-exporter
+    schedule:
+      interval: daily
+      time: '07:00'
+    ignore:
+      - dependency-name: '*'
+        update-types:
+          - version-update:semver-major
+    target-branch: main
+    reviewers:
+      - nlx-sascha
+      - nlx-lars
+      - nlx-klein
+    labels:
+      - dependencies
+  - package-ecosystem: docker
+    directory: /prometheus-redis-exporter
+    schedule:
+      interval: daily
+      time: '07:00'
+    ignore:
+      - dependency-name: '*'
+        update-types:
+          - version-update:semver-major
+    target-branch: main
+    reviewers:
+      - nlx-sascha
+      - nlx-lars
+      - nlx-klein
+    labels:
+      - dependencies
+  - package-ecosystem: docker
+    directory: /prometheus-solr-exporter
+    schedule:
+      interval: daily
+      time: '07:00'
+    ignore:
+      - dependency-name: '*'
+        update-types:
+          - version-update:semver-major
+    target-branch: main
+    reviewers:
+      - nlx-sascha
+      - nlx-lars
+      - nlx-klein
+    labels:
+      - dependencies
+  - package-ecosystem: docker
+    directory: /prometheus-varnish-exporter
+    schedule:
+      interval: daily
+      time: '07:00'
+    ignore:
+      - dependency-name: '*'
+        update-types:
+          - version-update:semver-major
+    target-branch: main
+    reviewers:
+      - nlx-sascha
+      - nlx-lars
+      - nlx-klein
+    labels:
+      - dependencies
+  - package-ecosystem: docker
     directory: /proxy
     schedule:
       interval: daily
