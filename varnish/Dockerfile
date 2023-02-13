@@ -1,6 +1,8 @@
 # syntax=docker/dockerfile:1
 FROM varnish:6.6-alpine
 
+ENV VARNISH_SIZE 500M
+
 COPY config /etc/varnish/
 
 COPY docker-varnish-entrypoint /usr/local/bin/
