@@ -15,7 +15,7 @@ on:
 jobs:
   build-test-image:
     name: 'Build Docker Serverspec image'
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     permissions:
       packages: write
     env:
@@ -49,7 +49,7 @@ jobs:
   build-docker-images:
     needs: [build-test-image]
     name: 'Build Docker Images'
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     strategy:
       fail-fast: false
       matrix:
