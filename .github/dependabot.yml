@@ -20,6 +20,390 @@ updates:
     ignore:
       - dependency-name: '*'
         update-types:
+          - version-update:semver-patch
+    target-branch: main
+    reviewers:
+      - nlx-sascha
+      - nlx-lars
+      - nlx-klein
+    labels:
+      - dependencies
+  - package-ecosystem: docker
+    directory: /chromium
+    schedule:
+      interval: daily
+      time: '07:00'
+    ignore:
+      - dependency-name: '*'
+        update-types:
+          - version-update:semver-patch
+    target-branch: main
+    reviewers:
+      - nlx-sascha
+      - nlx-lars
+      - nlx-klein
+    labels:
+      - dependencies
+  - package-ecosystem: docker
+    directory: /docker-proxy
+    schedule:
+      interval: daily
+      time: '07:00'
+    ignore:
+      - dependency-name: '*'
+        update-types:
+          - version-update:semver-patch
+    target-branch: main
+    reviewers:
+      - nlx-sascha
+      - nlx-lars
+      - nlx-klein
+    labels:
+      - dependencies
+  - package-ecosystem: docker
+    directory: /elasticsearch
+    schedule:
+      interval: daily
+      time: '07:00'
+    ignore:
+      - dependency-name: '*'
+        update-types:
+          - version-update:semver-patch
+    target-branch: main
+    reviewers:
+      - nlx-sascha
+      - nlx-lars
+      - nlx-klein
+    labels:
+      - dependencies
+  - package-ecosystem: docker
+    directory: /mailhog
+    schedule:
+      interval: daily
+      time: '07:00'
+    ignore:
+      - dependency-name: '*'
+        update-types:
+          - version-update:semver-patch
+    target-branch: main
+    reviewers:
+      - nlx-sascha
+      - nlx-lars
+      - nlx-klein
+    labels:
+      - dependencies
+  - package-ecosystem: docker
+    directory: /mariadb
+    schedule:
+      interval: daily
+      time: '07:00'
+    ignore:
+      - dependency-name: '*'
+        update-types:
+          - version-update:semver-patch
+    target-branch: main
+    reviewers:
+      - nlx-sascha
+      - nlx-lars
+      - nlx-klein
+    labels:
+      - dependencies
+  - package-ecosystem: docker
+    directory: /mysql
+    schedule:
+      interval: daily
+      time: '07:00'
+    ignore:
+      - dependency-name: '*'
+        update-types:
+          - version-update:semver-patch
+    target-branch: main
+    reviewers:
+      - nlx-sascha
+      - nlx-lars
+      - nlx-klein
+    labels:
+      - dependencies
+  - package-ecosystem: docker
+    directory: /php
+    schedule:
+      interval: daily
+      time: '07:00'
+    ignore:
+      - dependency-name: '*'
+        update-types:
+          - version-update:semver-patch
+    target-branch: main
+    reviewers:
+      - nlx-sascha
+      - nlx-lars
+      - nlx-klein
+    labels:
+      - dependencies
+  - package-ecosystem: docker
+    directory: /prometheus-apache-exporter
+    schedule:
+      interval: daily
+      time: '07:00'
+    ignore:
+      - dependency-name: '*'
+        update-types:
+          - version-update:semver-patch
+    target-branch: main
+    reviewers:
+      - nlx-sascha
+      - nlx-lars
+      - nlx-klein
+    labels:
+      - dependencies
+  - package-ecosystem: docker
+    directory: /prometheus-elasticsearch-exporter
+    schedule:
+      interval: daily
+      time: '07:00'
+    ignore:
+      - dependency-name: '*'
+        update-types:
+          - version-update:semver-patch
+    target-branch: main
+    reviewers:
+      - nlx-sascha
+      - nlx-lars
+      - nlx-klein
+    labels:
+      - dependencies
+  - package-ecosystem: docker
+    directory: /prometheus-nginx-exporter
+    schedule:
+      interval: daily
+      time: '07:00'
+    ignore:
+      - dependency-name: '*'
+        update-types:
+          - version-update:semver-patch
+    target-branch: main
+    reviewers:
+      - nlx-sascha
+      - nlx-lars
+      - nlx-klein
+    labels:
+      - dependencies
+  - package-ecosystem: docker
+    directory: /prometheus-php-fpm-exporter
+    schedule:
+      interval: daily
+      time: '07:00'
+    ignore:
+      - dependency-name: '*'
+        update-types:
+          - version-update:semver-patch
+    target-branch: main
+    reviewers:
+      - nlx-sascha
+      - nlx-lars
+      - nlx-klein
+    labels:
+      - dependencies
+  - package-ecosystem: docker
+    directory: /prometheus-redis-exporter
+    schedule:
+      interval: daily
+      time: '07:00'
+    ignore:
+      - dependency-name: '*'
+        update-types:
+          - version-update:semver-patch
+    target-branch: main
+    reviewers:
+      - nlx-sascha
+      - nlx-lars
+      - nlx-klein
+    labels:
+      - dependencies
+  - package-ecosystem: docker
+    directory: /prometheus-solr-exporter
+    schedule:
+      interval: daily
+      time: '07:00'
+    ignore:
+      - dependency-name: '*'
+        update-types:
+          - version-update:semver-patch
+    target-branch: main
+    reviewers:
+      - nlx-sascha
+      - nlx-lars
+      - nlx-klein
+    labels:
+      - dependencies
+  - package-ecosystem: docker
+    directory: /prometheus-varnish-exporter
+    schedule:
+      interval: daily
+      time: '07:00'
+    ignore:
+      - dependency-name: '*'
+        update-types:
+          - version-update:semver-patch
+    target-branch: main
+    reviewers:
+      - nlx-sascha
+      - nlx-lars
+      - nlx-klein
+    labels:
+      - dependencies
+  - package-ecosystem: docker
+    directory: /proxy
+    schedule:
+      interval: daily
+      time: '07:00'
+    ignore:
+      - dependency-name: '*'
+        update-types:
+          - version-update:semver-patch
+    target-branch: main
+    reviewers:
+      - nlx-sascha
+      - nlx-lars
+      - nlx-klein
+    labels:
+      - dependencies
+  - package-ecosystem: docker
+    directory: /rabbitmq
+    schedule:
+      interval: daily
+      time: '07:00'
+    ignore:
+      - dependency-name: '*'
+        update-types:
+          - version-update:semver-patch
+    target-branch: main
+    reviewers:
+      - nlx-sascha
+      - nlx-lars
+      - nlx-klein
+    labels:
+      - dependencies
+  - package-ecosystem: docker
+    directory: /redis
+    schedule:
+      interval: daily
+      time: '07:00'
+    ignore:
+      - dependency-name: '*'
+        update-types:
+          - version-update:semver-patch
+    target-branch: main
+    reviewers:
+      - nlx-sascha
+      - nlx-lars
+      - nlx-klein
+    labels:
+      - dependencies
+  - package-ecosystem: docker
+    directory: /serverspec
+    schedule:
+      interval: daily
+      time: '07:00'
+    ignore:
+      - dependency-name: '*'
+        update-types:
+          - version-update:semver-patch
+    target-branch: main
+    reviewers:
+      - nlx-sascha
+      - nlx-lars
+      - nlx-klein
+    labels:
+      - dependencies
+  - package-ecosystem: docker
+    directory: /solr
+    schedule:
+      interval: daily
+      time: '07:00'
+    ignore:
+      - dependency-name: '*'
+        update-types:
+          - version-update:semver-patch
+    target-branch: main
+    reviewers:
+      - nlx-sascha
+      - nlx-lars
+      - nlx-klein
+    labels:
+      - dependencies
+  - package-ecosystem: docker
+    directory: /styleguide
+    schedule:
+      interval: daily
+      time: '07:00'
+    ignore:
+      - dependency-name: '*'
+        update-types:
+          - version-update:semver-patch
+    target-branch: main
+    reviewers:
+      - nlx-sascha
+      - nlx-lars
+      - nlx-klein
+    labels:
+      - dependencies
+  - package-ecosystem: docker
+    directory: /tideways-daemon
+    schedule:
+      interval: daily
+      time: '07:00'
+    ignore:
+      - dependency-name: '*'
+        update-types:
+          - version-update:semver-patch
+    target-branch: main
+    reviewers:
+      - nlx-sascha
+      - nlx-lars
+      - nlx-klein
+    labels:
+      - dependencies
+  - package-ecosystem: docker
+    directory: /varnish
+    schedule:
+      interval: daily
+      time: '07:00'
+    ignore:
+      - dependency-name: '*'
+        update-types:
+          - version-update:semver-patch
+    target-branch: main
+    reviewers:
+      - nlx-sascha
+      - nlx-lars
+      - nlx-klein
+    labels:
+      - dependencies
+  - package-ecosystem: docker
+    directory: /webserver
+    schedule:
+      interval: daily
+      time: '07:00'
+    ignore:
+      - dependency-name: '*'
+        update-types:
+          - version-update:semver-patch
+    target-branch: main
+    reviewers:
+      - nlx-sascha
+      - nlx-lars
+      - nlx-klein
+    labels:
+      - dependencies
+  - package-ecosystem: docker
+    directory: /cfssl
+    schedule:
+      interval: daily
+      time: '07:00'
+    ignore:
+      - dependency-name: '*'
+        update-types:
           - version-update:semver-major
     target-branch: main
     reviewers:
