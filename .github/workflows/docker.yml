@@ -56,20 +56,22 @@ jobs:
         image:
           - name: mariadb
             context: ./mariadb
-            target: 'mariadb'
-            version: '10.10'
+            target: ''
+            version: ''
             build-args: ''
             spec-file: ''
           - name: mariadb
             context: ./mariadb
-            target: 'mariadb_106'
-            version: '10.6'
+            target: ''
+            version: ''
+            file: 10.6.dockerfile
             build-args: ''
             spec-file: ''
           - name: mariadb
             context: ./mariadb
-            target: 'mariadb_103'
-            version: '10.3'
+            target: ''
+            version: ''
+            file: 10.3.dockerfile
             build-args: ''
             spec-file: ''
           - name: mysql
