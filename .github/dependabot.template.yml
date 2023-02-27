@@ -12,7 +12,7 @@ updates:
       time: "07:00"
 
   - package-ecosystem: 'docker'
-    directory: '/*/*Dockerfile'
+    directory: '/*/*.Dockerfile'
     schedule:
       interval: "daily"
       time: "07:00"
