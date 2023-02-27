@@ -18,6 +18,22 @@ updates:
       time: "07:00"
     ignore:
       - dependency-name: "*"
+        update-types: [ "version-update:semver-patch" ]
+    target-branch: main
+    reviewers:
+      - nlx-sascha
+      - nlx-lars
+      - nlx-klein
+    labels:
+      - dependencies
+
+  - package-ecosystem: 'docker'
+    directory: '/*/Dockerfile'
+    schedule:
+      interval: "daily"
+      time: "07:00"
+    ignore:
+      - dependency-name: "*"
         update-types: [ "version-update:semver-major" ]
     target-branch: main
     reviewers:
