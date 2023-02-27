@@ -13,6 +13,22 @@ updates:
       interval: daily
       time: '07:00'
   - package-ecosystem: docker
+    directory: /mariadb
+    schedule:
+      interval: daily
+      time: '07:00'
+    ignore:
+      - dependency-name: '*'
+        update-types:
+          - version-update:semver-patch
+    target-branch: main
+    reviewers:
+      - nlx-sascha
+      - nlx-lars
+      - nlx-klein
+    labels:
+      - dependencies
+  - package-ecosystem: docker
     directory: /cfssl
     schedule:
       interval: daily
