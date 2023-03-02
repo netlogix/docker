@@ -335,6 +335,53 @@ jobs:
           - name: php-fpm
             context: ./php
             target: 'php-fpm'
+            version: 8.0
+            build-args: |
+              PHP_VERSION=8.0
+              UBUNTU_VERSION=20.04
+            spec-file: ''
+          - name: php-fpm-dev
+            context: ./php
+            target: 'php-fpm-dev'
+            version: 8.0
+            build-args: |
+              PHP_VERSION=8.0
+              UBUNTU_VERSION=20.04
+            spec-file: ''
+          - name: php-cli
+            context: ./php
+            target: 'php-cli'
+            version: 8.0
+            build-args: |
+              PHP_VERSION=8.0
+              UBUNTU_VERSION=20.04
+            spec-file: ''
+          - name: php-cli-dev
+            context: ./php
+            target: 'php-cli-dev'
+            version: 8.0
+            build-args: |
+              PHP_VERSION=8.0
+              UBUNTU_VERSION=20.04
+            spec-file: ''
+          - name: php-cron
+            context: ./php
+            target: 'php-cron'
+            version: 8.0
+            build-args: |
+              PHP_VERSION=8.0
+              UBUNTU_VERSION=20.04
+            spec-file: ''
+          - name: php-supervisor
+            context: ./php
+            target: 'php-supervisor'
+            version: 8.0
+            build-args: |
+              PHP_VERSION=8.0
+              UBUNTU_VERSION=20.04
+          - name: php-fpm
+            context: ./php
+            target: 'php-fpm'
             version: 8.1
             build-args: |
               PHP_VERSION=8.1
