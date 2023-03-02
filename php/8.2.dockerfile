@@ -27,6 +27,10 @@ RUN apt-get update && \
         curl \
         gnupg2
 
+# Install dev certificates
+COPY certs/* /usr/share/ca-certificates/netlogix/
+RUN echo "netlogix/docker-dev-ca.crt" >> /etc/ca-certificates.conf && update-ca-certificates
+
 RUN echo 'deb https://packages.tideways.com/apt-packages-main any-version main' > /etc/apt/sources.list.d/tideways.list && \
     curl -L -sS 'https://packages.tideways.com/key.gpg' | apt-key add -
 
