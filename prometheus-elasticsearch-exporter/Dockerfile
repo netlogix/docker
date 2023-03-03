@@ -19,5 +19,5 @@ COPY --from=builder /out/* /
 # Run as non-root user for secure environments
 USER 59000:59000
 
-EXPOSE 7979
+EXPOSE 9114
 ENTRYPOINT [ "/elasticsearch_exporter" ]
