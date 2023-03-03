@@ -5,6 +5,9 @@ COPY config/defaults /usr/local/apache2/
 RUN sed -i 's/LoadModule autoindex_module/#LoadModule autoindex_module/g' /usr/local/apache2/conf/httpd.conf
 RUN echo "Include conf/http_custom.conf" >> /usr/local/apache2/conf/httpd.conf
 
+# Port for prometheus exporter
+EXPOSE 90
+
 HEALTHCHECK --interval=2s --timeout=20s --retries=10 CMD wget -qO- http://localhost:90/health | grep -q 'health'
 
 FROM base AS webserver-typo3
