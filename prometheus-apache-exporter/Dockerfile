@@ -20,4 +20,4 @@ COPY --from=builder /out/* /
 USER 59000:59000
 
 EXPOSE 9117
-ENTRYPOINT [ "/apache_exporter", "server" ]
+ENTRYPOINT [ "/apache_exporter" ]
