@@ -202,3 +202,23 @@ COPY cli/docker-php-entrypoint /usr/local/bin/
 
 ENTRYPOINT ["docker-php-entrypoint"]
 CMD ["php", "-a"]
+
+# Dev PHP cron
+FROM php-cli-dev AS php-cron-dev
+
+RUN apt-get update && \
+    apt-get -y install --no-install-suggests --no-install-recommends \
+      cron \
+    && apt-get autoremove \
+    && find /var/log -type f -name "*.log" -delete \
+    && rm -rf /var/lib/apt/lists/* /var/cache/ldconfig/aux-cache \
+    && rm -rf /etc/cron.*/*
+
+WORKDIR /var/www
+
+COPY cron/docker-cron-entrypoint /usr/local/bin/
+
+# Disabling the health check of the descendant php-fpm-dev image, since the production php-cron image does neither have a healthcheck.
+HEALTHCHECK NONE
+ENTRYPOINT ["docker-cron-entrypoint"]
+CMD ["cron", "-f", "-l", "2"]

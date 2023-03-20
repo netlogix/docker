@@ -276,6 +276,14 @@ jobs:
               PHP_VERSION=7.2
               UBUNTU_VERSION=18.04
             spec-file: ''
+          - name: php-cron-dev
+            context: ./php
+            target: 'php-cron-dev'
+            version: 7.2
+            build-args: |
+              PHP_VERSION=7.2
+              UBUNTU_VERSION=18.04
+            spec-file: ''
           - name: php-supervisor
             context: ./php
             target: 'php-supervisor'
@@ -324,6 +332,14 @@ jobs:
               PHP_VERSION=7.4
               UBUNTU_VERSION=20.04
             spec-file: ''
+          - name: php-cron-dev
+            context: ./php
+            target: 'php-cron-dev'
+            version: 7.4
+            build-args: |
+              PHP_VERSION=7.4
+              UBUNTU_VERSION=20.04
+            spec-file: ''
           - name: php-supervisor
             context: ./php
             target: 'php-supervisor'
@@ -372,6 +388,14 @@ jobs:
               PHP_VERSION=8.1
               UBUNTU_VERSION=22.04
             spec-file: ''
+          - name: php-cron-dev
+            context: ./php
+            target: 'php-cron-dev'
+            version: 8.1
+            build-args: |
+              PHP_VERSION=8.1
+              UBUNTU_VERSION=22.04
+            spec-file: ''
           - name: php-supervisor
             context: ./php
             target: 'php-supervisor'
@@ -419,6 +443,15 @@ jobs:
           - name: php-cron
             context: ./php
             target: 'php-cron'
+            version: 8.2
+            file: 8.2.dockerfile
+            build-args: |
+              PHP_VERSION=8.2
+              UBUNTU_VERSION=22.04
+            spec-file: ''
+          - name: php-cron-dev
+            context: ./php
+            target: 'php-cron-dev'
             version: 8.2
             file: 8.2.dockerfile
             build-args: |
