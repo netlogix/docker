@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM varnish:6.6-alpine
+FROM varnish:6.6.2
 
 ENV VARNISH_SIZE 1G
 
