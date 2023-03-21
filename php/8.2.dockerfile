@@ -25,7 +25,15 @@ RUN apt-get update && \
         libfcgi-bin \
         ca-certificates \
         curl \
-        gnupg2
+        gnupg2 \
+        locales
+
+RUN locale-gen de_DE.UTF-8 && \
+    locale-gen en_GB.UTF-8 && \
+    locale-gen en_US.UTF-8 && \
+    locale-gen es_ES.UTF-8 && \
+    locale-gen fr_FR.UTF-8 && \
+    locale-gen it_IT.UTF-8
 
 # Install dev certificates
 COPY certs/* /usr/share/ca-certificates/netlogix/
