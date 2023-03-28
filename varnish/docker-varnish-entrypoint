@@ -11,8 +11,6 @@ if [ "$#" -eq 0 ] || [ "${1#-}" != "$1" ]; then
       -a :${VARNISH_HTTP_PORT:-80} \
       -s malloc,${VARNISH_SIZE:-1G} \
       -t 120 \
-      -p thread_pools=1 \
-      -p thread_pool_add_delay=2 \
       -p thread_pool_min=5 \
       -p thread_pool_max=500 \
       -p thread_pool_timeout=300 \

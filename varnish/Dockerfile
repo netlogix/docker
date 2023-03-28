@@ -3,6 +3,10 @@ FROM varnish:6.6.2
 
 ENV VARNISH_SIZE 1G
 
+RUN apt-get update && \
+    apt-get install -y wget && \
+    rm -rf /var/lib/apt/lists/*
+
 COPY config /etc/varnish/
 
 COPY docker-varnish-entrypoint /usr/local/bin/
