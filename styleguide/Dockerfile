@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM nginx:1.23.3
+FROM nginx:1.23.4
 COPY etc /etc/
 RUN mkdir -p /var/www
 
