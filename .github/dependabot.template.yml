@@ -21,8 +21,8 @@ updates:
         update-types: [ "version-update:semver-patch" ]
     target-branch: main
     reviewers:
-      - nlx-sascha
-      - nlx-lars
+      - saschanowak
+      - paxuclus
       - nlx-klein
     labels:
       - dependencies
@@ -37,8 +37,8 @@ updates:
         update-types: [ "version-update:semver-major" ]
     target-branch: main
     reviewers:
-      - nlx-sascha
-      - nlx-lars
+      - saschanowak
+      - paxuclus
       - nlx-klein
     labels:
       - dependencies
