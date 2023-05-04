@@ -13,22 +13,6 @@ updates:
       interval: daily
       time: '07:00'
   - package-ecosystem: docker
-    directory: /mariadb
-    schedule:
-      interval: daily
-      time: '07:00'
-    ignore:
-      - dependency-name: '*'
-        update-types:
-          - version-update:semver-patch
-    target-branch: main
-    reviewers:
-      - nlx-sascha
-      - nlx-lars
-      - nlx-klein
-    labels:
-      - dependencies
-  - package-ecosystem: docker
     directory: /cfssl
     schedule:
       interval: daily
@@ -39,8 +23,8 @@ updates:
           - version-update:semver-major
     target-branch: main
     reviewers:
-      - nlx-sascha
-      - nlx-lars
+      - saschanowak
+      - paxuclus
       - nlx-klein
     labels:
       - dependencies
@@ -55,8 +39,8 @@ updates:
           - version-update:semver-major
     target-branch: main
     reviewers:
-      - nlx-sascha
-      - nlx-lars
+      - saschanowak
+      - paxuclus
       - nlx-klein
     labels:
       - dependencies
@@ -71,8 +55,8 @@ updates:
           - version-update:semver-major
     target-branch: main
     reviewers:
-      - nlx-sascha
-      - nlx-lars
+      - saschanowak
+      - paxuclus
       - nlx-klein
     labels:
       - dependencies
@@ -87,8 +71,8 @@ updates:
           - version-update:semver-major
     target-branch: main
     reviewers:
-      - nlx-sascha
-      - nlx-lars
+      - saschanowak
+      - paxuclus
       - nlx-klein
     labels:
       - dependencies
@@ -103,8 +87,8 @@ updates:
           - version-update:semver-major
     target-branch: main
     reviewers:
-      - nlx-sascha
-      - nlx-lars
+      - saschanowak
+      - paxuclus
       - nlx-klein
     labels:
       - dependencies
@@ -119,8 +103,8 @@ updates:
           - version-update:semver-major
     target-branch: main
     reviewers:
-      - nlx-sascha
-      - nlx-lars
+      - saschanowak
+      - paxuclus
       - nlx-klein
     labels:
       - dependencies
@@ -135,8 +119,24 @@ updates:
           - version-update:semver-major
     target-branch: main
     reviewers:
-      - nlx-sascha
-      - nlx-lars
+      - saschanowak
+      - paxuclus
+      - nlx-klein
+    labels:
+      - dependencies
+  - package-ecosystem: docker
+    directory: /node
+    schedule:
+      interval: daily
+      time: '07:00'
+    ignore:
+      - dependency-name: '*'
+        update-types:
+          - version-update:semver-major
+    target-branch: main
+    reviewers:
+      - saschanowak
+      - paxuclus
       - nlx-klein
     labels:
       - dependencies
@@ -151,8 +151,8 @@ updates:
           - version-update:semver-major
     target-branch: main
     reviewers:
-      - nlx-sascha
-      - nlx-lars
+      - saschanowak
+      - paxuclus
       - nlx-klein
     labels:
       - dependencies
@@ -167,8 +167,8 @@ updates:
           - version-update:semver-major
     target-branch: main
     reviewers:
-      - nlx-sascha
-      - nlx-lars
+      - saschanowak
+      - paxuclus
       - nlx-klein
     labels:
       - dependencies
@@ -183,8 +183,8 @@ updates:
           - version-update:semver-major
     target-branch: main
     reviewers:
-      - nlx-sascha
-      - nlx-lars
+      - saschanowak
+      - paxuclus
       - nlx-klein
     labels:
       - dependencies
@@ -199,8 +199,8 @@ updates:
           - version-update:semver-major
     target-branch: main
     reviewers:
-      - nlx-sascha
-      - nlx-lars
+      - saschanowak
+      - paxuclus
       - nlx-klein
     labels:
       - dependencies
@@ -215,8 +215,8 @@ updates:
           - version-update:semver-major
     target-branch: main
     reviewers:
-      - nlx-sascha
-      - nlx-lars
+      - saschanowak
+      - paxuclus
       - nlx-klein
     labels:
       - dependencies
@@ -231,8 +231,8 @@ updates:
           - version-update:semver-major
     target-branch: main
     reviewers:
-      - nlx-sascha
-      - nlx-lars
+      - saschanowak
+      - paxuclus
       - nlx-klein
     labels:
       - dependencies
@@ -247,8 +247,8 @@ updates:
           - version-update:semver-major
     target-branch: main
     reviewers:
-      - nlx-sascha
-      - nlx-lars
+      - saschanowak
+      - paxuclus
       - nlx-klein
     labels:
       - dependencies
@@ -263,8 +263,8 @@ updates:
           - version-update:semver-major
     target-branch: main
     reviewers:
-      - nlx-sascha
-      - nlx-lars
+      - saschanowak
+      - paxuclus
       - nlx-klein
     labels:
       - dependencies
@@ -279,8 +279,8 @@ updates:
           - version-update:semver-major
     target-branch: main
     reviewers:
-      - nlx-sascha
-      - nlx-lars
+      - saschanowak
+      - paxuclus
       - nlx-klein
     labels:
       - dependencies
@@ -295,8 +295,8 @@ updates:
           - version-update:semver-major
     target-branch: main
     reviewers:
-      - nlx-sascha
-      - nlx-lars
+      - saschanowak
+      - paxuclus
       - nlx-klein
     labels:
       - dependencies
@@ -311,8 +311,8 @@ updates:
           - version-update:semver-major
     target-branch: main
     reviewers:
-      - nlx-sascha
-      - nlx-lars
+      - saschanowak
+      - paxuclus
       - nlx-klein
     labels:
       - dependencies
@@ -327,8 +327,8 @@ updates:
           - version-update:semver-major
     target-branch: main
     reviewers:
-      - nlx-sascha
-      - nlx-lars
+      - saschanowak
+      - paxuclus
       - nlx-klein
     labels:
       - dependencies
@@ -343,8 +343,8 @@ updates:
           - version-update:semver-major
     target-branch: main
     reviewers:
-      - nlx-sascha
-      - nlx-lars
+      - saschanowak
+      - paxuclus
       - nlx-klein
     labels:
       - dependencies
@@ -359,8 +359,8 @@ updates:
           - version-update:semver-major
     target-branch: main
     reviewers:
-      - nlx-sascha
-      - nlx-lars
+      - saschanowak
+      - paxuclus
       - nlx-klein
     labels:
       - dependencies
@@ -375,8 +375,8 @@ updates:
           - version-update:semver-major
     target-branch: main
     reviewers:
-      - nlx-sascha
-      - nlx-lars
+      - saschanowak
+      - paxuclus
       - nlx-klein
     labels:
       - dependencies
@@ -391,8 +391,8 @@ updates:
           - version-update:semver-major
     target-branch: main
     reviewers:
-      - nlx-sascha
-      - nlx-lars
+      - saschanowak
+      - paxuclus
       - nlx-klein
     labels:
       - dependencies
@@ -407,8 +407,8 @@ updates:
           - version-update:semver-major
     target-branch: main
     reviewers:
-      - nlx-sascha
-      - nlx-lars
+      - saschanowak
+      - paxuclus
       - nlx-klein
     labels:
       - dependencies
