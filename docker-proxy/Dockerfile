@@ -1,4 +1,4 @@
-FROM alpine:3.17 AS docker-proxy
+FROM alpine:3.18 AS docker-proxy
 
 RUN apk add --update --no-cache socat
 
