@@ -12,7 +12,7 @@ RUN git clone -b $EXPORTER_VERSION --single-branch --depth 1 https://github.com/
 
 RUN CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -o /out/elasticsearch_exporter
 
-FROM alpine:3.17 AS prometheus-elasticsearch-exporter
+FROM alpine:3.18 AS prometheus-elasticsearch-exporter
 
 COPY --from=builder /out/* /
 
