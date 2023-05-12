@@ -17,7 +17,7 @@ RUN CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -ldflags "-s -w
 RUN CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -ldflags "-s -w -X github.com/cloudflare/cfssl/cli/version.version=1.6.3" -o /out/mkbundle ./cmd/mkbundle
 RUN CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -ldflags "-s -w -X github.com/cloudflare/cfssl/cli/version.version=1.6.3" -o /out/multirootca ./cmd/multirootca
 
-FROM alpine:3.17 AS cfssl-server
+FROM alpine:3.18 AS cfssl-server
 
 COPY --from=builder /out/* /
 
@@ -27,7 +27,7 @@ EXPOSE 8080
 
 CMD ["/cfssl"]
 
-FROM alpine:3.17 AS cfssl
+FROM alpine:3.18 AS cfssl
 
 COPY --from=builder /out/* /
 
