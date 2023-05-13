@@ -72,6 +72,7 @@ RUN apt-get update && \
         php${PHP_VERSION}-mbstring \
         php${PHP_VERSION}-mysql \
         php${PHP_VERSION}-opcache \
+        php${PHP_VERSION}-pgsql \
         php${PHP_VERSION}-readline \
         php-redis \
         php${PHP_VERSION}-xml \
