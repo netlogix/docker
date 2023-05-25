@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 # Adding third-party modules to nginx official image
 # SEE https://github.com/nginxinc/docker-nginx/tree/master/modules
-FROM nginx:1.23.4 as builder
+FROM nginx:1.25.0 as builder
 
 ENV ENABLED_MODULES="ndk headers-more lua subs-filter geoip2"
 
@@ -69,7 +69,7 @@ RUN set -ex \
     done \
     && echo "BUILT_MODULES=\"$BUILT_MODULES\"" > /tmp/packages/modules.env
 
-FROM nginx:1.23.4
+FROM nginx:1.25.0
 COPY --from=builder /tmp/packages /tmp/packages
 RUN set -ex \
     && apt update \
