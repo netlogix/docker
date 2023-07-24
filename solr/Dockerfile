@@ -20,6 +20,7 @@ RUN sed -i "s|name=core_|name=website-|i" /tmp/solr/Resources/Private/Solr/cores
 FROM solr:8.11.2
 
 ENV SOLR_LOG_LEVEL=WARN \
+    SOLR_PORT=8983 \
     HEALTHCHECK_CORE=website-generic
 
 USER root
