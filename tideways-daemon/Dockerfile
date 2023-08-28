@@ -3,7 +3,7 @@ FROM debian:bullseye-slim AS tideways-daemon
 
 ARG TIDEWAYS_ENVIRONMENT_DEFAULT=production
 ENV TIDEWAYS_ENVIRONMENT=$TIDEWAYS_ENVIRONMENT_DEFAULT
-ENV TIDEWAYS_VERSION=1.8.12
+ENV TIDEWAYS_VERSION=1.8.30
 
 RUN useradd --system tideways
 RUN apt-get update && apt-get install -yq --no-install-recommends gnupg2 curl ca-certificates
