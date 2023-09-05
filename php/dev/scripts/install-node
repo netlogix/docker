@@ -6,11 +6,27 @@ if [[ $# -eq 0 ]]; then
   exit 1
 fi
 
-curl -fsSL https://deb.nodesource.com/setup_$1.x | bash -
+if [[ $1 -ge 16 ]]
+then
+  apt-get -y update &&
+    apt-get install -y ca-certificates curl gnupg &&
+    mkdir -p /etc/apt/keyrings &&
+    curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg &&
+    echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$1.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list &&
+    apt-get -y update &&
+    apt-get -y install --no-install-suggests --no-install-recommends nodejs &&
+    apt-get autoremove &&
+    find /var/log -type f -name "*.log" -delete &&
+    rm -rf /var/lib/apt/lists/* /var/cache/ldconfig/aux-cache
+else
+  # legacy install script (https://github.com/nodesource/distributions#new-update-%EF%B8%8F)
+  curl -fsSL https://deb.nodesource.com/setup_$1.x | bash -
 
-apt-get -yq update &&
-  apt-get -yqq install --no-install-suggests --no-install-recommends nodejs &&
-  apt-get autoremove &&
-  find /var/log -type f -name "*.log" -delete &&
-  rm -rf /var/lib/apt/lists/* /var/cache/ldconfig/aux-cache &&
-  npm install -g yarn
+  apt-get -yq update &&
+    apt-get -yqq install --no-install-suggests --no-install-recommends nodejs &&
+    apt-get autoremove &&
+    find /var/log -type f -name "*.log" -delete &&
+    rm -rf /var/lib/apt/lists/* /var/cache/ldconfig/aux-cache
+fi
+
+npm install -g yarn
