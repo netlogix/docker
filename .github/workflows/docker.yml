@@ -243,6 +243,13 @@ jobs:
             build-args: |
               NODE_VERSION=18
             spec-file: ''
+          - name: node
+            context: ./node
+            target: 'node'
+            version: 20
+            build-args: |
+              NODE_VERSION=20
+            spec-file: ''
           - name: php-fpm
             context: ./php
             target: 'php-fpm'
