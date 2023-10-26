@@ -69,4 +69,5 @@ docker buildx build -t php-cron:8.2 --build-arg PHP_VERSION=8.2 --build-arg UBUN
 docker buildx build -t php-cron-dev:8.2 --build-arg PHP_VERSION=8.2 --build-arg UBUNTU_VERSION=22.04 -f php/8.2.dockerfile --target=php-cron-dev php
 docker buildx build -t php-supervisor:8.2 --build-arg PHP_VERSION=8.2 --build-arg UBUNTU_VERSION=22.04 -f php/8.2.dockerfile --target=php-supervisor php
 
-docker buildx build -t node:18 --build-arg NODE_VERSION=18 -f node/Dockerfile
+docker buildx build -t node:18 --build-arg NODE_VERSION=18 -f node/Dockerfile node
+docker buildx build -t node:20 --build-arg NODE_VERSION=20 -f node/Dockerfile node
