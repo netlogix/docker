@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM nginx:1.25.2
+FROM nginx:1.25.3
 ENV TZ="Europe/Berlin"
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
