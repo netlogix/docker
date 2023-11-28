@@ -250,6 +250,7 @@ jobs:
             build-args: |
               NODE_VERSION=20
             spec-file: ''
+
           - name: php-fpm
             context: ./php
             target: 'php-fpm'
@@ -306,6 +307,7 @@ jobs:
               PHP_VERSION=7.2
               UBUNTU_VERSION=18.04
             spec-file: ''
+
           - name: php-fpm
             context: ./php
             target: 'php-fpm'
@@ -362,6 +364,7 @@ jobs:
               PHP_VERSION=7.4
               UBUNTU_VERSION=20.04
             spec-file: ''
+
           - name: php-fpm
             context: ./php
             target: 'php-fpm'
@@ -418,6 +421,7 @@ jobs:
               PHP_VERSION=8.1
               UBUNTU_VERSION=22.04
             spec-file: ''
+
           - name: php-fpm
             context: ./php
             target: 'php-fpm'
@@ -479,6 +483,70 @@ jobs:
             file: 8.2.dockerfile
             build-args: |
               PHP_VERSION=8.2
+              UBUNTU_VERSION=22.04
+            spec-file: ''
+
+          - name: php-fpm
+            context: ./php
+            target: 'php-fpm'
+            version: 8.3
+            file: 8.3.dockerfile
+            build-args: |
+              PHP_VERSION=8.3
+              UBUNTU_VERSION=22.04
+            spec-file: ''
+          - name: php-fpm-dev
+            context: ./php
+            target: 'php-fpm-dev'
+            version: 8.3
+            file: 8.3.dockerfile
+            build-args: |
+              PHP_VERSION=8.3
+              UBUNTU_VERSION=22.04
+            spec-file: ''
+          - name: php-cli
+            context: ./php
+            target: 'php-cli'
+            version: 8.3
+            file: 8.3.dockerfile
+            build-args: |
+              PHP_VERSION=8.3
+              UBUNTU_VERSION=22.04
+            spec-file: ''
+          - name: php-cli-dev
+            context: ./php
+            target: 'php-cli-dev'
+            version: 8.3
+            file: 8.3.dockerfile
+            build-args: |
+              PHP_VERSION=8.3
+              UBUNTU_VERSION=22.04
+            spec-file: ''
+          - name: php-cron
+            context: ./php
+            target: 'php-cron'
+            version: 8.3
+            file: 8.3.dockerfile
+            build-args: |
+              PHP_VERSION=8.3
+              UBUNTU_VERSION=22.04
+            spec-file: ''
+          - name: php-cron-dev
+            context: ./php
+            target: 'php-cron-dev'
+            version: 8.3
+            file: 8.3.dockerfile
+            build-args: |
+              PHP_VERSION=8.3
+              UBUNTU_VERSION=22.04
+            spec-file: ''
+          - name: php-supervisor
+            context: ./php
+            target: 'php-supervisor'
+            version: 8.3
+            file: 8.3.dockerfile
+            build-args: |
+              PHP_VERSION=8.3
               UBUNTU_VERSION=22.04
             spec-file: ''
 
