@@ -61,24 +61,24 @@ RUN apt-get update && \
         webp \
         zip \
         php${PHP_VERSION} \
-        php-apcu \
+        php${PHP_VERSION}-apcu \
         php${PHP_VERSION}-bcmath \
         php${PHP_VERSION}-common \
         php${PHP_VERSION}-cli \
         php${PHP_VERSION}-curl \
         php${PHP_VERSION}-fpm \
         php${PHP_VERSION}-gd \
-        php-igbinary \
-        php-imagick \
+        php${PHP_VERSION}-igbinary \
+        php${PHP_VERSION}-imagick \
         php${PHP_VERSION}-intl \
         php${PHP_VERSION}-mbstring \
         php${PHP_VERSION}-mysql \
         php${PHP_VERSION}-opcache \
         php${PHP_VERSION}-pgsql \
         php${PHP_VERSION}-readline \
-        php-redis \
+        php${PHP_VERSION}-redis \
         php${PHP_VERSION}-xml \
-        php-yaml \
+        php${PHP_VERSION}-yaml \
         php${PHP_VERSION}-zip \
     && apt-get autoremove \
     && find /var/log -type f -name "*.log" -delete \
