@@ -1,5 +1,9 @@
 name: 'Build basic docker container'
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 on:
   schedule:
     - cron: 0 7 * * THU
