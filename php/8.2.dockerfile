@@ -2,6 +2,7 @@
 ARG UBUNTU_VERSION=22.04
 FROM ubuntu:${UBUNTU_VERSION} as base
 ARG PHP_VERSION=8.2
+ARG XDEBUG_VERSION=3.2.2
 
 ENV DEBIAN_FRONTEND=noninteractive \
     TZ=UTC \
@@ -14,6 +15,7 @@ ENV PHP_VERSION=${PHP_VERSION} \
     PHP_ASSERT=-1 \
     PHP_XDEBUG_HOST=host.docker.internal \
     PHP_XDEBUG_MODE=off \
+    XDEBUG_VERSION=${XDEBUG_VERSION} \
     TIDEWAYS_APIKEY="" \
     TIDEWAYS_DAEMON="tcp://tideways-daemon:9135" \
     TIDEWAYS_SAMPLERATE=25
@@ -180,7 +182,7 @@ RUN apt-get update && \
       make php${PHP_VERSION}-dev php${PHP_VERSION}-sqlite3 php-pear openssh-client git patch \
     && mkdir -p /tmp/pear/cache \
     && pecl channel-update pecl.php.net \
-    && pecl install xdebug-3.2.0 \
+    && pecl install xdebug-${XDEBUG_VERSION} \
     && echo "zend_extension=xdebug.so" > /etc/php/${PHP_VERSION}/mods-available/xdebug.ini \
     && phpenmod xdebug \
     && apt-get -y autoremove --purge make php${PHP_VERSION}-dev php-pear \
