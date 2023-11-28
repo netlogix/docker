@@ -1,8 +1,8 @@
 # syntax=docker/dockerfile:1
 ARG UBUNTU_VERSION=22.04
 FROM ubuntu:${UBUNTU_VERSION} as base
-ARG PHP_VERSION=8.2
-ARG XDEBUG_VERSION=3.2.2
+ARG PHP_VERSION=8.3
+ARG XDEBUG_VERSION="3.3.0alpha3"
 
 ENV DEBIAN_FRONTEND=noninteractive \
     TZ=UTC \
