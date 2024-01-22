@@ -31,6 +31,8 @@ RUN locale-gen de_DE.UTF-8 && \
     locale-gen en_US.UTF-8 && \
     locale-gen es_ES.UTF-8 && \
     locale-gen fr_FR.UTF-8 && \
+    locale-gen nl_NL.UTF-8 && \
+    locale-gen pt_PT.UTF-8 && \
     locale-gen it_IT.UTF-8
 
 # Install dev certificates
