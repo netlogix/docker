@@ -109,6 +109,13 @@ jobs:
             version: ''
             build-args: ''
             spec-file: ''
+          - name: solr
+            context: ./solr
+            target: ''
+            version: ''
+            file: 9.3.dockerfile
+            build-args: ''
+            spec-file: ''
           - name: varnish
             context: ./varnish
             target: ''
