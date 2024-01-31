@@ -85,6 +85,19 @@ jobs:
             version: ''
             build-args: ''
             spec-file: ''
+          - name: postgres
+            context: ./postgres
+            target: ''
+            version: ''
+            build-args: ''
+            spec-file: ''
+          - name: postgres
+            context: ./postgres
+            target: ''
+            version: ''
+            file: 14.dockerfile
+            build-args: ''
+            spec-file: ''
           - name: proxy
             context: ./proxy
             target: ''
@@ -203,25 +216,31 @@ jobs:
           - name: prometheus-apache-exporter
             context: ./prometheus-apache-exporter
             target: 'prometheus-apache-exporter'
-            version: '0.12.0'
+            version: '1.0.6'
             build-args: ''
             spec-file: ''
           - name: prometheus-elasticsearch-exporter
             context: ./prometheus-elasticsearch-exporter
             target: 'prometheus-elasticsearch-exporter'
-            version: '1.5.0'
+            version: '1.7.0'
             build-args: ''
             spec-file: ''
           - name: prometheus-nginx-exporter
             context: ./prometheus-nginx-exporter
             target: 'prometheus-nginx-exporter'
-            version: '0.11.0'
+            version: '1.1.0'
             build-args: ''
             spec-file: ''
           - name: prometheus-php-fpm-exporter
             context: ./prometheus-php-fpm-exporter
             target: 'prometheus-php-fpm-exporter'
             version: '2.2.0'
+            build-args: ''
+            spec-file: ''
+          - name: prometheus-postgres-exporter
+            context: ./prometheus-postgres-exporter
+            target: 'prometheus-postgres-exporter'
+            version: '0.15.0'
             build-args: ''
             spec-file: ''
           - name: prometheus-redis-exporter

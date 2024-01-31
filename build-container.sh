@@ -11,6 +11,7 @@ docker buildx build -t serverspec:${VERSION} -f serverspec/Dockerfile serverspec
 
 docker buildx build -t mariadb:${VERSION} -f mariadb/Dockerfile mariadb
 docker buildx build -t mysql:${VERSION} -f mysql/Dockerfile mysql
+docker buildx build -t postgres:${VERSION} -f postgres/Dockerfile postgres
 docker buildx build -t proxy:${VERSION} -f proxy/Dockerfile proxy
 docker buildx build -t rabbitmq:${VERSION} -f rabbitmq/Dockerfile rabbitmq
 docker buildx build -t redis:${VERSION} -f redis/Dockerfile redis
@@ -33,6 +34,7 @@ docker buildx build -t prometheus-apache-exporter:${VERSION} -f prometheus-apach
 docker buildx build -t prometheus-elasticsearch-exporter:${VERSION} -f prometheus-elasticsearch-exporter/Dockerfile prometheus-elasticsearch-exporter
 docker buildx build -t prometheus-nginx-exporter:${VERSION} -f prometheus-nginx-exporter/Dockerfile prometheus-nginx-exporter
 docker buildx build -t prometheus-php-fpm-exporter:${VERSION} -f prometheus-php-fpm-exporter/Dockerfile prometheus-php-fpm-exporter
+docker buildx build -t prometheus-postgres-exporter:${VERSION} -f prometheus-postgres-exporter/Dockerfile prometheus-postgres-exporter
 docker buildx build -t prometheus-redis-exporter:${VERSION} -f prometheus-redis-exporter/Dockerfile prometheus-redis-exporter
 docker buildx build -t prometheus-solr-exporter:${VERSION} -f prometheus-solr-exporter/Dockerfile prometheus-solr-exporter
 docker buildx build -t prometheus-varnish-exporter:${VERSION} -f prometheus-varnish-exporter/Dockerfile prometheus-varnish-exporter
