@@ -213,6 +213,8 @@ ENV PHP_MAX_EXECUTION_TIME=-1
 
 COPY cli/docker-php-entrypoint /usr/local/bin/
 
+# Disabling the health check of the descendant php-fpm-dev image, since the production php-cron image does neither have a healthcheck.
+HEALTHCHECK NONE
 ENTRYPOINT ["docker-php-entrypoint"]
 CMD ["php", "-a"]
 
