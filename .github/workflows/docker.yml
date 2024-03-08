@@ -98,6 +98,13 @@ jobs:
             file: 14.dockerfile
             build-args: ''
             spec-file: ''
+          - name: postgres
+            context: ./postgres
+            target: ''
+            version: ''
+            file: 12.dockerfile
+            build-args: ''
+            spec-file: ''
           - name: proxy
             context: ./proxy
             target: ''
