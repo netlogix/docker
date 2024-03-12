@@ -1,5 +1,5 @@
 # https://support.tideways.com/documentation/setup/installation/docker-with-compose.html
-FROM debian:bullseye-slim AS tideways-daemon
+FROM debian:bookworm-slim AS tideways-daemon
 
 ENV TIDEWAYS_ENVIRONMENT=production \
     TIDEWAYS_HOSTNAME=tideways-daemon \
