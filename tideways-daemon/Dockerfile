@@ -1,9 +1,9 @@
 # https://support.tideways.com/documentation/setup/installation/docker-with-compose.html
-FROM debian:bullseye-slim AS tideways-daemon
+FROM debian:bookworm-slim AS tideways-daemon
 
-ARG TIDEWAYS_ENVIRONMENT_DEFAULT=production
-ENV TIDEWAYS_ENVIRONMENT=$TIDEWAYS_ENVIRONMENT_DEFAULT
-ENV TIDEWAYS_VERSION=1.8.30
+ENV TIDEWAYS_ENVIRONMENT=production \
+    TIDEWAYS_HOSTNAME=tideways-daemon \
+    TIDEWAYS_VERSION=1.8.42
 
 RUN useradd --system tideways
 RUN apt-get update && apt-get install -yq --no-install-recommends gnupg2 curl ca-certificates
@@ -20,4 +20,4 @@ EXPOSE 9135
 
 USER tideways
 
-ENTRYPOINT ["tideways-daemon", "--hostname=tideways-daemon", "--address=0.0.0.0:9135"]
+ENTRYPOINT ["tideways-daemon", "--hostname=${TIDEWAYS_HOSTNAME}", "--address=0.0.0.0:9135"]
