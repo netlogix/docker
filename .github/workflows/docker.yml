@@ -26,7 +26,7 @@ jobs:
       DOCKER_IMAGE: ghcr.io/netlogix/docker/serverspec
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup QEMU
         uses: docker/setup-qemu-action@v2
