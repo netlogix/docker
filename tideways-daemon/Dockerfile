@@ -2,6 +2,7 @@
 FROM debian:bookworm-slim AS tideways-daemon
 
 ENV TIDEWAYS_ENVIRONMENT=production \
+    TIDEWAYS_HOSTNAME=tideways-daemon \
     TIDEWAYS_VERSION=1.8.42
 
 RUN useradd --system tideways
@@ -19,4 +20,4 @@ EXPOSE 9135
 
 USER tideways
 
-ENTRYPOINT ["tideways-daemon", "--hostname=tideways-daemon", "--address=0.0.0.0:9135"]
+ENTRYPOINT ["tideways-daemon", "--hostname=${TIDEWAYS_HOSTNAME}", "--address=0.0.0.0:9135"]
