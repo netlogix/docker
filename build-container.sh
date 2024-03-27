@@ -24,11 +24,10 @@ docker buildx build -t webserver-static:${VERSION} -f webserver/Dockerfile --tar
 docker buildx build -t webserver-typo3:${VERSION} -f webserver/Dockerfile --target=webserver-typo3 webserver
 docker buildx build -t webserver-shopware:${VERSION} -f webserver/Dockerfile --target=webserver-shopware webserver
 docker buildx build -t chromium:${VERSION} -f chromium/Dockerfile chromium
-docker buildx build -t mailhog:${VERSION} -f mailhog/Dockerfile mailhog
+docker buildx build -t mailpit:${VERSION} -f mailpit/Dockerfile mailpit
 docker buildx build -t cfssl:${VERSION} -f cfssl/Dockerfile --target=cfssl cfssl
 docker buildx build -t cfssl-server:${VERSION} -f cfssl/Dockerfile --target=cfssl-server cfssl
 docker buildx build -t tideways-daemon:${VERSION} -f tideways-daemon/Dockerfile tideways-daemon
-docker buildx build -t docker-proxy:${VERSION} -f docker-proxy/Dockerfile docker-proxy
 
 docker buildx build -t prometheus-apache-exporter:${VERSION} -f prometheus-apache-exporter/Dockerfile prometheus-apache-exporter
 docker buildx build -t prometheus-elasticsearch-exporter:${VERSION} -f prometheus-elasticsearch-exporter/Dockerfile prometheus-elasticsearch-exporter
