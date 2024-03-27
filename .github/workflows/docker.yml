@@ -140,6 +140,11 @@ jobs:
             target: 'mailhog'
             version: '1.1.0'
             build-args: ''
+          - name: mailpit
+            context: ./mailpit
+            target: 'mailpit'
+            version: ''
+            build-args: ''
           - name: cfssl
             context: ./cfssl
             target: 'cfssl'
@@ -153,7 +158,7 @@ jobs:
           - name: tideways-daemon
             context: ./tideways-daemon
             target: 'tideways-daemon'
-            version: '1.8'
+            version: ''
             build-args: ''
           - name: prometheus-apache-exporter
             context: ./prometheus-apache-exporter
