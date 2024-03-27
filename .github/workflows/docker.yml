@@ -17,41 +17,7 @@ on:
     inputs: {}
 
 jobs:
-  build-test-image:
-    name: 'Build Docker Serverspec image'
-    runs-on: ubuntu-latest
-    permissions:
-      packages: write
-    env:
-      DOCKER_IMAGE: ghcr.io/netlogix/docker/serverspec
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Setup QEMU
-        uses: docker/setup-qemu-action@v2
-
-      - name: Setup Docker Buildx
-        uses: docker/setup-buildx-action@v2
-
-      - name: Login to GHCR
-        uses: docker/login-action@v2
-        with:
-          registry: ghcr.io
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Build and push
-        uses: docker/build-push-action@v3
-        with:
-          builder: ${{ steps.buildx.outputs.name }}
-          context: './serverspec'
-          file: './serverspec/Dockerfile'
-          push: true
-          tags: ${{ env.DOCKER_IMAGE }}:${{ github.sha }}
-
   build-docker-images:
-    needs: [build-test-image]
     name: 'Build Docker Images'
     runs-on: ubuntu-latest
     strategy:
@@ -64,230 +30,188 @@ jobs:
             target: ''
             version: ''
             build-args: ''
-            spec-file: ''
           - name: mariadb
             context: ./mariadb
             target: ''
             version: ''
             file: 10.6.dockerfile
             build-args: ''
-            spec-file: ''
           - name: mariadb
             context: ./mariadb
             target: ''
             version: ''
             file: 10.3.dockerfile
             build-args: ''
-            spec-file: ''
           - name: mysql
             context: ./mysql
             target: ''
             version: ''
             build-args: ''
-            spec-file: ''
           - name: postgres
             context: ./postgres
             target: ''
             version: ''
             build-args: ''
-            spec-file: ''
           - name: postgres
             context: ./postgres
             target: ''
             version: ''
             file: 14.dockerfile
             build-args: ''
-            spec-file: ''
           - name: postgres
             context: ./postgres
             target: ''
             version: ''
             file: 12.dockerfile
             build-args: ''
-            spec-file: ''
           - name: proxy
             context: ./proxy
             target: ''
             version: ''
             build-args: ''
-            spec-file: ''
           - name: rabbitmq
             context: ./rabbitmq
             target: ''
             version: ''
             build-args: ''
-            spec-file: ''
           - name: redis
             context: ./redis
             target: ''
             version: ''
             build-args: ''
-            spec-file: ''
           - name: solr
             context: ./solr
             target: ''
             version: ''
             build-args: ''
-            spec-file: ''
           - name: solr
             context: ./solr
             target: ''
             version: ''
             file: 9.3.dockerfile
             build-args: ''
-            spec-file: ''
           - name: varnish
             context: ./varnish
             target: ''
             version: ''
             build-args: ''
-            spec-file: ''
           - name: elasticsearch
             context: ./elasticsearch
             target: ''
             version: ''
             build-args: ''
-            spec-file: ''
           - name: webserver-neos
             context: ./webserver
             target: 'webserver-neos'
             version: ''
             build-args: ''
-            spec-file: ''
           - name: webserver-typo3
             context: ./webserver
             target: 'webserver-typo3'
             version: ''
             build-args: ''
-            spec-file: ''
           - name: webserver-shopware
             context: ./webserver
             target: 'webserver-shopware'
             version: ''
             build-args: ''
-            spec-file: ''
           - name: webserver-shopware6
             context: ./webserver
             target: 'webserver-shopware6'
             version: ''
             build-args: ''
-            spec-file: ''
           - name: webserver-static
             context: ./webserver
             target: 'webserver-static'
             version: ''
             build-args: ''
-            spec-file: ''
           - name: webserver-symfony
             context: ./webserver
             target: 'webserver-symfony'
             version: ''
             build-args: ''
-            spec-file: ''
           - name: chromium
             context: ./chromium
             target: 'chromium'
             version: 'stable'
             build-args: ''
-            spec-file: ''
           - name: mailhog
             context: ./mailhog
             target: 'mailhog'
             version: '1.1.0'
             build-args: ''
-            spec-file: ''
           - name: cfssl
             context: ./cfssl
             target: 'cfssl'
             version: '1.6'
             build-args: ''
-            spec-file: ''
           - name: cfssl-server
             context: ./cfssl
             target: 'cfssl-server'
             version: '1.6'
             build-args: ''
-            spec-file: ''
           - name: tideways-daemon
             context: ./tideways-daemon
             target: 'tideways-daemon'
             version: '1.8'
             build-args: ''
-            spec-file: ''
-          - name: docker-proxy
-            context: ./docker-proxy
-            target: 'docker-proxy'
-            version: 'latest'
-            build-args: ''
-            spec-file: ''
           - name: prometheus-apache-exporter
             context: ./prometheus-apache-exporter
             target: 'prometheus-apache-exporter'
             version: '1.0.6'
             build-args: ''
-            spec-file: ''
           - name: prometheus-elasticsearch-exporter
             context: ./prometheus-elasticsearch-exporter
             target: 'prometheus-elasticsearch-exporter'
             version: '1.7.0'
             build-args: ''
-            spec-file: ''
           - name: prometheus-nginx-exporter
             context: ./prometheus-nginx-exporter
             target: 'prometheus-nginx-exporter'
             version: '1.1.0'
             build-args: ''
-            spec-file: ''
           - name: prometheus-php-fpm-exporter
             context: ./prometheus-php-fpm-exporter
             target: 'prometheus-php-fpm-exporter'
             version: '2.2.0'
             build-args: ''
-            spec-file: ''
           - name: prometheus-postgres-exporter
             context: ./prometheus-postgres-exporter
             target: 'prometheus-postgres-exporter'
             version: '0.15.0'
             build-args: ''
-            spec-file: ''
           - name: prometheus-redis-exporter
             context: ./prometheus-redis-exporter
             target: 'prometheus-redis-exporter'
             version: ''
             build-args: ''
-            spec-file: ''
           - name: prometheus-solr-exporter
             context: ./prometheus-solr-exporter
             target: 'prometheus-solr-exporter'
             version: ''
             build-args: ''
-            spec-file: ''
           - name: prometheus-varnish-exporter
             context: ./prometheus-varnish-exporter
             target: 'prometheus-varnish-exporter'
             version: '1.6.1'
             build-args: ''
-            spec-file: ''
           - name: styleguide
             context: ./styleguide
             target: ''
             version: ''
             build-args: ''
-            spec-file: ''
           - name: node
             context: ./node
             target: 'node'
             version: 18
             build-args: |
               NODE_VERSION=18
-            spec-file: ''
           - name: node
             context: ./node
             target: 'node'
             version: 20
             build-args: |
               NODE_VERSION=20
-            spec-file: ''
 
           - name: php-fpm
             context: ./php
@@ -296,7 +220,6 @@ jobs:
             build-args: |
               PHP_VERSION=7.2
               UBUNTU_VERSION=18.04
-            spec-file: ''
           - name: php-fpm-dev
             context: ./php
             target: 'php-fpm-dev'
@@ -304,7 +227,6 @@ jobs:
             build-args: |
               PHP_VERSION=7.2
               UBUNTU_VERSION=18.04
-            spec-file: ''
           - name: php-cli
             context: ./php
             target: 'php-cli'
@@ -312,7 +234,6 @@ jobs:
             build-args: |
               PHP_VERSION=7.2
               UBUNTU_VERSION=18.04
-            spec-file: ''
           - name: php-cli-dev
             context: ./php
             target: 'php-cli-dev'
@@ -320,7 +241,6 @@ jobs:
             build-args: |
               PHP_VERSION=7.2
               UBUNTU_VERSION=18.04
-            spec-file: ''
           - name: php-cron
             context: ./php
             target: 'php-cron'
@@ -328,7 +248,6 @@ jobs:
             build-args: |
               PHP_VERSION=7.2
               UBUNTU_VERSION=18.04
-            spec-file: ''
           - name: php-cron-dev
             context: ./php
             target: 'php-cron-dev'
@@ -336,7 +255,6 @@ jobs:
             build-args: |
               PHP_VERSION=7.2
               UBUNTU_VERSION=18.04
-            spec-file: ''
           - name: php-supervisor
             context: ./php
             target: 'php-supervisor'
@@ -344,7 +262,6 @@ jobs:
             build-args: |
               PHP_VERSION=7.2
               UBUNTU_VERSION=18.04
-            spec-file: ''
 
           - name: php-fpm
             context: ./php
@@ -353,7 +270,6 @@ jobs:
             build-args: |
               PHP_VERSION=7.4
               UBUNTU_VERSION=20.04
-            spec-file: 'php/php-fpm_7_4_spec.rb'
           - name: php-fpm-dev
             context: ./php
             target: 'php-fpm-dev'
@@ -361,7 +277,6 @@ jobs:
             build-args: |
               PHP_VERSION=7.4
               UBUNTU_VERSION=20.04
-            spec-file: ''
           - name: php-cli
             context: ./php
             target: 'php-cli'
@@ -369,7 +284,6 @@ jobs:
             build-args: |
               PHP_VERSION=7.4
               UBUNTU_VERSION=20.04
-            spec-file: ''
           - name: php-cli-dev
             context: ./php
             target: 'php-cli-dev'
@@ -377,7 +291,6 @@ jobs:
             build-args: |
               PHP_VERSION=7.4
               UBUNTU_VERSION=20.04
-            spec-file: ''
           - name: php-cron
             context: ./php
             target: 'php-cron'
@@ -385,7 +298,6 @@ jobs:
             build-args: |
               PHP_VERSION=7.4
               UBUNTU_VERSION=20.04
-            spec-file: ''
           - name: php-cron-dev
             context: ./php
             target: 'php-cron-dev'
@@ -393,7 +305,6 @@ jobs:
             build-args: |
               PHP_VERSION=7.4
               UBUNTU_VERSION=20.04
-            spec-file: ''
           - name: php-supervisor
             context: ./php
             target: 'php-supervisor'
@@ -401,7 +312,6 @@ jobs:
             build-args: |
               PHP_VERSION=7.4
               UBUNTU_VERSION=20.04
-            spec-file: ''
 
           - name: php-fpm
             context: ./php
@@ -410,7 +320,6 @@ jobs:
             build-args: |
               PHP_VERSION=8.1
               UBUNTU_VERSION=22.04
-            spec-file: ''
           - name: php-fpm-dev
             context: ./php
             target: 'php-fpm-dev'
@@ -418,7 +327,6 @@ jobs:
             build-args: |
               PHP_VERSION=8.1
               UBUNTU_VERSION=22.04
-            spec-file: ''
           - name: php-cli
             context: ./php
             target: 'php-cli'
@@ -426,7 +334,6 @@ jobs:
             build-args: |
               PHP_VERSION=8.1
               UBUNTU_VERSION=22.04
-            spec-file: ''
           - name: php-cli-dev
             context: ./php
             target: 'php-cli-dev'
@@ -434,7 +341,6 @@ jobs:
             build-args: |
               PHP_VERSION=8.1
               UBUNTU_VERSION=22.04
-            spec-file: ''
           - name: php-cron
             context: ./php
             target: 'php-cron'
@@ -442,7 +348,6 @@ jobs:
             build-args: |
               PHP_VERSION=8.1
               UBUNTU_VERSION=22.04
-            spec-file: ''
           - name: php-cron-dev
             context: ./php
             target: 'php-cron-dev'
@@ -450,7 +355,6 @@ jobs:
             build-args: |
               PHP_VERSION=8.1
               UBUNTU_VERSION=22.04
-            spec-file: ''
           - name: php-supervisor
             context: ./php
             target: 'php-supervisor'
@@ -458,7 +362,6 @@ jobs:
             build-args: |
               PHP_VERSION=8.1
               UBUNTU_VERSION=22.04
-            spec-file: ''
 
           - name: php-fpm
             context: ./php
@@ -468,7 +371,6 @@ jobs:
             build-args: |
               PHP_VERSION=8.2
               UBUNTU_VERSION=22.04
-            spec-file: ''
           - name: php-fpm-dev
             context: ./php
             target: 'php-fpm-dev'
@@ -477,7 +379,6 @@ jobs:
             build-args: |
               PHP_VERSION=8.2
               UBUNTU_VERSION=22.04
-            spec-file: ''
           - name: php-cli
             context: ./php
             target: 'php-cli'
@@ -486,7 +387,6 @@ jobs:
             build-args: |
               PHP_VERSION=8.2
               UBUNTU_VERSION=22.04
-            spec-file: ''
           - name: php-cli-dev
             context: ./php
             target: 'php-cli-dev'
@@ -495,7 +395,6 @@ jobs:
             build-args: |
               PHP_VERSION=8.2
               UBUNTU_VERSION=22.04
-            spec-file: ''
           - name: php-cron
             context: ./php
             target: 'php-cron'
@@ -504,7 +403,6 @@ jobs:
             build-args: |
               PHP_VERSION=8.2
               UBUNTU_VERSION=22.04
-            spec-file: ''
           - name: php-cron-dev
             context: ./php
             target: 'php-cron-dev'
@@ -513,7 +411,6 @@ jobs:
             build-args: |
               PHP_VERSION=8.2
               UBUNTU_VERSION=22.04
-            spec-file: ''
           - name: php-supervisor
             context: ./php
             target: 'php-supervisor'
@@ -522,7 +419,6 @@ jobs:
             build-args: |
               PHP_VERSION=8.2
               UBUNTU_VERSION=22.04
-            spec-file: ''
 
           - name: php-fpm
             context: ./php
@@ -532,7 +428,6 @@ jobs:
             build-args: |
               PHP_VERSION=8.3
               UBUNTU_VERSION=22.04
-            spec-file: ''
           - name: php-fpm-dev
             context: ./php
             target: 'php-fpm-dev'
@@ -541,7 +436,6 @@ jobs:
             build-args: |
               PHP_VERSION=8.3
               UBUNTU_VERSION=22.04
-            spec-file: ''
           - name: php-cli
             context: ./php
             target: 'php-cli'
@@ -550,7 +444,6 @@ jobs:
             build-args: |
               PHP_VERSION=8.3
               UBUNTU_VERSION=22.04
-            spec-file: ''
           - name: php-cli-dev
             context: ./php
             target: 'php-cli-dev'
@@ -559,7 +452,6 @@ jobs:
             build-args: |
               PHP_VERSION=8.3
               UBUNTU_VERSION=22.04
-            spec-file: ''
           - name: php-cron
             context: ./php
             target: 'php-cron'
@@ -568,7 +460,6 @@ jobs:
             build-args: |
               PHP_VERSION=8.3
               UBUNTU_VERSION=22.04
-            spec-file: ''
           - name: php-cron-dev
             context: ./php
             target: 'php-cron-dev'
@@ -577,7 +468,6 @@ jobs:
             build-args: |
               PHP_VERSION=8.3
               UBUNTU_VERSION=22.04
-            spec-file: ''
           - name: php-supervisor
             context: ./php
             target: 'php-supervisor'
@@ -586,7 +476,6 @@ jobs:
             build-args: |
               PHP_VERSION=8.3
               UBUNTU_VERSION=22.04
-            spec-file: ''
 
     env:
       DOCKER_IMAGE: ghcr.io/netlogix/docker/${{ matrix.image.name }}
