@@ -51,8 +51,7 @@ RUN echo "netlogix/docker-dev-ca.crt" >> /etc/ca-certificates.conf && update-ca-
 RUN echo 'deb https://packages.tideways.com/apt-packages-main any-version main' > /etc/apt/sources.list.d/tideways.list && \
     curl -L -sS 'https://packages.tideways.com/key.gpg' | apt-key add -
 
-RUN add-apt-repository ppa:ondrej/php -y && \
-    apt-get update
+RUN add-apt-repository ppa:ondrej/php -y
 
 RUN apt-get update && \
     apt-get -y install --no-install-suggests --no-install-recommends \
@@ -87,6 +86,9 @@ RUN apt-get update && \
         php${PHP_VERSION}-xml \
         php${PHP_VERSION}-yaml \
         php${PHP_VERSION}-zip \
+    && apt-get -y install --no-install-suggests --no-install-recommends \
+        tideways-php \
+        tideways-cli \
     && apt-get autoremove \
     && find /var/log -type f -name "*.log" -delete \
     && rm -rf /var/lib/apt/lists/* /var/cache/ldconfig/aux-cache
