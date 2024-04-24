@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 # Adding third-party modules to nginx official image
 # SEE https://github.com/nginxinc/docker-nginx/tree/master/modules
-FROM nginx:1.25.5 as builder
+FROM nginx:1.26.0 as builder
 
 ENV ENABLED_MODULES="ndk headers-more lua subs-filter geoip2"
 
@@ -69,7 +69,7 @@ RUN set -ex \
     done \
     && echo "BUILT_MODULES=\"$BUILT_MODULES\"" > /tmp/packages/modules.env
 
-FROM nginx:1.25.5
+FROM nginx:1.26.0
 ENV TZ="Europe/Berlin"
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
