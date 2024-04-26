@@ -12,6 +12,7 @@ docker buildx build -t serverspec:${VERSION} -f serverspec/Dockerfile serverspec
 docker buildx build -t mariadb:${VERSION} -f mariadb/Dockerfile mariadb
 docker buildx build -t mysql:${VERSION} -f mysql/Dockerfile mysql
 docker buildx build -t postgres:${VERSION} -f postgres/Dockerfile postgres
+docker buildx build -t prettier:${VERSION} -f prettier/Dockerfile prettier
 docker buildx build -t proxy:${VERSION} -f proxy/Dockerfile proxy
 docker buildx build -t rabbitmq:${VERSION} -f rabbitmq/Dockerfile rabbitmq
 docker buildx build -t redis:${VERSION} -f redis/Dockerfile redis
