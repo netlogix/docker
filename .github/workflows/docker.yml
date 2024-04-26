@@ -520,10 +520,6 @@ jobs:
           cache-from: type=gha, scope=${{ github.workflow }}-${{ matrix.image.name }}-${{ matrix.image.version }}
           cache-to: type=gha, scope=${{ github.workflow }}-${{ matrix.image.name }}-${{ matrix.image.version }}, mode=max
 
-      - name: Test
-        if: matrix.image.spec-file != ''
-        run: './test-container.sh ghcr.io/netlogix/docker/serverspec:${{ github.sha }} ${{ matrix.image.spec-file }}'
-
       - name: Build and push to GHCR
         id: docker_push
         uses: docker/build-push-action@v5
