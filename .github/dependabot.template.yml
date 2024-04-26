@@ -17,6 +17,10 @@ updates:
       - dependency-name: "*"
         update-types: [ "version-update:semver-patch" ]
     target-branch: main
+    reviewers:
+      - saschanowak
+      - paxuclus
+      - nlx-klein
     labels:
       - dependencies
 
@@ -29,6 +33,10 @@ updates:
       - dependency-name: "*"
         update-types: [ "version-update:semver-major" ]
     target-branch: main
+    reviewers:
+      - saschanowak
+      - paxuclus
+      - nlx-klein
     labels:
       - dependencies
 
