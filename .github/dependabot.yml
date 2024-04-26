@@ -18,10 +18,6 @@ updates:
         update-types:
           - version-update:semver-major
     target-branch: main
-    reviewers:
-      - saschanowak
-      - paxuclus
-      - nlx-klein
     labels:
       - dependencies
   - package-ecosystem: docker
@@ -34,10 +30,6 @@ updates:
         update-types:
           - version-update:semver-major
     target-branch: main
-    reviewers:
-      - saschanowak
-      - paxuclus
-      - nlx-klein
     labels:
       - dependencies
   - package-ecosystem: docker
@@ -50,10 +42,6 @@ updates:
         update-types:
           - version-update:semver-major
     target-branch: main
-    reviewers:
-      - saschanowak
-      - paxuclus
-      - nlx-klein
     labels:
       - dependencies
   - package-ecosystem: docker
@@ -66,10 +54,18 @@ updates:
         update-types:
           - version-update:semver-major
     target-branch: main
-    reviewers:
-      - saschanowak
-      - paxuclus
-      - nlx-klein
+    labels:
+      - dependencies
+  - package-ecosystem: docker
+    directory: /mailpit
+    schedule:
+      interval: daily
+      time: '07:00'
+    ignore:
+      - dependency-name: '*'
+        update-types:
+          - version-update:semver-major
+    target-branch: main
     labels:
       - dependencies
   - package-ecosystem: docker
@@ -82,10 +78,6 @@ updates:
         update-types:
           - version-update:semver-major
     target-branch: main
-    reviewers:
-      - saschanowak
-      - paxuclus
-      - nlx-klein
     labels:
       - dependencies
   - package-ecosystem: docker
@@ -98,10 +90,6 @@ updates:
         update-types:
           - version-update:semver-major
     target-branch: main
-    reviewers:
-      - saschanowak
-      - paxuclus
-      - nlx-klein
     labels:
       - dependencies
   - package-ecosystem: docker
@@ -114,10 +102,6 @@ updates:
         update-types:
           - version-update:semver-major
     target-branch: main
-    reviewers:
-      - saschanowak
-      - paxuclus
-      - nlx-klein
     labels:
       - dependencies
   - package-ecosystem: docker
@@ -130,10 +114,6 @@ updates:
         update-types:
           - version-update:semver-major
     target-branch: main
-    reviewers:
-      - saschanowak
-      - paxuclus
-      - nlx-klein
     labels:
       - dependencies
   - package-ecosystem: docker
@@ -146,10 +126,18 @@ updates:
         update-types:
           - version-update:semver-major
     target-branch: main
-    reviewers:
-      - saschanowak
-      - paxuclus
-      - nlx-klein
+    labels:
+      - dependencies
+  - package-ecosystem: docker
+    directory: /prettier
+    schedule:
+      interval: daily
+      time: '07:00'
+    ignore:
+      - dependency-name: '*'
+        update-types:
+          - version-update:semver-major
+    target-branch: main
     labels:
       - dependencies
   - package-ecosystem: docker
@@ -162,10 +150,6 @@ updates:
         update-types:
           - version-update:semver-major
     target-branch: main
-    reviewers:
-      - saschanowak
-      - paxuclus
-      - nlx-klein
     labels:
       - dependencies
   - package-ecosystem: docker
@@ -178,10 +162,6 @@ updates:
         update-types:
           - version-update:semver-major
     target-branch: main
-    reviewers:
-      - saschanowak
-      - paxuclus
-      - nlx-klein
     labels:
       - dependencies
   - package-ecosystem: docker
@@ -194,10 +174,6 @@ updates:
         update-types:
           - version-update:semver-major
     target-branch: main
-    reviewers:
-      - saschanowak
-      - paxuclus
-      - nlx-klein
     labels:
       - dependencies
   - package-ecosystem: docker
@@ -210,10 +186,6 @@ updates:
         update-types:
           - version-update:semver-major
     target-branch: main
-    reviewers:
-      - saschanowak
-      - paxuclus
-      - nlx-klein
     labels:
       - dependencies
   - package-ecosystem: docker
@@ -226,10 +198,6 @@ updates:
         update-types:
           - version-update:semver-major
     target-branch: main
-    reviewers:
-      - saschanowak
-      - paxuclus
-      - nlx-klein
     labels:
       - dependencies
   - package-ecosystem: docker
@@ -242,10 +210,6 @@ updates:
         update-types:
           - version-update:semver-major
     target-branch: main
-    reviewers:
-      - saschanowak
-      - paxuclus
-      - nlx-klein
     labels:
       - dependencies
   - package-ecosystem: docker
@@ -258,10 +222,6 @@ updates:
         update-types:
           - version-update:semver-major
     target-branch: main
-    reviewers:
-      - saschanowak
-      - paxuclus
-      - nlx-klein
     labels:
       - dependencies
   - package-ecosystem: docker
@@ -274,10 +234,6 @@ updates:
         update-types:
           - version-update:semver-major
     target-branch: main
-    reviewers:
-      - saschanowak
-      - paxuclus
-      - nlx-klein
     labels:
       - dependencies
   - package-ecosystem: docker
@@ -290,10 +246,6 @@ updates:
         update-types:
           - version-update:semver-major
     target-branch: main
-    reviewers:
-      - saschanowak
-      - paxuclus
-      - nlx-klein
     labels:
       - dependencies
   - package-ecosystem: docker
@@ -306,10 +258,6 @@ updates:
         update-types:
           - version-update:semver-major
     target-branch: main
-    reviewers:
-      - saschanowak
-      - paxuclus
-      - nlx-klein
     labels:
       - dependencies
   - package-ecosystem: docker
@@ -322,26 +270,6 @@ updates:
         update-types:
           - version-update:semver-major
     target-branch: main
-    reviewers:
-      - saschanowak
-      - paxuclus
-      - nlx-klein
-    labels:
-      - dependencies
-  - package-ecosystem: docker
-    directory: /serverspec
-    schedule:
-      interval: daily
-      time: '07:00'
-    ignore:
-      - dependency-name: '*'
-        update-types:
-          - version-update:semver-major
-    target-branch: main
-    reviewers:
-      - saschanowak
-      - paxuclus
-      - nlx-klein
     labels:
       - dependencies
   - package-ecosystem: docker
@@ -354,10 +282,6 @@ updates:
         update-types:
           - version-update:semver-major
     target-branch: main
-    reviewers:
-      - saschanowak
-      - paxuclus
-      - nlx-klein
     labels:
       - dependencies
   - package-ecosystem: docker
@@ -370,10 +294,6 @@ updates:
         update-types:
           - version-update:semver-major
     target-branch: main
-    reviewers:
-      - saschanowak
-      - paxuclus
-      - nlx-klein
     labels:
       - dependencies
   - package-ecosystem: docker
@@ -386,10 +306,6 @@ updates:
         update-types:
           - version-update:semver-major
     target-branch: main
-    reviewers:
-      - saschanowak
-      - paxuclus
-      - nlx-klein
     labels:
       - dependencies
   - package-ecosystem: docker
@@ -402,10 +318,6 @@ updates:
         update-types:
           - version-update:semver-major
     target-branch: main
-    reviewers:
-      - saschanowak
-      - paxuclus
-      - nlx-klein
     labels:
       - dependencies
   - package-ecosystem: docker
@@ -418,9 +330,14 @@ updates:
         update-types:
           - version-update:semver-major
     target-branch: main
-    reviewers:
-      - saschanowak
-      - paxuclus
-      - nlx-klein
+    labels:
+      - dependencies
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: daily
+      time: '07:00'
+    open-pull-requests-limit: 5
+    target-branch: main
     labels:
       - dependencies
