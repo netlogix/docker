@@ -31,3 +31,13 @@ updates:
     target-branch: main
     labels:
       - dependencies
+
+  - package-ecosystem: 'npm'
+    directory: '/prettier'
+    schedule:
+      interval: "daily"
+      time: "07:00"
+    open-pull-requests-limit: 5
+    target-branch: main
+    labels:
+      - dependencies

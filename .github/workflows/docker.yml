@@ -135,6 +135,11 @@ jobs:
             target: 'chromium'
             version: 'stable'
             build-args: ''
+          - name: prettier
+            context: ./prettier
+            target: 'prettier'
+            version: 'stable'
+            build-args: ''
           - name: mailhog
             context: ./mailhog
             target: 'mailhog'
