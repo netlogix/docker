@@ -1,12 +1,23 @@
-FROM debian:bullseye-slim AS chromium
+FROM debian:bookworm-slim AS chromium
 
-RUN sed -i -e's/ main/ main contrib/g' /etc/apt/sources.list && \
-    echo "ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true" | debconf-set-selections  && \
-    apt-get update && apt-get install -y \
-    curl \
-    chromium=120.0.6099.224-1~deb11u1 \
-    ttf-mscorefonts-installer \
-    --no-install-recommends \
+RUN apt-get update  \
+    && apt-get install -y --no-install-recommends \
+        ca-certificates  \
+        curl \
+    && echo "deb https://deb.debian.org/debian bookworm contrib non-free" >> /etc/apt/sources.list \
+    && echo "ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true" | debconf-set-selections \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends \
+        chromium \
+        fonts-freefont-ttf \
+        fonts-indic \
+        fonts-ipafont-gothic \
+        fonts-kacst \
+        fonts-liberation \
+        fonts-noto-cjk \
+        fonts-thai-tlwg \
+        fonts-wqy-zenhei \
+        ttf-mscorefonts-installer \
     && rm -rf /var/lib/apt/lists/*
 
 RUN groupadd -r chromium && \
