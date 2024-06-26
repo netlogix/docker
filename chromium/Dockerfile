@@ -47,7 +47,6 @@ CMD /usr/bin/chromium \
         --headless \
         --no-sandbox \
         --remote-allow-origins=http://127.0.0.1 \
-        --remote-debugging-address=0.0.0.0 \
         --remote-debugging-port=9221 \
         ${ADDITIONAL_ARGS} & \
     socat TCP-LISTEN:${REMOTE_DEBUGGING_PORT},fork,reuseaddr TCP:127.0.0.1:9221
