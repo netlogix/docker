@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM postgres:16.1 AS database
+FROM postgres:16.3 AS database
 
 ENV TZ="Europe/Berlin"
 
