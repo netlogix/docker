@@ -48,10 +48,9 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push (tideways-daemon)
-        id: docker_build_push
         uses: docker/build-push-action@v6
         with:
-          builder: tideways-daemon
+          builder: ${{ steps.buildx.outputs.name }}
           context: ./tideways-daemon
           target: tideways-daemon
           file: ./tideways-daemon/Dockerfile

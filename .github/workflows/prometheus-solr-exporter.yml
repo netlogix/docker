@@ -48,10 +48,9 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push (prometheus-solr-exporter)
-        id: docker_build_push
         uses: docker/build-push-action@v6
         with:
-          builder: prometheus-solr-exporter
+          builder: ${{ steps.buildx.outputs.name }}
           context: ./prometheus-solr-exporter
           target: prometheus-solr-exporter
           file: ./prometheus-solr-exporter/Dockerfile

@@ -44,10 +44,9 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push (chromium)
-        id: docker_build_push
         uses: docker/build-push-action@v6
         with:
-          builder: chromium
+          builder: ${{ steps.buildx.outputs.name }}
           context: ./chromium
           target: chromium
           file: ./chromium/Dockerfile

@@ -44,10 +44,9 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push (prometheus-nginx-exporter)
-        id: docker_build_push
         uses: docker/build-push-action@v6
         with:
-          builder: prometheus-nginx-exporter
+          builder: ${{ steps.buildx.outputs.name }}
           context: ./prometheus-nginx-exporter
           target: prometheus-nginx-exporter
           file: ./prometheus-nginx-exporter/Dockerfile

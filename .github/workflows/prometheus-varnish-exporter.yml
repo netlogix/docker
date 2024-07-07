@@ -44,10 +44,9 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push (prometheus-varnish-exporter)
-        id: docker_build_push
         uses: docker/build-push-action@v6
         with:
-          builder: prometheus-varnish-exporter
+          builder: ${{ steps.buildx.outputs.name }}
           context: ./prometheus-varnish-exporter
           target: prometheus-varnish-exporter
           file: ./prometheus-varnish-exporter/Dockerfile

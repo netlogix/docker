@@ -44,10 +44,9 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push (prometheus-apache-exporter)
-        id: docker_build_push
         uses: docker/build-push-action@v6
         with:
-          builder: prometheus-apache-exporter
+          builder: ${{ steps.buildx.outputs.name }}
           context: ./prometheus-apache-exporter
           target: prometheus-apache-exporter
           file: ./prometheus-apache-exporter/Dockerfile

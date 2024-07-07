@@ -44,10 +44,9 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push (prometheus-elasticsearch-exporter)
-        id: docker_build_push
         uses: docker/build-push-action@v6
         with:
-          builder: prometheus-elasticsearch-exporter
+          builder: ${{ steps.buildx.outputs.name }}
           context: ./prometheus-elasticsearch-exporter
           target: prometheus-elasticsearch-exporter
           file: ./prometheus-elasticsearch-exporter/Dockerfile

@@ -58,7 +58,7 @@ jobs:
       - name: Build and push (mysql-fpm)
         uses: docker/build-push-action@v6
         with:
-          builder: mysql
+          builder: ${{ steps.buildx.outputs.name }}
           context: ./mysql
           target: mysql
           file: ./mysql/${{ matrix.image.file || 'Dockerfile' }}

@@ -78,7 +78,7 @@ jobs:
       - name: Build and push (php-fpm)
         uses: docker/build-push-action@v6
         with:
-          builder: php-fpm
+          builder: ${{ steps.buildx.outputs.name }}
           context: ./php
           target: php-fpm
           file: ./php/${{ matrix.image.file || 'Dockerfile' }}
@@ -91,7 +91,7 @@ jobs:
       - name: Build and push (php-cli)
         uses: docker/build-push-action@v6
         with:
-          builder: php-cli
+          builder: ${{ steps.buildx.outputs.name }}
           context: ./php
           target: php-cli
           file: ./php/${{ matrix.image.file || 'Dockerfile' }}
@@ -104,7 +104,7 @@ jobs:
       - name: Build and push (php-cron)
         uses: docker/build-push-action@v6
         with:
-          builder: php-cron
+          builder: ${{ steps.buildx.outputs.name }}
           context: ./php
           target: php-cron
           file: ./php/${{ matrix.image.file || 'Dockerfile' }}
@@ -117,7 +117,7 @@ jobs:
       - name: Build and push (php-supervisor)
         uses: docker/build-push-action@v6
         with:
-          builder: php-supervisor
+          builder: ${{ steps.buildx.outputs.name }}
           context: ./php
           target: php-supervisor
           file: ./php/${{ matrix.image.file || 'Dockerfile' }}
@@ -130,7 +130,7 @@ jobs:
       - name: Build and push (php-fpm-dev)
         uses: docker/build-push-action@v6
         with:
-          builder: php-fpm-dev
+          builder: ${{ steps.buildx.outputs.name }}
           context: ./php
           target: php-fpm-dev
           file: ./php/${{ matrix.image.file || 'Dockerfile' }}
@@ -143,7 +143,7 @@ jobs:
       - name: Build and push (php-cli-dev)
         uses: docker/build-push-action@v6
         with:
-          builder: php-cli-dev
+          builder: ${{ steps.buildx.outputs.name }}
           context: ./php
           target: php-cli-dev
           file: ./php/${{ matrix.image.file || 'Dockerfile' }}
@@ -156,7 +156,7 @@ jobs:
       - name: Build and push (php-cron-dev)
         uses: docker/build-push-action@v6
         with:
-          builder: php-cron-dev
+          builder: ${{ steps.buildx.outputs.name }}
           context: ./php
           target: php-cron-dev
           file: ./php/${{ matrix.image.file || 'Dockerfile' }}

@@ -48,10 +48,9 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push (rabbitmq)
-        id: docker_build_push
         uses: docker/build-push-action@v6
         with:
-          builder: rabbitmq
+          builder: ${{ steps.buildx.outputs.name }}
           context: ./rabbitmq
           target: rabbitmq
           file: ./rabbitmq/Dockerfile

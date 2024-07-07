@@ -48,10 +48,9 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push (prometheus-redis-exporter)
-        id: docker_build_push
         uses: docker/build-push-action@v6
         with:
-          builder: prometheus-redis-exporter
+          builder: ${{ steps.buildx.outputs.name }}
           context: ./prometheus-redis-exporter
           target: prometheus-redis-exporter
           file: ./prometheus-redis-exporter/Dockerfile

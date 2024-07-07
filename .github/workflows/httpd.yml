@@ -62,7 +62,7 @@ jobs:
       - name: Build and push (httpd-fpm)
         uses: docker/build-push-action@v6
         with:
-          builder: httpd
+          builder: ${{ steps.buildx.outputs.name }}
           context: ./httpd
           target: httpd-${{ matrix.image.name }}
           file: ./httpd/Dockerfile

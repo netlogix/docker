@@ -48,10 +48,9 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push (nginx)
-        id: docker_build_push
         uses: docker/build-push-action@v6
         with:
-          builder: nginx
+          builder: ${{ steps.buildx.outputs.name }}
           context: ./nginx
           target: nginx
           file: ./nginx/Dockerfile
@@ -62,10 +61,9 @@ jobs:
           cache-to: type=gha, scope=${{ github.workflow }}-nginx, mode=max
 
       - name: Build and push (nginx)
-        id: docker_build_push
         uses: docker/build-push-action@v6
         with:
-          builder: styleguide
+          builder: ${{ steps.buildx.outputs.name }}
           context: ./nginx
           target: styleguide
           file: ./nginx/Dockerfile

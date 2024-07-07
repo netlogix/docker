@@ -48,10 +48,9 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push (varnish)
-        id: docker_build_push
         uses: docker/build-push-action@v6
         with:
-          builder: varnish
+          builder: ${{ steps.buildx.outputs.name }}
           context: ./varnish
           target: varnish
           file: ./varnish/Dockerfile

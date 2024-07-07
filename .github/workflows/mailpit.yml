@@ -48,10 +48,9 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push (mailpit)
-        id: docker_build_push
         uses: docker/build-push-action@v6
         with:
-          builder: mailpit
+          builder: ${{ steps.buildx.outputs.name }}
           context: ./mailpit
           target: mailpit
           file: ./mailpit/Dockerfile

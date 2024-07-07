@@ -44,10 +44,9 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push (prometheus-php-fpm-exporter)
-        id: docker_build_push
         uses: docker/build-push-action@v6
         with:
-          builder: prometheus-php-fpm-exporter
+          builder: ${{ steps.buildx.outputs.name }}
           context: ./prometheus-php-fpm-exporter
           target: prometheus-php-fpm-exporter
           file: ./prometheus-php-fpm-exporter/Dockerfile

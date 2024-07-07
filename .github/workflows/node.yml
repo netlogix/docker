@@ -58,7 +58,7 @@ jobs:
       - name: Build and push (node-fpm)
         uses: docker/build-push-action@v6
         with:
-          builder: node
+          builder: ${{ steps.buildx.outputs.name }}
           context: ./node
           target: node
           file: ./node/Dockerfile

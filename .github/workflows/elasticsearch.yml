@@ -48,10 +48,9 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push (elasticsearch)
-        id: docker_build_push
         uses: docker/build-push-action@v6
         with:
-          builder: elasticsearch
+          builder: ${{ steps.buildx.outputs.name }}
           context: ./elasticsearch
           target: elasticsearch
           file: ./elasticsearch/Dockerfile

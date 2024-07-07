@@ -58,7 +58,7 @@ jobs:
       - name: Build and push (mariadb-fpm)
         uses: docker/build-push-action@v6
         with:
-          builder: mariadb
+          builder: ${{ steps.buildx.outputs.name }}
           context: ./mariadb
           target: mariadb
           file: ./mariadb/${{ matrix.image.file || 'Dockerfile' }}

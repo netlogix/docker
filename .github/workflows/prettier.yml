@@ -44,10 +44,9 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push (prettier)
-        id: docker_build_push
         uses: docker/build-push-action@v6
         with:
-          builder: prettier
+          builder: ${{ steps.buildx.outputs.name }}
           context: ./prettier
           target: prettier
           file: ./prettier/Dockerfile

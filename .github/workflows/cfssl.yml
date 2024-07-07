@@ -44,10 +44,9 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push (cfssl)
-        id: docker_build_push
         uses: docker/build-push-action@v6
         with:
-          builder: cfssl
+          builder: ${{ steps.buildx.outputs.name }}
           context: ./cfssl
           target: cfssl
           file: ./cfssl/Dockerfile
@@ -58,10 +57,9 @@ jobs:
           cache-to: type=gha, mode=max
 
       - name: Build and push (cfssl)
-        id: docker_build_push
         uses: docker/build-push-action@v6
         with:
-          builder: cfssl-server
+          builder: ${{ steps.buildx.outputs.name }}
           context: ./cfssl
           target: cfssl-server
           file: ./cfssl/Dockerfile
