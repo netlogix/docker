@@ -11,4 +11,6 @@ acl purge {
 
 acl webserver {
     "website_fpm";
+    "website_cli";
+    "website_cron";
 }
