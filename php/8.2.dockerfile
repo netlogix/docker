@@ -31,10 +31,59 @@ RUN apt-get update && \
         apt-transport-https\
         libfcgi-bin \
         ca-certificates \
-        curl \
+        wget \
         gnupg2 \
         locales
 
+RUN echo 'deb [signed-by=/usr/share/keyrings/tideways.gpg] https://packages.tideways.com/apt-packages-main any-version main' | tee /etc/apt/sources.list.d/tideways.list && \
+    wget -qO - 'https://packages.tideways.com/key.gpg' | gpg --dearmor | tee /usr/share/keyrings/tideways.gpg > /dev/null
+
+RUN add-apt-repository ppa:ondrej/php -y
+
+RUN apt-get update && \
+    apt-get -y install --no-install-suggests --no-install-recommends \
+        cron \
+        ghostscript \
+        gifsicle \
+        imagemagick \
+        jpegoptim \
+        openssl \
+        optipng \
+        pngquant \
+        supervisor \
+        tar \
+        unzip \
+        webp \
+        zip \
+        php${PHP_VERSION} \
+        php${PHP_VERSION}-apcu \
+        php${PHP_VERSION}-bcmath \
+        php${PHP_VERSION}-cli \
+        php${PHP_VERSION}-common \
+        php${PHP_VERSION}-curl \
+        php${PHP_VERSION}-fpm \
+        php${PHP_VERSION}-gd \
+        php${PHP_VERSION}-igbinary \
+        php${PHP_VERSION}-imagick \
+        php${PHP_VERSION}-intl \
+        php${PHP_VERSION}-mbstring \
+        php${PHP_VERSION}-mysql \
+        php${PHP_VERSION}-opcache \
+        php${PHP_VERSION}-pgsql \
+        php${PHP_VERSION}-readline \
+        php${PHP_VERSION}-redis \
+        php${PHP_VERSION}-sqlite3  \
+        php${PHP_VERSION}-xml \
+        php${PHP_VERSION}-yaml \
+        php${PHP_VERSION}-zip \
+        tideways-php \
+        tideways-cli \
+    && apt-get autoremove \
+    && find /var/log -type f -name "*.log" -delete \
+    && rm -rf /var/lib/apt/lists/* /var/cache/ldconfig/aux-cache \
+    && rm -rf /etc/cron.*/*
+
+# Install locales
 RUN locale-gen de_DE.UTF-8 && \
     locale-gen en_GB.UTF-8 && \
     locale-gen en_US.UTF-8 && \
@@ -48,51 +97,6 @@ RUN locale-gen de_DE.UTF-8 && \
 COPY certs/* /usr/share/ca-certificates/netlogix/
 RUN echo "netlogix/docker-dev-ca.crt" >> /etc/ca-certificates.conf && update-ca-certificates
 
-RUN echo 'deb https://packages.tideways.com/apt-packages-main any-version main' > /etc/apt/sources.list.d/tideways.list && \
-    curl -L -sS 'https://packages.tideways.com/key.gpg' | apt-key add -
-
-RUN add-apt-repository ppa:ondrej/php -y
-
-RUN apt-get update && \
-    apt-get -y install --no-install-suggests --no-install-recommends \
-        ghostscript \
-        gifsicle \
-        imagemagick \
-        jpegoptim \
-        openssl \
-        optipng \
-        pngquant \
-        tar \
-        unzip \
-        webp \
-        zip \
-        php${PHP_VERSION} \
-        php${PHP_VERSION}-apcu \
-        php${PHP_VERSION}-bcmath \
-        php${PHP_VERSION}-common \
-        php${PHP_VERSION}-cli \
-        php${PHP_VERSION}-curl \
-        php${PHP_VERSION}-fpm \
-        php${PHP_VERSION}-gd \
-        php${PHP_VERSION}-igbinary \
-        php${PHP_VERSION}-imagick \
-        php${PHP_VERSION}-intl \
-        php${PHP_VERSION}-mbstring \
-        php${PHP_VERSION}-mysql \
-        php${PHP_VERSION}-opcache \
-        php${PHP_VERSION}-pgsql \
-        php${PHP_VERSION}-readline \
-        php${PHP_VERSION}-redis \
-        php${PHP_VERSION}-xml \
-        php${PHP_VERSION}-yaml \
-        php${PHP_VERSION}-zip \
-    && apt-get -y install --no-install-suggests --no-install-recommends \
-        tideways-php \
-        tideways-cli \
-    && apt-get autoremove \
-    && find /var/log -type f -name "*.log" -delete \
-    && rm -rf /var/lib/apt/lists/* /var/cache/ldconfig/aux-cache
-
 RUN ln -s /usr/sbin/php-fpm${PHP_VERSION} /usr/sbin/php-fpm
 
 RUN mkdir -p "/run/php/" \
@@ -101,11 +105,17 @@ RUN mkdir -p "/run/php/" \
     && touch /var/log/xdebug.log \
     && chown www-data:www-data /var/log/xdebug.log
 
+RUN touch /var/run/supervisord.pid \
+    && chown www-data:www-data /var/run/supervisord.pid
+
 # Config files
 COPY config/conf.d /etc/php/${PHP_VERSION}/cli/conf.d/
 COPY config/conf.d /etc/php/${PHP_VERSION}/fpm/conf.d/
 COPY config/fpm/pool.d /etc/php/${PHP_VERSION}/fpm/pool.d/
 COPY config/fpm-${PHP_VERSION}/pool.d /etc/php/${PHP_VERSION}/fpm/pool.d/
+
+# Config files
+COPY dev/bash /root/
 
 # Test php-fpm config and php info
 RUN php-fpm -tt
@@ -136,35 +146,12 @@ CMD ["php", "-a"]
 
 FROM php-cli AS php-cron
 
-RUN apt-get update && \
-    apt-get -y install --no-install-suggests --no-install-recommends \
-      cron \
-    && apt-get autoremove \
-    && find /var/log -type f -name "*.log" -delete \
-    && rm -rf /var/lib/apt/lists/* /var/cache/ldconfig/aux-cache \
-    && rm -rf /etc/cron.*/*
-
-WORKDIR /var/www
-
 COPY cron/docker-cron-entrypoint /usr/local/bin/
 
 ENTRYPOINT ["docker-cron-entrypoint"]
 CMD ["cron", "-f", "-l", "2"]
 
 FROM php-cli AS php-supervisor
-
-RUN apt-get update && \
-    apt-get -y install --no-install-suggests --no-install-recommends \
-      supervisor \
-    && apt-get autoremove \
-    && find /var/log -type f -name "*.log" -delete \
-    && rm -rf /var/lib/apt/lists/* /var/cache/ldconfig/aux-cache \
-    && rm -rf /etc/cron.*/*
-
-RUN touch /var/run/supervisord.pid \
-    && chown www-data:www-data /var/run/supervisord.pid
-
-WORKDIR /var/www
 
 COPY supervisor/docker-supervisor-entrypoint /usr/local/bin/
 COPY supervisor/supervisord.conf /etc/supervisor/supervisord.conf
@@ -188,7 +175,7 @@ ENV PHP_IDE_CONFIG="serverName=localhost"
 
 RUN apt-get update && \
     apt-get -y install --no-install-suggests --no-install-recommends \
-      make php${PHP_VERSION}-dev php${PHP_VERSION}-sqlite3 php-pear openssh-client git patch \
+      make php${PHP_VERSION}-dev php-pear openssh-client git patch \
     && mkdir -p /tmp/pear/cache \
     && pecl channel-update pecl.php.net \
     && pecl install xdebug-${XDEBUG_VERSION} \
@@ -210,7 +197,6 @@ RUN apt-get update && \
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 COPY dev/scripts /usr/local/bin/
-COPY dev/bash /root/
 
 # Dev PHP cli
 FROM php-fpm-dev AS php-cli-dev
@@ -227,14 +213,6 @@ CMD ["php", "-a"]
 
 # Dev PHP cron
 FROM php-cli-dev AS php-cron-dev
-
-RUN apt-get update && \
-    apt-get -y install --no-install-suggests --no-install-recommends \
-      cron \
-    && apt-get autoremove \
-    && find /var/log -type f -name "*.log" -delete \
-    && rm -rf /var/lib/apt/lists/* /var/cache/ldconfig/aux-cache \
-    && rm -rf /etc/cron.*/*
 
 WORKDIR /var/www
 
