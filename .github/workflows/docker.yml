@@ -131,11 +131,6 @@ jobs:
             target: 'webserver-symfony'
             version: ''
             build-args: ''
-          - name: chromium
-            context: ./chromium
-            target: 'chromium'
-            version: 'stable'
-            build-args: ''
           - name: prettier
             context: ./prettier
             target: 'prettier'
