@@ -40,7 +40,7 @@ jobs:
             context: ./mariadb
             target: ''
             version: ''
-            file: 10.3.dockerfile
+            file: 10.11.dockerfile
             build-args: ''
           - name: mysql
             context: ./mysql
@@ -94,7 +94,7 @@ jobs:
             context: ./solr
             target: ''
             version: ''
-            file: 8.Dockerfile
+            file: 8.dockerfile
             build-args: ''
           - name: varnish
             context: ./varnish
