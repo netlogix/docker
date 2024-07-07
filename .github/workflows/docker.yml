@@ -47,6 +47,12 @@ jobs:
             target: ''
             version: ''
             build-args: ''
+          - name: mysql
+            context: ./mysql
+            target: ''
+            version: ''
+            file: 8.0.dockerfile
+            build-args: ''
           - name: postgres
             context: ./postgres
             target: ''
