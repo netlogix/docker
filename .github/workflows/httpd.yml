@@ -1,0 +1,74 @@
+name: 'Build httpd docker image'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  schedule:
+    - cron: 0 7 * * THU
+  push:
+    branches:
+      - main
+    paths:
+      - httpd/**
+  pull_request:
+    branches:
+      - main
+    paths:
+      - httpd/**
+  workflow_dispatch:
+    inputs: {}
+
+jobs:
+  build-docker-image:
+    name: 'Build httpd-${{ matrix.image.name }} docker image'
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      max-parallel: 10
+      matrix:
+        image:
+          - name: typo3
+          - name: neos
+          - name: shopware
+          - name: shopware6
+          - name: symfony
+          - name: static
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Setup Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Read version from Dockerfile
+        id: docker
+        run: echo "version=$(./extract-version.sh ./httpd/Dockerfile)" >> $GITHUB_OUTPUT
+
+      - name: Login to GHCR
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push (httpd-fpm)
+        uses: docker/build-push-action@v6
+        with:
+          builder: httpd
+          context: ./httpd
+          target: httpd-${{ matrix.image.name }}
+          file: ./httpd/Dockerfile
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ghcr.io/netlogix/docker/httpd-${{ matrix.image.name }}:${{ steps.docker.outputs.version }},ghcr.io/netlogix/docker/webserver-${{ matrix.image.name }}:${{ steps.docker.outputs.version }}
+          platforms: linux/amd64,linux/arm64
+          cache-from: type=gha, scope=${{ github.workflow }}-httpd
+          cache-to: type=gha, scope=${{ github.workflow }}-httpd, mode=max
+

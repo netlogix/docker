@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 ARG UBUNTU_VERSION=24.04
-FROM ubuntu:${UBUNTU_VERSION} as base
+FROM ubuntu:${UBUNTU_VERSION} AS base
 ARG PHP_VERSION=8.2
 ARG XDEBUG_VERSION=3.3.2
 

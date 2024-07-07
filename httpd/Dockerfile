@@ -10,20 +10,20 @@ EXPOSE 90
 
 HEALTHCHECK --interval=2s --timeout=20s --retries=10 CMD wget -qO- http://localhost:90/health | grep -q 'health'
 
-FROM base AS webserver-typo3
+FROM base AS httpd-typo3
 COPY config/typo3 /usr/local/apache2/vhosts
 
-FROM base AS webserver-neos
+FROM base AS httpd-neos
 COPY config/neos /usr/local/apache2/vhosts
 
-FROM base AS webserver-shopware
+FROM base AS httpd-shopware
 COPY config/shopware /usr/local/apache2/vhosts
 
-FROM base AS webserver-shopware6
+FROM base AS httpd-shopware6
 COPY config/shopware6 /usr/local/apache2/vhosts
 
-FROM base AS webserver-symfony
+FROM base AS httpd-symfony
 COPY config/symfony /usr/local/apache2/vhosts
 
-FROM base AS webserver-static
+FROM base AS httpd-static
 COPY config/static /usr/local/apache2/vhosts

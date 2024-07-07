@@ -1,0 +1,63 @@
+name: 'Build tideways-daemon docker image'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  schedule:
+    - cron: 0 7 * * THU
+  push:
+    branches:
+      - main
+    paths:
+      - tideways-daemon/**
+  pull_request:
+    branches:
+      - main
+    paths:
+      - tideways-daemon/**
+  workflow_dispatch:
+    inputs: {}
+
+jobs:
+  build-docker-image:
+    name: 'Build tideways-daemon docker image'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Setup Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Read version from Dockerfile
+        id: docker
+        run: echo "version=$(./extract-version.sh ./tideways-daemon/Dockerfile)" >> $GITHUB_OUTPUT
+
+      - name: Login to GHCR
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push (tideways-daemon)
+        id: docker_build_push
+        uses: docker/build-push-action@v6
+        with:
+          builder: tideways-daemon
+          context: ./tideways-daemon
+          target: tideways-daemon
+          file: ./tideways-daemon/Dockerfile
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ghcr.io/netlogix/docker/tideways-daemon:latest,ghcr.io/netlogix/docker/tideways-daemon:${{ steps.docker.outputs.version }}
+          platforms: linux/amd64,linux/arm64
+          cache-from: type=gha
+          cache-to: type=gha, mode=max
+
