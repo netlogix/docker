@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM httpd:2.4-alpine as base
+FROM httpd:2.4-alpine AS base
 ENV FPM_BACKEND=php-fpm:9000
 COPY config/defaults /usr/local/apache2/
 RUN sed -i 's/LoadModule autoindex_module/#LoadModule autoindex_module/g' /usr/local/apache2/conf/httpd.conf
