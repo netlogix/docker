@@ -28,4 +28,3 @@ proxy_buffers 8 64k;
 
 include includes/clear_headers;
 include includes/security_headers;
-include includes/parsed_accept;

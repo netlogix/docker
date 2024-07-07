@@ -1,19 +1,18 @@
 # syntax=docker/dockerfile:1
 # Adding third-party modules to nginx official image
 # SEE https://github.com/nginxinc/docker-nginx/tree/master/modules
-FROM nginx:1.27.0 as builder
+FROM nginx:1.27.0 AS builder
 
-ENV ENABLED_MODULES="ndk headers-more lua subs-filter geoip2"
+ENV ENABLED_MODULES="headers-more subs-filter geoip2"
+SHELL ["/bin/bash", "-exo", "pipefail", "-c"]
 
-RUN set -ex \
-    && if [ "$ENABLED_MODULES" = "" ]; then \
+RUN if [ "$ENABLED_MODULES" = "" ]; then \
         echo "No additional modules enabled, exiting"; \
         exit 1; \
     fi
 
-RUN set -ex \
-    && apt update \
-    && apt install -y --no-install-suggests --no-install-recommends \
+RUN apt-get update \
+    && apt-get install -y --no-install-suggests --no-install-recommends \
                 patch make wget mercurial devscripts debhelper dpkg-dev \
                 quilt lsb-release build-essential libxml2-utils xsltproc \
                 equivs git g++ libparse-recdescent-perl \
@@ -42,7 +41,7 @@ RUN set -ex \
             # some modules require build dependencies
             if [ -f /modules/$module/build-deps ]; then \
                 echo "Installing $module build dependencies"; \
-                apt update && apt install -y --no-install-suggests --no-install-recommends $(cat /modules/$module/build-deps | xargs); \
+                apt-get update && apt-get install -y --no-install-suggests --no-install-recommends $(cat /modules/$module/build-deps | xargs); \
             fi; \
             # if a module has a build dependency that is not in a distro, provide a
             # shell script to fetch/build/install those
@@ -73,17 +72,15 @@ FROM nginx:1.27.0
 ENV TZ="Europe/Berlin"
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-COPY --from=builder /tmp/packages /tmp/packages
-RUN set -ex \
-    && apt update \
+RUN --mount=type=bind,target=/tmp/packages/,source=/tmp/packages/,from=builder \
+    apt-get update \
     && . /tmp/packages/modules.env \
     && for module in $BUILT_MODULES; do \
-           apt install --no-install-suggests --no-install-recommends -y /tmp/packages/nginx-module-${module}_${NGINX_VERSION}*.deb; \
+           apt-get install --no-install-suggests --no-install-recommends -y /tmp/packages/nginx-module-${module}_${NGINX_VERSION}*.deb; \
        done \
-    && rm -rf /tmp/packages \
     && rm -rf /var/lib/apt/lists/
 
-RUN curl -L https://github.com/a8m/envsubst/releases/download/v1.2.0/envsubst-Linux-x86_64 -o /usr/local/bin/envsubst && chmod +x /usr/local/bin/envsubst
+RUN curl -L https://github.com/a8m/envsubst/releases/download/v1.4.2/envsubst-Linux-x86_64 -o /usr/local/bin/envsubst && chmod +x /usr/local/bin/envsubst
 
 COPY config /etc/nginx
 COPY docker-entrypoint.d /docker-entrypoint.d
