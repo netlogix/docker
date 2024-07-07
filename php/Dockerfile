@@ -1,7 +1,8 @@
 # syntax=docker/dockerfile:1
-ARG UBUNTU_VERSION=22.04
+ARG UBUNTU_VERSION=24.04
 FROM ubuntu:${UBUNTU_VERSION} as base
-ARG PHP_VERSION=8.1
+ARG PHP_VERSION=8.3
+ARG XDEBUG_VERSION=3.3.2
 
 ENV DEBIAN_FRONTEND=noninteractive \
     TZ=UTC \
@@ -19,6 +20,7 @@ ENV PHP_VERSION=${PHP_VERSION} \
     PHP_REALPATH_CACHE_TTL=512 \
     PHP_XDEBUG_HOST=host.docker.internal \
     PHP_XDEBUG_MODE=off \
+    XDEBUG_VERSION=${XDEBUG_VERSION} \
     TIDEWAYS_APIKEY="" \
     TIDEWAYS_DAEMON="tcp://tideways-daemon:9135" \
     TIDEWAYS_SAMPLERATE=25
@@ -60,6 +62,7 @@ RUN apt-get update && \
         unzip \
         webp \
         zip \
+        php${PHP_VERSION} \
         php${PHP_VERSION}-apcu \
         php${PHP_VERSION}-bcmath \
         php${PHP_VERSION}-common \
@@ -184,7 +187,7 @@ RUN apt-get update && \
       make php${PHP_VERSION}-dev php${PHP_VERSION}-sqlite3 php-pear openssh-client git patch \
     && mkdir -p /tmp/pear/cache \
     && pecl channel-update pecl.php.net \
-    && pecl install xdebug-3.1.6 \
+    && pecl install xdebug-${XDEBUG_VERSION} \
     && echo "zend_extension=xdebug.so" > /etc/php/${PHP_VERSION}/mods-available/xdebug.ini \
     && phpenmod xdebug \
     && apt-get -y autoremove --purge make php${PHP_VERSION}-dev php-pear \
