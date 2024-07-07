@@ -7,23 +7,21 @@ if [ "${VERSION:-}" = "" ]; then
   export VERSION=latest
 fi
 
-docker buildx build -t ghcr.io/netlogix/docker/serverspec:${VERSION} -f serverspec/Dockerfile serverspec
-
 docker buildx build -t ghcr.io/netlogix/docker/mariadb:${VERSION} -f mariadb/Dockerfile mariadb
 docker buildx build -t ghcr.io/netlogix/docker/mysql:${VERSION} -f mysql/Dockerfile mysql
 docker buildx build -t ghcr.io/netlogix/docker/postgres:${VERSION} -f postgres/Dockerfile postgres
 docker buildx build -t ghcr.io/netlogix/docker/prettier:${VERSION} -f prettier/Dockerfile prettier
-docker buildx build -t ghcr.io/netlogix/docker/proxy:${VERSION} -f proxy/Dockerfile proxy
+docker buildx build -t ghcr.io/netlogix/docker/nginx:${VERSION} -f nginx/Dockerfile --target=nginx nginx
+docker buildx build -t ghcr.io/netlogix/docker/styleguide:${VERSION} -f nginx/Dockerfile --target=styleguide nginx
 docker buildx build -t ghcr.io/netlogix/docker/rabbitmq:${VERSION} -f rabbitmq/Dockerfile rabbitmq
 docker buildx build -t ghcr.io/netlogix/docker/redis:${VERSION} -f redis/Dockerfile redis
 docker buildx build -t ghcr.io/netlogix/docker/solr:${VERSION} -f solr/Dockerfile solr
 docker buildx build -t ghcr.io/netlogix/docker/varnish:${VERSION} -f varnish/Dockerfile varnish
 docker buildx build -t ghcr.io/netlogix/docker/elasticsearch:${VERSION} -f elasticsearch/Dockerfile elasticsearch
-docker buildx build -t ghcr.io/netlogix/docker/styleguide:${VERSION} -f styleguide/Dockerfile styleguide
-docker buildx build -t ghcr.io/netlogix/docker/webserver-neos:${VERSION} -f webserver/Dockerfile --target=webserver-neos webserver
-docker buildx build -t ghcr.io/netlogix/docker/webserver-static:${VERSION} -f webserver/Dockerfile --target=webserver-static webserver
-docker buildx build -t ghcr.io/netlogix/docker/webserver-typo3:${VERSION} -f webserver/Dockerfile --target=webserver-typo3 webserver
-docker buildx build -t ghcr.io/netlogix/docker/webserver-shopware:${VERSION} -f webserver/Dockerfile --target=webserver-shopware webserver
+docker buildx build -t ghcr.io/netlogix/docker/httpd-neos:${VERSION} -f httpd/Dockerfile --target=httpd-neos httpd
+docker buildx build -t ghcr.io/netlogix/docker/httpd-static:${VERSION} -f httpd/Dockerfile --target=httpd-static httpd
+docker buildx build -t ghcr.io/netlogix/docker/httpd-typo3:${VERSION} -f httpd/Dockerfile --target=httpd-typo3 httpd
+docker buildx build -t ghcr.io/netlogix/docker/httpd-shopware:${VERSION} -f httpd/Dockerfile --target=httpd-shopware httpd
 docker buildx build -t ghcr.io/netlogix/docker/chromium:${VERSION} -f chromium/Dockerfile chromium
 docker buildx build -t ghcr.io/netlogix/docker/mailpit:${VERSION} -f mailpit/Dockerfile mailpit
 docker buildx build -t ghcr.io/netlogix/docker/cfssl:${VERSION} -f cfssl/Dockerfile --target=cfssl cfssl

@@ -83,7 +83,6 @@ RUN --mount=type=bind,target=/tmp/packages/,source=/tmp/packages/,from=builder \
 RUN curl -L https://github.com/a8m/envsubst/releases/download/v1.4.2/envsubst-Linux-x86_64 -o /usr/local/bin/envsubst && chmod +x /usr/local/bin/envsubst
 
 COPY etc /etc/
-COPY config /etc/nginx
 COPY docker-entrypoint.d /docker-entrypoint.d
 
 # Test nginx config
