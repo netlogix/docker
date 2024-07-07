@@ -1,6 +1,4 @@
-client_max_body_size 128m;
-
-include includes/proxy_params;
+include includes/defaults;
 
 location / {
     proxy_pass http://varnish;
@@ -16,15 +14,9 @@ location ~ /_Resources/.*\.(ttf|woff2?|eot|svg|css)$ {
     add_header Referrer-Policy "same-origin" always;
     add_header X-XSS-Protection "1; mode=block" always;
 
-    proxy_pass http://varnish;
+    proxy_pass http://webserver;
 }
 
-# SSL certificate validation
-include includes/pki_validation;
-
-# Increase buffer size for X-Cache-Tags header
-proxy_buffer_size 64k;
-proxy_buffers 8 64k;
-
-include includes/clear_headers;
-include includes/security_headers;
+location ~ ^/(_Resources/Static|_Resources/Persistent)/ {
+    proxy_pass http://webserver;
+}

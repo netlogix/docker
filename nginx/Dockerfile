@@ -68,7 +68,7 @@ RUN apt-get update \
     done \
     && echo "BUILT_MODULES=\"$BUILT_MODULES\"" > /tmp/packages/modules.env
 
-FROM nginx:1.27.0
+FROM nginx:1.27.0 AS nginx
 ENV TZ="Europe/Berlin"
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
@@ -82,6 +82,7 @@ RUN --mount=type=bind,target=/tmp/packages/,source=/tmp/packages/,from=builder \
 
 RUN curl -L https://github.com/a8m/envsubst/releases/download/v1.4.2/envsubst-Linux-x86_64 -o /usr/local/bin/envsubst && chmod +x /usr/local/bin/envsubst
 
+COPY etc /etc/
 COPY config /etc/nginx
 COPY docker-entrypoint.d /docker-entrypoint.d
 
@@ -89,3 +90,7 @@ COPY docker-entrypoint.d /docker-entrypoint.d
 RUN nginx -t
 
 HEALTHCHECK --interval=2s --timeout=20s --retries=10 CMD curl --silent --fail http://127.0.0.1:90/health || exit 1
+
+FROM nginx AS styleguide
+
+COPY styleguide /etc/nginx

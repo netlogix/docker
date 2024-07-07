@@ -1,0 +1,9 @@
+include includes/defaults;
+
+location / {
+    proxy_pass http://varnish;
+}
+
+location ~ ^/(fileadmin|typo3temp/assets|_assets)/ {
+    proxy_pass http://webserver;
+}

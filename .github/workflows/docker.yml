@@ -1,4 +1,4 @@
-name: 'Build basic docker container'
+name: 'Build basic docker images'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -18,7 +18,7 @@ on:
 
 jobs:
   build-docker-images:
-    name: 'Build Docker Images'
+    name: 'Build ${{ matrix.image.name }} docker image'
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -69,11 +69,6 @@ jobs:
             target: ''
             version: ''
             file: 12.dockerfile
-            build-args: ''
-          - name: proxy
-            context: ./proxy
-            target: ''
-            version: ''
             build-args: ''
           - name: rabbitmq
             context: ./rabbitmq
@@ -205,11 +200,6 @@ jobs:
             context: ./prometheus-varnish-exporter
             target: 'prometheus-varnish-exporter'
             version: '1.6.1'
-            build-args: ''
-          - name: styleguide
-            context: ./styleguide
-            target: ''
-            version: ''
             build-args: ''
           - name: node
             context: ./node
@@ -513,21 +503,8 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and export to Docker
-        uses: docker/build-push-action@v6
-        with:
-          builder: ${{ steps.buildx.outputs.name }}
-          context: ${{ matrix.image.context }}
-          target: ${{ matrix.image.target }}
-          file: ${{ matrix.image.context }}/${{ matrix.image.file || 'Dockerfile' }}
-          build-args: ${{ matrix.image.build-args }}
-          load: true
-          tags: ${{ matrix.image.name }}:${{ steps.docker.outputs.version }}
-          cache-from: type=gha, scope=${{ github.workflow }}-${{ matrix.image.name }}-${{ matrix.image.version }}
-          cache-to: type=gha, scope=${{ github.workflow }}-${{ matrix.image.name }}-${{ matrix.image.version }}, mode=max
-
       - name: Build and push to GHCR
-        id: docker_push
+        id: docker_build_push
         uses: docker/build-push-action@v6
         with:
           builder: ${{ steps.buildx.outputs.name }}
@@ -538,5 +515,6 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ env.DOCKER_IMAGE }}:latest,${{ env.DOCKER_IMAGE }}:${{ steps.docker.outputs.version }}
           platforms: linux/amd64,linux/arm64
-          cache-from: type=gha, scope=${{ github.workflow }}-${{ matrix.image.name }}-${{ matrix.image.version }}
-          cache-to: type=gha, scope=${{ github.workflow }}-${{ matrix.image.name }}-${{ matrix.image.version }}, mode=max
+          cache-from: type=gha, scope=${{ matrix.image.name }}-${{ steps.docker.outputs.version }}
+          cache-to: type=gha, scope=${{ matrix.image.name }}-${{ steps.docker.outputs.version }}, mode=max
+
