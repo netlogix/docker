@@ -57,8 +57,8 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ghcr.io/netlogix/docker/nginx:latest,ghcr.io/netlogix/docker/nginx:${{ steps.docker.outputs.version }},ghcr.io/netlogix/docker/proxy:${{ steps.docker.outputs.version }}
           platforms: linux/amd64,linux/arm64
-          cache-from: type=gha, scope=${{ github.workflow }}-nginx
-          cache-to: type=gha, scope=${{ github.workflow }}-nginx, mode=max
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
       - name: Build and push (nginx)
         uses: docker/build-push-action@v6
