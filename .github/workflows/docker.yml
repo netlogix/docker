@@ -146,11 +146,6 @@ jobs:
             target: 'prettier'
             version: 'stable'
             build-args: ''
-          - name: mailhog
-            context: ./mailhog
-            target: 'mailhog'
-            version: '1.1.0'
-            build-args: ''
           - name: mailpit
             context: ./mailpit
             target: 'mailpit'
