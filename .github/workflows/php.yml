@@ -46,7 +46,7 @@ jobs:
             UBUNTU_VERSION=22.04
             XDEBUG_VERSION=3.3.2
         - version: 8.2
-          file: 8.2.dockerfile
+          file: 8.2.Dockerfile
           build-args: |
             PHP_VERSION=8.2
             UBUNTU_VERSION=24.04
@@ -152,7 +152,7 @@ jobs:
             UBUNTU_VERSION=22.04
             XDEBUG_VERSION=3.3.2
         - version: 8.2
-          file: 8.2.dockerfile
+          file: 8.2.Dockerfile
           build-args: |
             PHP_VERSION=8.2
             UBUNTU_VERSION=24.04

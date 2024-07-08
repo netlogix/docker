@@ -31,9 +31,9 @@ jobs:
       matrix:
         image:
           - version: 10.6
-            file: 10.6.dockerfile
+            file: 10.6.Dockerfile
           - version: 10.11
-            file: 10.11.dockerfile
+            file: 10.11.Dockerfile
           - version: latest
             file: Dockerfile
 

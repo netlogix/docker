@@ -31,9 +31,9 @@ jobs:
       matrix:
         image:
           - version: 8.0
-            file: 8.0.dockerfile
+            file: 8.0.Dockerfile
           - version: 8.4
-            file: 8.4.dockerfile
+            file: 8.4.Dockerfile
           - version: latest
             file: Dockerfile
 
