@@ -1,0 +1,9 @@
+client_max_body_size 128m;
+
+# Increase buffer size for X-Cache-Tags header
+proxy_buffer_size 64k;
+proxy_buffers 8 64k;
+
+include includes/proxy_params;
+include includes/clear_headers;
+include includes/security_headers;

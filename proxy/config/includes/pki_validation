@@ -1,6 +1,0 @@
-# SSL certificate validation
-location ^~ /.well-known/pki-validation/ {
-    root /usr/share/nginx/html/pki-validation/;
-    auth_basic off;
-    allow all;
-}

@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 ARG UBUNTU_VERSION=24.04
 FROM ubuntu:${UBUNTU_VERSION} AS base
-ARG PHP_VERSION=8.3
+ARG PHP_VERSION=8.2
 ARG XDEBUG_VERSION=3.3.2
 
 ENV DEBIAN_FRONTEND=noninteractive \
@@ -27,6 +27,8 @@ ENV PHP_VERSION=${PHP_VERSION} \
 
 RUN apt-get update && \
     apt-get -y install --no-install-suggests --no-install-recommends \
+        software-properties-common \
+        apt-transport-https\
         libfcgi-bin \
         ca-certificates \
         curl \
@@ -35,6 +37,8 @@ RUN apt-get update && \
 
 RUN echo 'deb [signed-by=/usr/share/keyrings/tideways.gpg] https://packages.tideways.com/apt-packages-main any-version main' | tee /etc/apt/sources.list.d/tideways.list && \
     curl -L -sS 'https://packages.tideways.com/key.gpg' | gpg --dearmor | tee /usr/share/keyrings/tideways.gpg > /dev/null
+
+RUN add-apt-repository ppa:ondrej/php -y
 
 RUN apt-get update && \
     apt-get -y install --no-install-suggests --no-install-recommends \

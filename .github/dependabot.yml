@@ -9,6 +9,22 @@ updates:
       interval: daily
       time: '07:00'
   - package-ecosystem: docker
+    directory: /solr
+    schedule:
+      interval: daily
+      time: '07:00'
+    ignore:
+      - dependency-name: '*'
+        update-types:
+          - version-update:semver-patch
+    target-branch: main
+    reviewers:
+      - saschanowak
+      - paxuclus
+      - nlx-klein
+    labels:
+      - dependencies
+  - package-ecosystem: docker
     directory: /cfssl
     schedule:
       interval: daily
@@ -57,7 +73,7 @@ updates:
     labels:
       - dependencies
   - package-ecosystem: docker
-    directory: /mailhog
+    directory: /mailpit
     schedule:
       interval: daily
       time: '07:00'
@@ -138,6 +154,22 @@ updates:
       - dependencies
   - package-ecosystem: docker
     directory: /postgres
+    schedule:
+      interval: daily
+      time: '07:00'
+    ignore:
+      - dependency-name: '*'
+        update-types:
+          - version-update:semver-major
+    target-branch: main
+    reviewers:
+      - saschanowak
+      - paxuclus
+      - nlx-klein
+    labels:
+      - dependencies
+  - package-ecosystem: docker
+    directory: /prettier
     schedule:
       interval: daily
       time: '07:00'
@@ -329,22 +361,6 @@ updates:
     labels:
       - dependencies
   - package-ecosystem: docker
-    directory: /serverspec
-    schedule:
-      interval: daily
-      time: '07:00'
-    ignore:
-      - dependency-name: '*'
-        update-types:
-          - version-update:semver-major
-    target-branch: main
-    reviewers:
-      - saschanowak
-      - paxuclus
-      - nlx-klein
-    labels:
-      - dependencies
-  - package-ecosystem: docker
     directory: /solr
     schedule:
       interval: daily
@@ -422,5 +438,14 @@ updates:
       - saschanowak
       - paxuclus
       - nlx-klein
+    labels:
+      - dependencies
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: daily
+      time: '07:00'
+    open-pull-requests-limit: 5
+    target-branch: main
     labels:
       - dependencies

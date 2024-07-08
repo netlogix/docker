@@ -1,0 +1,70 @@
+name: 'Build node docker image'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  schedule:
+    - cron: 0 7 * * THU
+  push:
+    branches:
+      - main
+    paths:
+      - node/**
+  pull_request:
+    branches:
+      - main
+    paths:
+      - node/**
+  workflow_dispatch:
+    inputs: {}
+
+jobs:
+  build-docker-image:
+    name: 'Build node-${{ matrix.image.version }} docker image'
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      max-parallel: 10
+      matrix:
+        image:
+        - version: 18
+          build-args: |
+            NODE_VERSION=18
+        - version: 20
+          build-args: |
+            NODE_VERSION=20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Setup Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to GHCR
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push (node-fpm)
+        uses: docker/build-push-action@v6
+        with:
+          builder: ${{ steps.buildx.outputs.name }}
+          context: ./node
+          target: node
+          file: ./node/Dockerfile
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ghcr.io/netlogix/docker/node:${{ matrix.image.version }}
+          platforms: linux/amd64,linux/arm64
+          cache-from: type=gha, scope=${{ github.workflow }}-node
+          cache-to: type=gha, scope=${{ github.workflow }}-node, mode=max
+

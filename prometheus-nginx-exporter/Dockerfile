@@ -3,7 +3,7 @@ FROM --platform=$BUILDPLATFORM golang:1.22-alpine AS builder
 
 ARG TARGETOS
 ARG TARGETARCH
-ARG EXPORTER_VERSION='v1.1.0'
+ARG EXPORTER_VERSION='v1.2.0'
 
 WORKDIR /src
 
@@ -12,7 +12,7 @@ RUN git clone -b $EXPORTER_VERSION --single-branch --depth 1 https://github.com/
 
 RUN CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -o /out/nginx_exporter
 
-FROM alpine:3.19 AS prometheus-nginx-exporter
+FROM alpine:3.20 AS prometheus-nginx-exporter
 
 COPY --from=builder /out/* /
 
