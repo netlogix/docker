@@ -17,7 +17,7 @@ RUN sed -i "s|name=core_|name=website-|i" /tmp/solr/Resources/Private/Solr/cores
     && cd /tmp/solr/Resources/Private/Solr/configsets/ext_solr_11_5_0/conf \
     && for f in _schema_analysis_*_core_*.json; do mv "$f" "$(echo "$f" | sed s/core_/website-/)"; done
 
-FROM solr:8.11.3
+FROM solr:8.11.3 AS solr
 
 ENV SOLR_LOG_LEVEL=WARN \
     SOLR_PORT=8983 \

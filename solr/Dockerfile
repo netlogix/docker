@@ -15,7 +15,7 @@ RUN apt-get update && \
     mkdir -p /tmp/solr && \
     tar -zxvf /tmp/solr.tar.gz -C /tmp/solr --strip-components=1;
 
-FROM solr:9.5.0
+FROM solr:9.5.0 AS solr
 ENV TERM=linux \
     SOLR_LOG_LEVEL=WARN \
     SOLR_PORT=8983 \
