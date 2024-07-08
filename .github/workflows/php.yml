@@ -82,6 +82,7 @@ jobs:
           context: ./php
           target: php-fpm
           file: ./php/${{ matrix.image.file || 'Dockerfile' }}
+          build-args: ${{ matrix.image.build-args }}
           push: ${{ github.event_name != 'pull_request' }}
           tags: ghcr.io/netlogix/docker/php-fpm:${{ matrix.image.version }}
           platforms: linux/amd64,linux/arm64
@@ -95,6 +96,7 @@ jobs:
           context: ./php
           target: php-cli
           file: ./php/${{ matrix.image.file || 'Dockerfile' }}
+          build-args: ${{ matrix.image.build-args }}
           push: ${{ github.event_name != 'pull_request' }}
           tags: ghcr.io/netlogix/docker/php-cli:${{ matrix.image.version }}
           platforms: linux/amd64,linux/arm64
@@ -108,6 +110,7 @@ jobs:
           context: ./php
           target: php-cron
           file: ./php/${{ matrix.image.file || 'Dockerfile' }}
+          build-args: ${{ matrix.image.build-args }}
           push: ${{ github.event_name != 'pull_request' }}
           tags: ghcr.io/netlogix/docker/php-cron:${{ matrix.image.version }}
           platforms: linux/amd64,linux/arm64
@@ -121,6 +124,7 @@ jobs:
           context: ./php
           target: php-supervisor
           file: ./php/${{ matrix.image.file || 'Dockerfile' }}
+          build-args: ${{ matrix.image.build-args }}
           push: ${{ github.event_name != 'pull_request' }}
           tags: ghcr.io/netlogix/docker/php-supervisor:${{ matrix.image.version }}
           platforms: linux/amd64,linux/arm64
@@ -188,6 +192,7 @@ jobs:
           context: ./php
           target: php-fpm-dev
           file: ./php/${{ matrix.image.file || 'Dockerfile' }}
+          build-args: ${{ matrix.image.build-args }}
           push: ${{ github.event_name != 'pull_request' }}
           tags: ghcr.io/netlogix/docker/php-fpm-dev:${{ matrix.image.version }}
           platforms: linux/amd64,linux/arm64
@@ -201,6 +206,7 @@ jobs:
           context: ./php
           target: php-cli-dev
           file: ./php/${{ matrix.image.file || 'Dockerfile' }}
+          build-args: ${{ matrix.image.build-args }}
           push: ${{ github.event_name != 'pull_request' }}
           tags: ghcr.io/netlogix/docker/php-cli-dev:${{ matrix.image.version }}
           platforms: linux/amd64,linux/arm64
@@ -214,6 +220,7 @@ jobs:
           context: ./php
           target: php-cron-dev
           file: ./php/${{ matrix.image.file || 'Dockerfile' }}
+          build-args: ${{ matrix.image.build-args }}
           push: ${{ github.event_name != 'pull_request' }}
           tags: ghcr.io/netlogix/docker/php-cron-dev:${{ matrix.image.version }}
           platforms: linux/amd64,linux/arm64

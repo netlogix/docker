@@ -62,6 +62,7 @@ jobs:
           context: ./node
           target: node
           file: ./node/Dockerfile
+          build-args: ${{ matrix.image.build-args }}
           push: ${{ github.event_name != 'pull_request' }}
           tags: ghcr.io/netlogix/docker/node:${{ matrix.image.version }}
           platforms: linux/amd64,linux/arm64
