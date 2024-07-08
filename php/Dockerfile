@@ -29,12 +29,12 @@ RUN apt-get update && \
     apt-get -y install --no-install-suggests --no-install-recommends \
         libfcgi-bin \
         ca-certificates \
-        wget \
+        curl \
         gnupg2 \
         locales
 
 RUN echo 'deb [signed-by=/usr/share/keyrings/tideways.gpg] https://packages.tideways.com/apt-packages-main any-version main' | tee /etc/apt/sources.list.d/tideways.list && \
-    wget -qO - 'https://packages.tideways.com/key.gpg' | gpg --dearmor | tee /usr/share/keyrings/tideways.gpg > /dev/null
+    curl -L -sS 'https://packages.tideways.com/key.gpg' | gpg --dearmor | tee /usr/share/keyrings/tideways.gpg > /dev/null
 
 RUN apt-get update && \
     apt-get -y install --no-install-suggests --no-install-recommends \
