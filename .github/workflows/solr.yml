@@ -45,7 +45,7 @@ jobs:
 
       - name: Read version from Dockerfile
         id: docker
-        run: echo "version=$(./extract-version.sh ./solr/Dockerfile)" >> $GITHUB_OUTPUT
+        run: echo "version=$(./extract-version.sh ./solr/${{ matrix.image.file || 'Dockerfile' }})" >> $GITHUB_OUTPUT
 
       - name: Login to GHCR
         if: github.event_name != 'pull_request'
