@@ -63,7 +63,7 @@ jobs:
           target: solr
           file: ./solr/${{ matrix.image.file || 'Dockerfile' }}
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ghcr.io/netlogix/docker/solr:${{ steps.docker.outputs.version }}
+          tags: ghcr.io/meggernet/docker/solr:${{ steps.docker.outputs.version }}
           platforms: linux/amd64,linux/arm64
           cache-from: type=gha, scope=${{ github.workflow }}-solr
           cache-to: type=gha, scope=${{ github.workflow }}-solr, mode=max

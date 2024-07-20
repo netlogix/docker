@@ -55,7 +55,7 @@ jobs:
           target: mailpit
           file: ./mailpit/Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ghcr.io/netlogix/docker/mailpit:latest,ghcr.io/netlogix/docker/mailpit:${{ steps.docker.outputs.version }}
+          tags: ghcr.io/meggernet/docker/mailpit:latest,ghcr.io/meggernet/docker/mailpit:${{ steps.docker.outputs.version }}
           platforms: linux/amd64,linux/arm64
           cache-from: type=gha
           cache-to: type=gha, mode=max

@@ -51,7 +51,7 @@ jobs:
           target: prometheus-varnish-exporter
           file: ./prometheus-varnish-exporter/Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ghcr.io/netlogix/docker/prometheus-varnish-exporter:latest,ghcr.io/netlogix/docker/prometheus-varnish-exporter:1.6.1
+          tags: ghcr.io/meggernet/docker/prometheus-varnish-exporter:latest,ghcr.io/meggernet/docker/prometheus-varnish-exporter:1.6.1
           platforms: linux/amd64,linux/arm64
           cache-from: type=gha
           cache-to: type=gha, mode=max

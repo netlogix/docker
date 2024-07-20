@@ -51,7 +51,7 @@ jobs:
           target: prometheus-apache-exporter
           file: ./prometheus-apache-exporter/Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ghcr.io/netlogix/docker/prometheus-apache-exporter:latest,ghcr.io/netlogix/docker/prometheus-apache-exporter:1.0.8
+          tags: ghcr.io/meggernet/docker/prometheus-apache-exporter:latest,ghcr.io/meggernet/docker/prometheus-apache-exporter:1.0.8
           platforms: linux/amd64,linux/arm64
           cache-from: type=gha
           cache-to: type=gha, mode=max

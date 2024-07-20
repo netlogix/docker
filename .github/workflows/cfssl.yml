@@ -51,7 +51,7 @@ jobs:
           target: cfssl
           file: ./cfssl/Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ghcr.io/netlogix/docker/cfssl:latest,ghcr.io/netlogix/docker/cfssl:1.6
+          tags: ghcr.io/meggernet/docker/cfssl:latest,ghcr.io/meggernet/docker/cfssl:1.6
           platforms: linux/amd64,linux/arm64
           cache-from: type=gha
           cache-to: type=gha, mode=max
@@ -64,7 +64,7 @@ jobs:
           target: cfssl-server
           file: ./cfssl/Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ghcr.io/netlogix/docker/cfssl-server:latest,ghcr.io/netlogix/docker/cfssl:1.6
+          tags: ghcr.io/meggernet/docker/cfssl-server:latest,ghcr.io/meggernet/docker/cfssl:1.6
           platforms: linux/amd64,linux/arm64
           cache-from: type=gha
           cache-to: type=gha, mode=max

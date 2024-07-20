@@ -51,7 +51,7 @@ jobs:
           target: prometheus-postgres-exporter
           file: ./prometheus-postgres-exporter/Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ghcr.io/netlogix/docker/prometheus-postgres-exporter:latest,ghcr.io/netlogix/docker/prometheus-postgres-exporter:0.15.0
+          tags: ghcr.io/meggernet/docker/prometheus-postgres-exporter:latest,ghcr.io/meggernet/docker/prometheus-postgres-exporter:0.15.0
           platforms: linux/amd64,linux/arm64
           cache-from: type=gha
           cache-to: type=gha, mode=max

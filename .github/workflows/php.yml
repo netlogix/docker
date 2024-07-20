@@ -84,7 +84,7 @@ jobs:
           file: ./php/${{ matrix.image.file || 'Dockerfile' }}
           build-args: ${{ matrix.image.build-args }}
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ghcr.io/netlogix/docker/php-fpm:${{ matrix.image.version }}
+          tags: ghcr.io/meggernet/docker/php-fpm:${{ matrix.image.version }}
           platforms: linux/amd64,linux/arm64
           cache-from: type=gha, scope=${{ github.workflow }}-php
           cache-to: type=gha, scope=${{ github.workflow }}-php, mode=max
@@ -98,7 +98,7 @@ jobs:
           file: ./php/${{ matrix.image.file || 'Dockerfile' }}
           build-args: ${{ matrix.image.build-args }}
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ghcr.io/netlogix/docker/php-cli:${{ matrix.image.version }}
+          tags: ghcr.io/meggernet/docker/php-cli:${{ matrix.image.version }}
           platforms: linux/amd64,linux/arm64
           cache-from: type=gha, scope=${{ github.workflow }}-php
           cache-to: type=gha, scope=${{ github.workflow }}-php, mode=max
@@ -112,7 +112,7 @@ jobs:
           file: ./php/${{ matrix.image.file || 'Dockerfile' }}
           build-args: ${{ matrix.image.build-args }}
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ghcr.io/netlogix/docker/php-cron:${{ matrix.image.version }}
+          tags: ghcr.io/meggernet/docker/php-cron:${{ matrix.image.version }}
           platforms: linux/amd64,linux/arm64
           cache-from: type=gha, scope=${{ github.workflow }}-php
           cache-to: type=gha, scope=${{ github.workflow }}-php, mode=max
@@ -126,7 +126,7 @@ jobs:
           file: ./php/${{ matrix.image.file || 'Dockerfile' }}
           build-args: ${{ matrix.image.build-args }}
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ghcr.io/netlogix/docker/php-supervisor:${{ matrix.image.version }}
+          tags: ghcr.io/meggernet/docker/php-supervisor:${{ matrix.image.version }}
           platforms: linux/amd64,linux/arm64
           cache-from: type=gha, scope=${{ github.workflow }}-php
           cache-to: type=gha, scope=${{ github.workflow }}-php, mode=max
@@ -194,7 +194,7 @@ jobs:
           file: ./php/${{ matrix.image.file || 'Dockerfile' }}
           build-args: ${{ matrix.image.build-args }}
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ghcr.io/netlogix/docker/php-fpm-dev:${{ matrix.image.version }}
+          tags: ghcr.io/meggernet/docker/php-fpm-dev:${{ matrix.image.version }}
           platforms: linux/amd64,linux/arm64
           cache-from: type=gha, scope=${{ github.workflow }}-php
           cache-to: type=gha, scope=${{ github.workflow }}-php, mode=max
@@ -208,7 +208,7 @@ jobs:
           file: ./php/${{ matrix.image.file || 'Dockerfile' }}
           build-args: ${{ matrix.image.build-args }}
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ghcr.io/netlogix/docker/php-cli-dev:${{ matrix.image.version }}
+          tags: ghcr.io/meggernet/docker/php-cli-dev:${{ matrix.image.version }}
           platforms: linux/amd64,linux/arm64
           cache-from: type=gha, scope=${{ github.workflow }}-php
           cache-to: type=gha, scope=${{ github.workflow }}-php, mode=max
@@ -222,7 +222,7 @@ jobs:
           file: ./php/${{ matrix.image.file || 'Dockerfile' }}
           build-args: ${{ matrix.image.build-args }}
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ghcr.io/netlogix/docker/php-cron-dev:${{ matrix.image.version }}
+          tags: ghcr.io/meggernet/docker/php-cron-dev:${{ matrix.image.version }}
           platforms: linux/amd64,linux/arm64
           cache-from: type=gha, scope=${{ github.workflow }}-php
           cache-to: type=gha, scope=${{ github.workflow }}-php, mode=max

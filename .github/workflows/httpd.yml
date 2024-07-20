@@ -67,7 +67,7 @@ jobs:
           target: httpd-${{ matrix.image.name }}
           file: ./httpd/Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ghcr.io/netlogix/docker/httpd-${{ matrix.image.name }}:${{ steps.docker.outputs.version }},ghcr.io/netlogix/docker/webserver-${{ matrix.image.name }}:${{ steps.docker.outputs.version }}
+          tags: ghcr.io/meggernet/docker/httpd-${{ matrix.image.name }}:${{ steps.docker.outputs.version }},ghcr.io/meggernet/docker/webserver-${{ matrix.image.name }}:${{ steps.docker.outputs.version }}
           platforms: linux/amd64,linux/arm64
           cache-from: type=gha, scope=${{ github.workflow }}-httpd
           cache-to: type=gha, scope=${{ github.workflow }}-httpd, mode=max

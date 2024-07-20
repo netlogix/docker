@@ -64,7 +64,7 @@ jobs:
           file: ./node/Dockerfile
           build-args: ${{ matrix.image.build-args }}
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ghcr.io/netlogix/docker/node:${{ matrix.image.version }}
+          tags: ghcr.io/meggernet/docker/node:${{ matrix.image.version }}
           platforms: linux/amd64,linux/arm64
           cache-from: type=gha, scope=${{ github.workflow }}-node
           cache-to: type=gha, scope=${{ github.workflow }}-node, mode=max

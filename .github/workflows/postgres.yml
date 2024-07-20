@@ -66,7 +66,7 @@ jobs:
           target: postgres
           file: ./postgres/${{ matrix.image.file || 'Dockerfile' }}
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ghcr.io/netlogix/docker/postgres:${{ steps.docker.outputs.version }}
+          tags: ghcr.io/meggernet/docker/postgres:${{ steps.docker.outputs.version }}
           platforms: linux/amd64,linux/arm64
           cache-from: type=gha, scope=${{ github.workflow }}-postgres
           cache-to: type=gha, scope=${{ github.workflow }}-postgres, mode=max
