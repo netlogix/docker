@@ -51,7 +51,7 @@ jobs:
           target: prometheus-elasticsearch-exporter
           file: ./prometheus-elasticsearch-exporter/Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ghcr.io/netlogix/docker/prometheus-elasticsearch-exporter:latest,ghcr.io/netlogix/docker/prometheus-elasticsearch-exporter:1.7.0
+          tags: ghcr.io/meggernet/docker/prometheus-elasticsearch-exporter:latest,ghcr.io/meggernet/docker/prometheus-elasticsearch-exporter:1.7.0
           platforms: linux/amd64,linux/arm64
           cache-from: type=gha
           cache-to: type=gha, mode=max

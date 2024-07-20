@@ -51,7 +51,7 @@ jobs:
           target: prometheus-nginx-exporter
           file: ./prometheus-nginx-exporter/Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ghcr.io/netlogix/docker/prometheus-nginx-exporter:latest,ghcr.io/netlogix/docker/prometheus-nginx-exporter:1.2.0
+          tags: ghcr.io/meggernet/docker/prometheus-nginx-exporter:latest,ghcr.io/meggernet/docker/prometheus-nginx-exporter:1.2.0
           platforms: linux/amd64,linux/arm64
           cache-from: type=gha
           cache-to: type=gha, mode=max

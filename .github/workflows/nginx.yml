@@ -55,7 +55,7 @@ jobs:
           target: nginx
           file: ./nginx/Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ghcr.io/netlogix/docker/nginx:latest,ghcr.io/netlogix/docker/nginx:${{ steps.docker.outputs.version }},ghcr.io/netlogix/docker/proxy:${{ steps.docker.outputs.version }}
+          tags: ghcr.io/meggernet/docker/nginx:latest,ghcr.io/meggernet/docker/nginx:${{ steps.docker.outputs.version }},ghcr.io/meggernet/docker/proxy:${{ steps.docker.outputs.version }}
           platforms: linux/amd64,linux/arm64
           cache-from: type=gha
           cache-to: type=gha,mode=max
@@ -68,7 +68,7 @@ jobs:
           target: styleguide
           file: ./nginx/Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ghcr.io/netlogix/docker/styleguide:latest,ghcr.io/netlogix/docker/styleguide:${{ steps.docker.outputs.version }}
+          tags: ghcr.io/meggernet/docker/styleguide:latest,ghcr.io/meggernet/docker/styleguide:${{ steps.docker.outputs.version }}
           platforms: linux/amd64,linux/arm64
           cache-from: type=gha
           cache-to: type=gha,mode=max

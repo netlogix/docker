@@ -55,7 +55,7 @@ jobs:
           target: varnish
           file: ./varnish/Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ghcr.io/netlogix/docker/varnish:latest,ghcr.io/netlogix/docker/varnish:${{ steps.docker.outputs.version }}
+          tags: ghcr.io/meggernet/docker/varnish:latest,ghcr.io/meggernet/docker/varnish:${{ steps.docker.outputs.version }}
           platforms: linux/amd64,linux/arm64
           cache-from: type=gha
           cache-to: type=gha, mode=max

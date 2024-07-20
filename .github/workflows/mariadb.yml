@@ -63,7 +63,7 @@ jobs:
           target: mariadb
           file: ./mariadb/${{ matrix.image.file || 'Dockerfile' }}
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ghcr.io/netlogix/docker/mariadb:${{ matrix.image.version }}
+          tags: ghcr.io/meggernet/docker/mariadb:${{ matrix.image.version }}
           platforms: linux/amd64,linux/arm64
           cache-from: type=gha, scope=${{ github.workflow }}-mariadb
           cache-to: type=gha, scope=${{ github.workflow }}-mariadb, mode=max

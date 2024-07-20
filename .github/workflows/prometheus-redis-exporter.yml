@@ -55,7 +55,7 @@ jobs:
           target: prometheus-redis-exporter
           file: ./prometheus-redis-exporter/Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ghcr.io/netlogix/docker/prometheus-redis-exporter:latest,ghcr.io/netlogix/docker/prometheus-redis-exporter:${{ steps.docker.outputs.version }}
+          tags: ghcr.io/meggernet/docker/prometheus-redis-exporter:latest,ghcr.io/meggernet/docker/prometheus-redis-exporter:${{ steps.docker.outputs.version }}
           platforms: linux/amd64,linux/arm64
           cache-from: type=gha
           cache-to: type=gha, mode=max

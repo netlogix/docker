@@ -63,7 +63,7 @@ jobs:
           target: mysql
           file: ./mysql/${{ matrix.image.file || 'Dockerfile' }}
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ghcr.io/netlogix/docker/mysql:${{ matrix.image.version }}
+          tags: ghcr.io/meggernet/docker/mysql:${{ matrix.image.version }}
           platforms: linux/amd64,linux/arm64
           cache-from: type=gha, scope=${{ github.workflow }}-mysql
           cache-to: type=gha, scope=${{ github.workflow }}-mysql, mode=max

@@ -55,7 +55,7 @@ jobs:
           target: redis
           file: ./redis/Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ghcr.io/netlogix/docker/redis:latest,ghcr.io/netlogix/docker/redis:${{ steps.docker.outputs.version }}
+          tags: ghcr.io/meggernet/docker/redis:latest,ghcr.io/meggernet/docker/redis:${{ steps.docker.outputs.version }}
           platforms: linux/amd64,linux/arm64
           cache-from: type=gha
           cache-to: type=gha, mode=max
