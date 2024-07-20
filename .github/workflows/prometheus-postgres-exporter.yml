@@ -9,7 +9,7 @@ permissions:
 
 on:
   schedule:
-    - cron: 30 14 * * SAT
+    - cron: 0 18 * * SAT
   push:
     branches:
       - main
