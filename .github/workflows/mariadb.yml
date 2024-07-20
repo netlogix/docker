@@ -3,6 +3,9 @@ name: 'Build mariadb docker image'
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
+  
+permissions: 
+  packages: write
 
 on:
   schedule:
