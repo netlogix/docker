@@ -94,8 +94,8 @@ RUN locale-gen de_DE.UTF-8 && \
     locale-gen it_IT.UTF-8
 
 # Install dev certificates
-COPY certs/* /usr/share/ca-certificates/netlogix/
-RUN echo "netlogix/docker-dev-ca.crt" >> /etc/ca-certificates.conf && update-ca-certificates
+COPY certs/* /usr/share/ca-certificates/meggernet/
+RUN echo "meggernet/docker-dev-ca.crt" >> /etc/ca-certificates.conf && update-ca-certificates
 
 RUN ln -s /usr/sbin/php-fpm${PHP_VERSION} /usr/sbin/php-fpm
 
