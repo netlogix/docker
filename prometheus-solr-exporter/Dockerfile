@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM solr:9.6.1 AS prometheus-solr-exporter
+FROM solr:9.7.0 AS prometheus-solr-exporter
 
 ENV JAVA_HEAP=64M
 
