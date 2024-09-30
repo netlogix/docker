@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM elasticsearch:7.17.22 AS elasticsearch
+FROM elasticsearch:7.17.24 AS elasticsearch
 
 ENV discovery.type=single-node
 ENV bootstrap.memory_lock=true
