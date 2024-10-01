@@ -1,2 +1,1 @@
-ARG OPENSERACH_VERSION=2.16
-FROM opensearchproject/opensearch:${OPENSERACH_VERSION} AS opensearch
+FROM opensearchproject/opensearch:2.16.0 AS opensearch
