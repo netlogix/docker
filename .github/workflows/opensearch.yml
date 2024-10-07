@@ -12,11 +12,13 @@ on:
       - main
     paths:
       - opensearch/**
+      - .github/workflows/opensearch.yml
   pull_request:
     branches:
       - main
     paths:
       - opensearch/**
+      - .github/workflows/opensearch.yml
   workflow_dispatch:
     inputs: {}
 
@@ -24,19 +26,30 @@ jobs:
   build-docker-image:
     name: 'Build opensearch-${{ matrix.image.version }} docker image'
     runs-on: ubuntu-latest
+    env:
+      imageRegistry: ghcr.io/netlogix/docker/opensearch
 
     strategy:
       fail-fast: false
       max-parallel: 10
       matrix:
         image:
-        - version: 2.16
-          build-args: |
-            OPENSERACH_VERSION=2.16.0
+          # additional Docker files for example V 3.x can be added here
+          - version: 2
+            dockerFile: ./opensearch/Dockerfile
+            context: ./opensearch
+            target: opensearch
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Read version from Dockerfile
+        id: docker
+        run: |
+          VERSION="$(./extract-version.sh ${{ matrix.image.dockerFile }})"
+          echo "minor_version=$VERSION" >> $GITHUB_OUTPUT
+          echo "major_version=${VERSION%%.*}" >> $GITHUB_OUTPUT
 
       - name: Setup QEMU
         uses: docker/setup-qemu-action@v3
@@ -52,16 +65,18 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and push (OpenSearch)
+      - name: Build and push
         uses: docker/build-push-action@v6
         with:
           builder: ${{ steps.buildx.outputs.name }}
-          context: ./opensearch
-          target: opensearch
-          file: ./opensearch/Dockerfile
-          build-args: ${{ matrix.image.build-args }}
+          context: ${{ matrix.image.context }}
+          target: ${{ matrix.image.target }}
+          file: ${{ matrix.image.dockerFile }}
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ghcr.io/netlogix/docker/opensearch:${{ matrix.image.version }}
+          tags: |
+            ${{ env.imageRegistry }}:latest
+            ${{ env.imageRegistry }}:${{ steps.docker.outputs.minor_version }}
+            ${{ env.imageRegistry }}:${{ steps.docker.outputs.major_version }}
           platforms: linux/amd64,linux/arm64
-          cache-from: type=gha, scope=${{ github.workflow }}-opensearch
-          cache-to: type=gha, scope=${{ github.workflow }}-opensearch, mode=max
+          cache-from: type=gha, scope=${{ github.workflow }}-${{ matrix.image.target }}-${{ steps.docker.outputs.major_version }}
+          cache-to: type=gha, scope=${{ github.workflow }}-${{ matrix.image.target }}-${{ steps.docker.outputs.major_version }}, mode=max

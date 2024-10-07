@@ -137,6 +137,23 @@ updates:
     labels:
       - dependencies
   - package-ecosystem: docker
+    directory: /opensearch
+    schedule:
+      interval: daily
+      time: '07:00'
+    ignore:
+      - dependency-name: '*'
+        update-types:
+          - version-update:semver-major
+    target-branch: main
+    reviewers:
+      - saschanowak
+      - paxuclus
+      - nlx-klein
+      - scarbous
+    labels:
+      - dependencies
+  - package-ecosystem: docker
     directory: /php
     schedule:
       interval: daily
