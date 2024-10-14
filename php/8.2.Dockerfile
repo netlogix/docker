@@ -48,6 +48,7 @@ RUN apt-get update && \
         gifsicle \
         imagemagick \
         jpegoptim \
+        nano \
         openssl \
         optipng \
         pngquant \
