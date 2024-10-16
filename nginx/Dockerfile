@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 # Adding third-party modules to nginx official image
 # SEE https://github.com/nginxinc/docker-nginx/tree/master/modules
-FROM nginx:1.27.0 AS builder
+FROM nginx:1.27.2 AS builder
 
 ENV ENABLED_MODULES="headers-more subs-filter geoip2"
 SHELL ["/bin/bash", "-exo", "pipefail", "-c"]
@@ -68,7 +68,7 @@ RUN apt-get update \
     done \
     && echo "BUILT_MODULES=\"$BUILT_MODULES\"" > /tmp/packages/modules.env
 
-FROM nginx:1.27.0 AS nginx
+FROM nginx:1.27.2 AS nginx
 ENV TZ="Europe/Berlin"
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
