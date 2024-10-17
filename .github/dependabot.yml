@@ -11,31 +11,31 @@ updates:
 
   - package-ecosystem: 'docker'
     directories:
-      - '/cfssl/Dockerfile'
-      - '/chromium/Dockerfile'
-      - '/elasticsearch/Dockerfile'
-      - '/httpd/Dockerfile'
-      - '/mailpit/Dockerfile'
-      - '/mariadb/Dockerfile'
-      - '/mysql/Dockerfile'
-      - '/nginx/Dockerfile'
-      - '/node/Dockerfile'
-      - '/opensearch/Dockerfile'
-      - '/postgres/Dockerfile'
-      - '/prettier/Dockerfile'
-      - '/prometheus-apache-exporter/Dockerfile'
-      - '/prometheus-elasticsearch-exporter/Dockerfile'
-      - '/prometheus-nginx-exporter/Dockerfile'
-      - '/prometheus-php-fpm-exporter/Dockerfile'
-      - '/prometheus-postgres-exporter/Dockerfile'
-      - '/prometheus-redis-exporter/Dockerfile'
-      - '/prometheus-solr-exporter/Dockerfile'
-      - '/prometheus-varnish-exporter/Dockerfile'
-      - '/rabbitmq/Dockerfile'
-      - '/redis/Dockerfile'
-      - '/solr/Dockerfile'
-      - '/tideways-daemon/Dockerfile'
-      - '/varnish/Dockerfile'
+      - '/cfssl'
+      - '/chromium'
+      - '/elasticsearch'
+      - '/httpd'
+      - '/mailpit'
+      - '/mariadb'
+      - '/mysql'
+      - '/nginx'
+      - '/node'
+      - '/opensearch'
+      - '/postgres'
+      - '/prettier'
+      - '/prometheus-apache-exporter'
+      - '/prometheus-elasticsearch-exporter'
+      - '/prometheus-nginx-exporter'
+      - '/prometheus-php-fpm-exporter'
+      - '/prometheus-postgres-exporter'
+      - '/prometheus-redis-exporter'
+      - '/prometheus-solr-exporter'
+      - '/prometheus-varnish-exporter'
+      - '/rabbitmq'
+      - '/redis'
+      - '/solr'
+      - '/tideways-daemon'
+      - '/varnish'
     schedule:
       interval: 'daily'
       time: '07:00'
@@ -47,6 +47,19 @@ updates:
       - scarbous
     labels:
       - dependencies
+    ignore:
+      - dependency-name: "mariadb"
+        versions: ["10.6.x", "10.11.x"]
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "mysql"
+        versions: ["8.0.x", "8.4.x"]
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "postgres"
+        versions: ["12.x", "14.x"]
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "solr"
+        versions: ["8.x"]
+        update-types: ["version-update:semver-major"]
 
   - package-ecosystem: npm
     directory: /prettier
