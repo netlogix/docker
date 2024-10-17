@@ -55,7 +55,7 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and push (node-fpm)
+      - name: Build and push (node)
         uses: docker/build-push-action@v6
         with:
           builder: ${{ steps.buildx.outputs.name }}

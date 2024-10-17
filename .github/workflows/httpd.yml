@@ -59,7 +59,7 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and push (httpd-fpm)
+      - name: Build and push (httpd)
         uses: docker/build-push-action@v6
         with:
           builder: ${{ steps.buildx.outputs.name }}
