@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM solr:9.6.1 AS builder
+FROM solr:9.7.0 AS builder
 
 ENV TYPO3_SOLR=12.0.3 \
     TYPO3_SOLR_DOWNLOAD_SHA512="882f24a44d221f5d85a2066ab1235c9aedcd31c8a8f2009f9343b73de2931fd354fed6a8175fe18fa6fa0c284dd07d428c4f547f24875129e5a1d57c5ffd283f"
