@@ -1,6 +1,7 @@
 #!/bin/sh
 set -e
 
+export VHOST_PATH="/var/www"
 env > /etc/environment
 
 CRONTAB_PATH="${CRONTAB_PATH:-/var/www/Configuration/crontab}"
