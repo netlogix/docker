@@ -4,6 +4,7 @@ set -e
 env > /etc/environment
 
 CRONTAB_PATH="${CRONTAB_PATH:-/var/www/Configuration/crontab}"
+CRON_USER="${CRON_USER:-www-data}"
 
 # init crontab file
 if [ -f $CRONTAB_PATH ]; then
