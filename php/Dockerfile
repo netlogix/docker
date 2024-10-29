@@ -148,7 +148,7 @@ FROM php-cli AS php-cron
 WORKDIR /var/www
 
 ENV VHOST_PATH="/var/www"
-ENV CRONTAB_PATH="/var/www/Configuration/crontab"
+ENV CRONTAB_PATH=""
 ENV CRON_USER=www-data
 
 COPY --chmod=0755 cron/docker-cron-entrypoint /usr/local/bin/
@@ -222,7 +222,7 @@ FROM php-cli-dev AS php-cron-dev
 WORKDIR /var/www
 
 ENV VHOST_PATH="/var/www"
-ENV CRONTAB_PATH="/var/www/Configuration/crontab"
+ENV CRONTAB_PATH=""
 ENV CRON_USER=www-data
 
 COPY --chmod=0755 cron/docker-cron-entrypoint /usr/local/bin/
