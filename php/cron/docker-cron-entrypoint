@@ -1,14 +1,15 @@
 #!/bin/sh
 set -e
 
-env >> /etc/environment
+export VHOST_PATH="/var/www"
+env > /etc/environment
+
+CRONTAB_PATH="${CRONTAB_PATH:-/var/www/Configuration/crontab}"
+CRON_USER="${CRON_USER:-www-data}"
 
 # init crontab file
-if [ -f "/var/www/Configuration/crontab" ]; then
-  echo "$(
-    echo "VHOST_PATH=/var/www"
-    cat /var/www/Configuration/crontab
-  )" | crontab -u www-data -
+if [ -f $CRONTAB_PATH ]; then
+    crontab -u $CRON_USER - < $CRONTAB_PATH
 fi
 
 exec "$@"

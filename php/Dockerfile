@@ -145,7 +145,9 @@ CMD ["php", "-a"]
 
 FROM php-cli AS php-cron
 
-COPY cron/docker-cron-entrypoint /usr/local/bin/
+WORKDIR /var/www
+
+COPY --chmod=0755 cron/docker-cron-entrypoint /usr/local/bin/
 
 ENTRYPOINT ["docker-cron-entrypoint"]
 CMD ["cron", "-f", "-l", "2"]
@@ -215,7 +217,7 @@ FROM php-cli-dev AS php-cron-dev
 
 WORKDIR /var/www
 
-COPY cron/docker-cron-entrypoint /usr/local/bin/
+COPY --chmod=0755 cron/docker-cron-entrypoint /usr/local/bin/
 
 # Disabling the health check of the descendant php-fpm-dev image, since the production php-cron image does neither have a healthcheck.
 HEALTHCHECK NONE
