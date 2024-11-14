@@ -169,7 +169,8 @@ ENV PHP_ASSERT=1 \
     COMPOSER_CACHE_DIR=/.cache/composer/ \
     YARN_CACHE_FOLDER=/.cache/yarn/ \
     npm_config_cache=/.cache/npm/ \
-    TERM=xterm-256color
+    TERM=xterm-256color \
+    TIDEWAYS_DAEMON=""
 
 # enable debugging with PhpStorm
 ENV PHP_IDE_CONFIG="serverName=localhost"
