@@ -126,7 +126,7 @@ FROM base AS php-fpm
 
 COPY fpm /usr/local/bin/
 
-STOPSIGNAL SIGQUIT
+STOPSIGNAL SIGTERM
 EXPOSE 9000
 
 HEALTHCHECK --interval=2s --timeout=5s --retries=10 CMD php-fpm-healthcheck || exit 1
