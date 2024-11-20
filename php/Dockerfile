@@ -135,6 +135,8 @@ CMD ["php-fpm"]
 
 FROM base AS php-cli
 
+STOPSIGNAL SIGTERM
+
 ENV PHP_MEMORY_LIMIT=-1 \
     PHP_MAX_EXECUTION_TIME=-1
 
@@ -202,6 +204,8 @@ COPY dev/scripts /usr/local/bin/
 
 # Dev PHP cli
 FROM php-fpm-dev AS php-cli-dev
+
+STOPSIGNAL SIGTERM
 
 ENV PHP_MEMORY_LIMIT=-1
 ENV PHP_MAX_EXECUTION_TIME=-1
