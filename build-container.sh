@@ -87,3 +87,4 @@ docker buildx build -t ghcr.io/netlogix/docker/php-supervisor:8.4 --build-arg PH
 
 docker buildx build -t ghcr.io/netlogix/docker/node:18 --build-arg NODE_VERSION=18 -f node/Dockerfile node
 docker buildx build -t ghcr.io/netlogix/docker/node:20 --build-arg NODE_VERSION=20 -f node/Dockerfile node
+docker buildx build -t ghcr.io/netlogix/docker/node:22 --build-arg NODE_VERSION=22 -f node/Dockerfile node
