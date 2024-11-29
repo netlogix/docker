@@ -55,7 +55,13 @@ jobs:
           build-args: |
             PHP_VERSION=8.3
             UBUNTU_VERSION=24.04
-            XDEBUG_VERSION=3.3.2
+            XDEBUG_VERSION=3.4.0
+        - version: 8.4
+          file: 8.4.Dockerfile
+          build-args: |
+            PHP_VERSION=8.4
+            UBUNTU_VERSION=24.04
+            XDEBUG_VERSION=3.4.0
 
     steps:
       - name: Checkout
@@ -165,7 +171,13 @@ jobs:
           build-args: |
             PHP_VERSION=8.3
             UBUNTU_VERSION=24.04
-            XDEBUG_VERSION=3.3.2
+            XDEBUG_VERSION=3.4.0
+        - version: 8.4
+          file: 8.4.Dockerfile
+          build-args: |
+            PHP_VERSION=8.4
+            UBUNTU_VERSION=24.04
+            XDEBUG_VERSION=3.4.0
 
     steps:
       - name: Checkout
