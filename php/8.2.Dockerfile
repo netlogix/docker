@@ -58,6 +58,7 @@ RUN apt-get update && \
         webp \
         zip \
         php${PHP_VERSION} \
+        php${PHP_VERSION}-amqp \
         php${PHP_VERSION}-apcu \
         php${PHP_VERSION}-bcmath \
         php${PHP_VERSION}-cli \
@@ -79,7 +80,6 @@ RUN apt-get update && \
         php${PHP_VERSION}-xml \
         php${PHP_VERSION}-yaml \
         php${PHP_VERSION}-zip \
-        php${PHP_VERSION}-amqp \
         tideways-php \
         tideways-cli \
     && apt-get autoremove \
