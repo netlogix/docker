@@ -130,7 +130,7 @@ FROM base AS php-fpm
 
 COPY fpm /usr/local/bin/
 
-STOPSIGNAL SIGTERM
+STOPSIGNAL SIGQUIT
 EXPOSE 9000
 
 HEALTHCHECK --interval=2s --timeout=5s --retries=10 CMD php-fpm-healthcheck || exit 1
@@ -138,6 +138,8 @@ ENTRYPOINT ["docker-php-entrypoint"]
 CMD ["php-fpm"]
 
 FROM base AS php-cli
+
+STOPSIGNAL SIGTERM
 
 ENV PHP_MEMORY_LIMIT=-1 \
     PHP_MAX_EXECUTION_TIME=-1
@@ -205,6 +207,8 @@ COPY dev/scripts /usr/local/bin/
 
 # Dev PHP cli
 FROM php-fpm-dev AS php-cli-dev
+
+STOPSIGNAL SIGTERM
 
 ENV PHP_MEMORY_LIMIT=-1
 ENV PHP_MAX_EXECUTION_TIME=-1
