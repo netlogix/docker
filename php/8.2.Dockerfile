@@ -79,6 +79,7 @@ RUN apt-get update && \
         php${PHP_VERSION}-xml \
         php${PHP_VERSION}-yaml \
         php${PHP_VERSION}-zip \
+        php${PHP_VERSION}-amqp \
         tideways-php \
         tideways-cli \
     && apt-get autoremove \
