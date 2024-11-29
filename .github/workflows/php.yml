@@ -44,13 +44,13 @@ jobs:
           build-args: |
             PHP_VERSION=8.1
             UBUNTU_VERSION=22.04
-            XDEBUG_VERSION=3.3.2
+            XDEBUG_VERSION=3.4.0
         - version: 8.2
           file: 8.2.Dockerfile
           build-args: |
             PHP_VERSION=8.2
             UBUNTU_VERSION=24.04
-            XDEBUG_VERSION=3.3.2
+            XDEBUG_VERSION=3.4.0
         - version: 8.3
           build-args: |
             PHP_VERSION=8.3
@@ -160,13 +160,13 @@ jobs:
           build-args: |
             PHP_VERSION=8.1
             UBUNTU_VERSION=22.04
-            XDEBUG_VERSION=3.3.2
+            XDEBUG_VERSION=3.4.0
         - version: 8.2
           file: 8.2.Dockerfile
           build-args: |
             PHP_VERSION=8.2
             UBUNTU_VERSION=24.04
-            XDEBUG_VERSION=3.3.2
+            XDEBUG_VERSION=3.4.0
         - version: 8.3
           build-args: |
             PHP_VERSION=8.3
