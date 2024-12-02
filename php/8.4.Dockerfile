@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 ARG UBUNTU_VERSION=24.04
 FROM ubuntu:${UBUNTU_VERSION} AS base
-ARG PHP_VERSION=8.2
+ARG PHP_VERSION=8.4
 ARG XDEBUG_VERSION=3.4.0
 
 ENV DEBIAN_FRONTEND=noninteractive \
@@ -58,7 +58,6 @@ RUN apt-get update && \
         webp \
         zip \
         php${PHP_VERSION} \
-        php${PHP_VERSION}-amqp \
         php${PHP_VERSION}-apcu \
         php${PHP_VERSION}-bcmath \
         php${PHP_VERSION}-cli \

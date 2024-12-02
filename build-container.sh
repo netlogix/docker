@@ -77,5 +77,13 @@ docker buildx build -t ghcr.io/netlogix/docker/php-cron:8.3 --build-arg PHP_VERS
 docker buildx build -t ghcr.io/netlogix/docker/php-cron-dev:8.3 --build-arg PHP_VERSION=8.3 --build-arg UBUNTU_VERSION=24.04 -f php/Dockerfile --target=php-cron-dev php
 docker buildx build -t ghcr.io/netlogix/docker/php-supervisor:8.3 --build-arg PHP_VERSION=8.3 --build-arg UBUNTU_VERSION=24.04 -f php/Dockerfile --target=php-supervisor php
 
+docker buildx build -t ghcr.io/netlogix/docker/php-fpm:8.4 --build-arg PHP_VERSION=8.4 --build-arg UBUNTU_VERSION=24.04 -f php/8.4.Dockerfile --target=php-fpm php
+docker buildx build -t ghcr.io/netlogix/docker/php-cli:8.4 --build-arg PHP_VERSION=8.4 --build-arg UBUNTU_VERSION=24.04 -f php/8.4.Dockerfile --target=php-cli php
+docker buildx build -t ghcr.io/netlogix/docker/php-fpm-dev:8.4 --build-arg PHP_VERSION=8.4 --build-arg UBUNTU_VERSION=24.04 -f php/8.4.Dockerfile --target=php-fpm-dev php
+docker buildx build -t ghcr.io/netlogix/docker/php-cli-dev:8.4 --build-arg PHP_VERSION=8.4 --build-arg UBUNTU_VERSION=24.04 -f php/8.4.Dockerfile --target=php-cli-dev php
+docker buildx build -t ghcr.io/netlogix/docker/php-cron:8.4 --build-arg PHP_VERSION=8.4 --build-arg UBUNTU_VERSION=24.04 -f php/8.4.Dockerfile --target=php-cron php
+docker buildx build -t ghcr.io/netlogix/docker/php-cron-dev:8.4 --build-arg PHP_VERSION=8.4 --build-arg UBUNTU_VERSION=24.04 -f php/8.4.Dockerfile --target=php-cron-dev php
+docker buildx build -t ghcr.io/netlogix/docker/php-supervisor:8.4 --build-arg PHP_VERSION=8.4 --build-arg UBUNTU_VERSION=24.04 -f php/8.4.Dockerfile --target=php-supervisor php
+
 docker buildx build -t ghcr.io/netlogix/docker/node:18 --build-arg NODE_VERSION=18 -f node/Dockerfile node
 docker buildx build -t ghcr.io/netlogix/docker/node:20 --build-arg NODE_VERSION=20 -f node/Dockerfile node
