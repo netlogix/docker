@@ -15,6 +15,7 @@ updates:
       - '/chromium'
       - '/elasticsearch'
       - '/httpd'
+      - '/imgproxy'
       - '/mailpit'
       - '/mariadb'
       - '/mysql'
