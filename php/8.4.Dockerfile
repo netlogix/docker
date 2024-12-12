@@ -29,7 +29,7 @@ ENV PHP_VERSION=${PHP_VERSION} \
 RUN apt-get update && \
     apt-get -y install --no-install-suggests --no-install-recommends \
         software-properties-common \
-        apt-transport-https\
+        apt-transport-https \
         libfcgi-bin \
         ca-certificates \
         curl \
@@ -130,7 +130,7 @@ FROM base AS php-fpm
 
 COPY fpm /usr/local/bin/
 
-STOPSIGNAL SIGQUIT
+STOPSIGNAL SIGTERM
 EXPOSE 9000
 
 HEALTHCHECK --interval=2s --timeout=5s --retries=10 CMD php-fpm-healthcheck || exit 1
@@ -175,7 +175,8 @@ ENV PHP_ASSERT=1 \
     COMPOSER_CACHE_DIR=/.cache/composer/ \
     YARN_CACHE_FOLDER=/.cache/yarn/ \
     npm_config_cache=/.cache/npm/ \
-    TERM=xterm-256color
+    TERM=xterm-256color \
+    TIDEWAYS_DAEMON=""
 
 # enable debugging with PhpStorm
 ENV PHP_IDE_CONFIG="serverName=localhost"
