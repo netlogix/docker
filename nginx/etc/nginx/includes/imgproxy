@@ -1,0 +1,7 @@
+location /images/ {
+    add_header X-Proxy-Cache $upstream_cache_status;
+    proxy_cache IMAGE_CACHE;
+    proxy_cache_lock on;
+    proxy_cache_key "$host$request_uri $imgproxy_extension";
+    proxy_pass http://imgproxy:8080/;
+}
