@@ -1,0 +1,11 @@
+upstream shop_backend {
+    server ${FPM_BACKEND};
+}
+
+server {
+    listen 80;
+
+    server_name ${SHOP_DOMAIN};
+
+    include includes/shopware6;
+}
