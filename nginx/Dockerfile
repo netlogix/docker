@@ -3,7 +3,7 @@
 # SEE https://github.com/nginxinc/docker-nginx/tree/master/modules
 FROM nginx:1.27.3 AS builder
 
-ENV ENABLED_MODULES="headers-more subs-filter geoip2"
+ENV ENABLED_MODULES="headers-more subs-filter geoip2 brotli"
 SHELL ["/bin/bash", "-exo", "pipefail", "-c"]
 
 RUN if [ "$ENABLED_MODULES" = "" ]; then \
