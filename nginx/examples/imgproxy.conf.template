@@ -4,8 +4,5 @@ server {
     server_name ${DOMAIN_ENV};
 
     include includes/php;
-
-    location /images/ {
-        include includes/imgproxy;
-    }
+    include includes/imgproxy;
 }
