@@ -1,6 +1,5 @@
 include includes/defaults;
 
-
 root /var/www/public;
 
 location ~ ^/(theme|media|thumbnail|bundles|css|fonts|js|recovery|sitemap)/ {
@@ -61,5 +60,5 @@ location ~ \.php$ {
     proxy_read_timeout 300s;
     send_timeout 300s;
     client_body_buffer_size 128k;
-    fastcgi_pass ${FPM_BACKEND};
+    fastcgi_pass shop_backend;
 }

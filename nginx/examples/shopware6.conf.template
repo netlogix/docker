@@ -1,3 +1,7 @@
+upstream shop_backend {
+    server ${FPM_BACKEND};
+}
+
 server {
     listen 80;
 
