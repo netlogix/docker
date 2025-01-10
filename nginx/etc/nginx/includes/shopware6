@@ -1,6 +1,5 @@
 include includes/defaults;
 
-client_max_body_size 128M;
 
 root /var/www/public;
 
@@ -38,7 +37,7 @@ location ~* ^.+\.(?:css|cur|js|jpe?g|gif|ico|png|svg|webp|html|woff|woff2|xml)$ 
     open_file_cache_min_uses 2;
     open_file_cache_errors off;
 
-    try_files $$uri /index.php$$is_args$$args;
+    try_files $uri /index.php$is_args$args;
 }
 
 location ~* ^.+\.svg$ {
@@ -46,7 +45,7 @@ location ~* ^.+\.svg$ {
 }
 
 location / {
-    try_files $$uri /index.php$$is_args$$args;
+    try_files $uri /index.php$is_args$args;
 }
 
 location ~ \.php$ {
@@ -55,8 +54,8 @@ location ~ \.php$ {
     fastcgi_param HTTP_PROXY "";
     fastcgi_buffers 8 16k;
     fastcgi_buffer_size 32k;
-    fastcgi_param REQUEST_METHOD $$request_method;
-    fastcgi_param SCRIPT_FILENAME $$request_filename;
+    fastcgi_param REQUEST_METHOD $request_method;
+    fastcgi_param SCRIPT_FILENAME $request_filename;
     proxy_connect_timeout 300s;
     proxy_send_timeout 300s;
     proxy_read_timeout 300s;
