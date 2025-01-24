@@ -1,4 +1,4 @@
-FROM node:20-alpine AS prettier
+FROM node:22-alpine AS prettier
 
 RUN apk add --no-cache bash
 
@@ -9,7 +9,7 @@ USER prettier
 
 WORKDIR /home/prettier
 
-COPY --chown=prettier:prettier package.json package-lock.json entrypoint.sh ./
+COPY --chown=prettier:prettier . ./
 
 RUN npm install
 
