@@ -31,9 +31,16 @@ jobs:
       matrix:
         image:
         - version: 7.2
+          file: 7.x.Dockerfile
           build-args: |
             PHP_VERSION=7.2
-            UBUNTU_VERSION=18.04
+            UBUNTU_VERSION=24.04
+            XDEBUG_VERSION=3.1.6
+        - version: 7.3
+          file: 7.x.Dockerfile
+          build-args: |
+            PHP_VERSION=7.3
+            UBUNTU_VERSION=24.04
             XDEBUG_VERSION=3.1.6
         - version: 7.4
           build-args: |
@@ -147,9 +154,16 @@ jobs:
       matrix:
         image:
         - version: 7.2
+          file: 7.x.Dockerfile
           build-args: |
             PHP_VERSION=7.2
-            UBUNTU_VERSION=18.04
+            UBUNTU_VERSION=24.04
+            XDEBUG_VERSION=3.1.6
+        - version: 7.3
+          file: 7.x.Dockerfile
+          build-args: |
+            PHP_VERSION=7.3
+            UBUNTU_VERSION=24.04
             XDEBUG_VERSION=3.1.6
         - version: 7.4
           build-args: |
