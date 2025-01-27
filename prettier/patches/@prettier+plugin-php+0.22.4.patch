@@ -1,0 +1,34 @@
+diff --git a/node_modules/@prettier/plugin-php/src/options.mjs b/node_modules/@prettier/plugin-php/src/options.mjs
+index 93fca45..e28876c 100644
+--- a/node_modules/@prettier/plugin-php/src/options.mjs
++++ b/node_modules/@prettier/plugin-php/src/options.mjs
+@@ -5,7 +5,7 @@ export default {
+     since: "0.13.0",
+     category: CATEGORY_PHP,
+     type: "choice",
+-    default: "7.0",
++    default: "8.3",
+     description: "Minimum target PHP version.",
+     choices: [
+       { value: "5.0" },
+@@ -23,6 +23,8 @@ export default {
+       { value: "8.0" },
+       { value: "8.1" },
+       { value: "8.2" },
++      { value: "8.3" },
++      { value: "8.4" },
+     ],
+   },
+   trailingCommaPHP: {
+diff --git a/node_modules/@prettier/plugin-php/src/printer.mjs b/node_modules/@prettier/plugin-php/src/printer.mjs
+index cec72d0..69300de 100644
+--- a/node_modules/@prettier/plugin-php/src/printer.mjs
++++ b/node_modules/@prettier/plugin-php/src/printer.mjs
+@@ -2308,6 +2308,7 @@ function printNode(path, options, print) {
+         node.final ? "final " : "",
+         node.visibility ? [node.visibility, " "] : "",
+         "const",
++        node.type ? [node.nullable ? " ?" : " ", print("type")] : "",
+         firstVariable ? [" ", firstVariable] : "",
+         indent(printed.slice(1).map((p) => [",", hardline, p])),
+       ]);
