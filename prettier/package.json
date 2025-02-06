@@ -6,11 +6,13 @@
     "patch-package": "^8.0.0",
     "php-parser": "^3.2.2",
     "prettier": "^3.4.2",
+    "prettier-package-json": "^2.8.0",
     "prettier-plugin-nginx": "^1.0.3",
     "prettier-plugin-sh": "^0.14.0",
-    "prettier-plugin-sql": "^0.18.0"
+    "prettier-plugin-sql": "^0.18.1"
   },
   "scripts": {
     "postinstall": "patch-package"
   }
 }
+
