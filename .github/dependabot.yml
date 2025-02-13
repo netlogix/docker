@@ -17,12 +17,9 @@ updates:
       - '/httpd'
       - '/imgproxy'
       - '/mailpit'
-      - '/mariadb'
-      - '/mysql'
       - '/nginx'
       - '/node'
       - '/opensearch'
-      - '/postgres'
       - '/prettier'
       - '/prometheus-apache-exporter'
       - '/prometheus-elasticsearch-exporter'
@@ -34,9 +31,26 @@ updates:
       - '/prometheus-varnish-exporter'
       - '/rabbitmq'
       - '/redis'
-      - '/solr'
       - '/tideways-daemon'
       - '/varnish'
+    schedule:
+      interval: 'daily'
+      time: '07:00'
+    target-branch: main
+    open-pull-requests-limit: 30
+    reviewers:
+      - saschanowak
+      - paxuclus
+      - scarbous
+    labels:
+      - dependencies
+
+  - package-ecosystem: 'docker'
+    directories:
+      - '/postgres'
+      - '/solr'
+      - '/mariadb'
+      - '/mysql'
     schedule:
       interval: 'daily'
       time: '07:00'
