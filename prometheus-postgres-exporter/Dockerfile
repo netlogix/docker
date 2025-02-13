@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM alpine:3.20 AS prometheus-postgres-exporter
+FROM alpine:3.21 AS prometheus-postgres-exporter
 
 COPY --from=quay.io/prometheuscommunity/postgres-exporter /bin/postgres_exporter /
 
