@@ -1,4 +1,4 @@
-FROM opensearchproject/opensearch:2.17.1 AS opensearch
+FROM opensearchproject/opensearch:2.19.0 AS opensearch
 
 ENV discovery.type=single-node
 ENV bootstrap.memory_lock=true
