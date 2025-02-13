@@ -1,4 +1,4 @@
-FROM node:22-alpine AS prettier
+FROM node:23-alpine AS prettier
 
 RUN apk add --no-cache bash
 
