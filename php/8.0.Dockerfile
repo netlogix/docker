@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 FROM ubuntu:24.04 AS base
 ARG PHP_VERSION=8.0
-ARG XDEBUG_VERSION=3.1.6
+ARG XDEBUG_VERSION=3.4.1
 
 ENV DEBIAN_FRONTEND=noninteractive \
     TZ=UTC \
