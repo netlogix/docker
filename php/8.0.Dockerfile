@@ -1,7 +1,6 @@
 # syntax=docker/dockerfile:1
-ARG UBUNTU_VERSION=24.04
-FROM ubuntu:${UBUNTU_VERSION} AS base
-ARG PHP_VERSION=8.3
+FROM ubuntu:24.04 AS base
+ARG PHP_VERSION=8.0
 ARG XDEBUG_VERSION=3.4.1
 
 ENV DEBIAN_FRONTEND=noninteractive \
@@ -23,21 +22,19 @@ ENV PHP_VERSION=${PHP_VERSION} \
     PHP_REALPATH_CACHE_TTL=512 \
     PHP_XDEBUG_HOST=host.docker.internal \
     PHP_XDEBUG_MODE=off \
-    XDEBUG_VERSION=${XDEBUG_VERSION} \
-    TIDEWAYS_APIKEY="" \
-    TIDEWAYS_DAEMON="tcp://tideways-daemon:9135" \
-    TIDEWAYS_SAMPLERATE=25
+    XDEBUG_VERSION=${XDEBUG_VERSION}
 
 RUN apt-get update && \
     apt-get -y install --no-install-suggests --no-install-recommends \
+        software-properties-common \
+        apt-transport-https \
         libfcgi-bin \
         ca-certificates \
         curl \
         gnupg2 \
         locales
 
-RUN echo 'deb [signed-by=/usr/share/keyrings/tideways.gpg] https://packages.tideways.com/apt-packages-main any-version main' | tee /etc/apt/sources.list.d/tideways.list && \
-    curl -L -sS 'https://packages.tideways.com/key.gpg' | gpg --dearmor | tee /usr/share/keyrings/tideways.gpg > /dev/null
+RUN add-apt-repository ppa:ondrej/php -y
 
 RUN apt-get update && \
     apt-get -y install --no-install-suggests --no-install-recommends \
@@ -78,8 +75,6 @@ RUN apt-get update && \
         php${PHP_VERSION}-xml \
         php${PHP_VERSION}-yaml \
         php${PHP_VERSION}-zip \
-        tideways-php \
-        tideways-cli \
     && apt-get autoremove \
     && find /var/log -type f -name "*.log" -delete \
     && rm -rf /var/lib/apt/lists/* /var/cache/ldconfig/aux-cache \
