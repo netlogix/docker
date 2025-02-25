@@ -47,6 +47,11 @@ jobs:
             PHP_VERSION=7.4
             UBUNTU_VERSION=20.04
             XDEBUG_VERSION=3.1.6
+        - version: 8.0
+          build-args: |
+            PHP_VERSION=8.0
+            UBUNTU_VERSION=22.04
+            XDEBUG_VERSION=3.4.0
         - version: 8.1
           build-args: |
             PHP_VERSION=8.1
