@@ -51,7 +51,7 @@ jobs:
           file: 8.0.Dockerfile
           build-args: |
             PHP_VERSION=8.0
-            UBUNTU_VERSION=22.04
+            UBUNTU_VERSION=24.04
             XDEBUG_VERSION=3.4.0
         - version: 8.1
           build-args: |
