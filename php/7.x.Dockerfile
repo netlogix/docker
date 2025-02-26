@@ -1,4 +1,5 @@
 # syntax=docker/dockerfile:1
+# check=skip=SecretsUsedInArgOrEnv
 FROM ubuntu:24.04 AS base
 ARG PHP_VERSION=7.4
 ARG XDEBUG_VERSION=3.1.6
