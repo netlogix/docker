@@ -41,13 +41,9 @@ RUN apt-get update && \
     apt-get -y install --no-install-suggests --no-install-recommends \
         cron \
         ghostscript \
-        gifsicle \
         imagemagick \
-        jpegoptim \
         nano \
         openssl \
-        optipng \
-        pngquant \
         supervisor \
         tar \
         unzip \
