@@ -24,6 +24,7 @@ updates:
       - '/prometheus-apache-exporter'
       - '/prometheus-elasticsearch-exporter'
       - '/prometheus-nginx-exporter'
+      - '/prometheus-php-application-exporter'
       - '/prometheus-php-fpm-exporter'
       - '/prometheus-postgres-exporter'
       - '/prometheus-redis-exporter'

@@ -1,0 +1,23 @@
+server {
+    listen 80 default_server;
+
+    client_max_body_size 100m;
+    access_log off;
+
+    location ~ "^/metrics" {
+        fastcgi_pass ${SCRAPE_BACKEND};
+        fastcgi_split_path_info ^(.+\.php)(/.+)$;
+        fastcgi_read_timeout         300;
+        fastcgi_buffer_size          128k;
+        fastcgi_buffers              256 16k;
+        fastcgi_busy_buffers_size    256k;
+        fastcgi_temp_file_write_size 256k;
+
+        fastcgi_index index.php;
+        include fastcgi_params;
+
+        fastcgi_intercept_errors on;
+        fastcgi_param SCRIPT_FILENAME /var/www/public/index.php;
+        fastcgi_param PATH_INFO $fastcgi_path_info;
+    }
+}

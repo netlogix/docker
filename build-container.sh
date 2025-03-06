@@ -31,6 +31,7 @@ docker buildx build -t ghcr.io/netlogix/docker/tideways-daemon:${VERSION} -f tid
 docker buildx build -t ghcr.io/netlogix/docker/prometheus-apache-exporter:${VERSION} -f prometheus-apache-exporter/Dockerfile prometheus-apache-exporter
 docker buildx build -t ghcr.io/netlogix/docker/prometheus-elasticsearch-exporter:${VERSION} -f prometheus-elasticsearch-exporter/Dockerfile prometheus-elasticsearch-exporter
 docker buildx build -t ghcr.io/netlogix/docker/prometheus-nginx-exporter:${VERSION} -f prometheus-nginx-exporter/Dockerfile prometheus-nginx-exporter
+docker buildx build -t ghcr.io/netlogix/docker/prometheus-php-application-exporter:${VERSION} -f prometheus-php-application-exporter/Dockerfile prometheus-php-application-exporter
 docker buildx build -t ghcr.io/netlogix/docker/prometheus-php-fpm-exporter:${VERSION} -f prometheus-php-fpm-exporter/Dockerfile prometheus-php-fpm-exporter
 docker buildx build -t ghcr.io/netlogix/docker/prometheus-postgres-exporter:${VERSION} -f prometheus-postgres-exporter/Dockerfile prometheus-postgres-exporter
 docker buildx build -t ghcr.io/netlogix/docker/prometheus-redis-exporter:${VERSION} -f prometheus-redis-exporter/Dockerfile prometheus-redis-exporter
