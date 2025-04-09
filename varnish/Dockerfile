@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM varnish:7.6 AS varnish
+FROM varnish:7.7 AS varnish
 
 ENV VARNISH_SIZE=1G
 
