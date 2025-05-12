@@ -57,8 +57,11 @@ RUN apt-get update && \
         php${PHP_VERSION}-cli \
         php${PHP_VERSION}-common \
         php${PHP_VERSION}-curl \
+        php${PHP_VERSION}-ctype \
+        php${PHP_VERSION}-dom \
         php${PHP_VERSION}-fpm \
         php${PHP_VERSION}-gd \
+        php${PHP_VERSION}-iconv \
         php${PHP_VERSION}-igbinary \
         php${PHP_VERSION}-imagick \
         php${PHP_VERSION}-intl \
@@ -71,6 +74,7 @@ RUN apt-get update && \
         php${PHP_VERSION}-soap \
         php${PHP_VERSION}-sqlite3 \
         php${PHP_VERSION}-xml \
+        php${PHP_VERSION}-xsl \
         php${PHP_VERSION}-yaml \
         php${PHP_VERSION}-zip \
     && apt-get autoremove \
