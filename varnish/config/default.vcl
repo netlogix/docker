@@ -282,7 +282,6 @@ sub vcl_deliver {
 
     unset resp.http.x-url;
     unset resp.http.x-host;
-    unset resp.http.xkey;
 
     if (std.ip(req.http.X-Client-Ip, client.ip) !~ debug) {
         unset resp.http.X-Cacheable;
@@ -290,6 +289,7 @@ sub vcl_deliver {
         unset resp.http.X-Cache-TTL;
         unset resp.http.X-Is-Static-File;
         unset resp.http.X-Site;
+        unset resp.http.xkey;
     } elseif (obj.hits > 0) {
         set resp.http.X-Cache = "HIT";
         set resp.http.X-Cache-Hits = obj.hits;
