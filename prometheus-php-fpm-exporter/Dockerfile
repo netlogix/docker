@@ -12,7 +12,7 @@ RUN git clone -b $EXPORTER_VERSION --single-branch --depth 1 https://github.com/
 
 RUN CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -o /out/php-fpm_exporter
 
-FROM alpine:3.21 AS prometheus-php-fpm-exporter
+FROM alpine:3.22 AS prometheus-php-fpm-exporter
 
 COPY --from=builder /out/* /
 
