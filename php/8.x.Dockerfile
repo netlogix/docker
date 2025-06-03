@@ -6,7 +6,7 @@ ARG PHP_VERSION=8.4
 ARG XDEBUG_VERSION=3.4.1
 
 ENV DEBIAN_FRONTEND=noninteractive \
-    TZ=UTC \
+    TZ="Europe/Berlin" \
     LANG="C.UTF-8"
 
 ENV PHP_VERSION=${PHP_VERSION} \
