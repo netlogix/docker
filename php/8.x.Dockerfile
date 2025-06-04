@@ -6,8 +6,9 @@ ARG PHP_VERSION=8.4
 ARG XDEBUG_VERSION=3.4.1
 
 ENV DEBIAN_FRONTEND=noninteractive \
-    TZ=UTC \
-    LANG="C.UTF-8"
+    TZ="Europe/Berlin" \
+    LANG="C.UTF-8" \
+    TERM=xterm-256color
 
 ENV PHP_VERSION=${PHP_VERSION} \
     PHP_MEMORY_LIMIT=128m \
@@ -124,7 +125,8 @@ COPY config/fpm/pool.d /etc/php/${PHP_VERSION}/fpm/pool.d/
 COPY config/fpm-${PHP_VERSION}/pool.d /etc/php/${PHP_VERSION}/fpm/pool.d/
 
 # Config files
-COPY dev/bash /root/
+COPY config/bash /root/
+COPY config/bash/.bashrc /etc/bash.bashrc
 
 # Test php-fpm config and php info
 RUN php-fpm -tt
@@ -181,7 +183,6 @@ ENV PHP_ASSERT=1 \
     COMPOSER_CACHE_DIR=/.cache/composer/ \
     YARN_CACHE_FOLDER=/.cache/yarn/ \
     npm_config_cache=/.cache/npm/ \
-    TERM=xterm-256color \
     TIDEWAYS_DAEMON=""
 
 # enable debugging with PhpStorm
