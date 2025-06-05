@@ -1,5 +1,5 @@
 # https://github.com/rabbitmq/rabbitmq-server/blob/main/deps/rabbit/docs/rabbitmq.conf.example
-FROM rabbitmq:4.1.0-management AS rabbitmq
+FROM rabbitmq:4.1.1-management AS rabbitmq
 
 COPY --chown=rabbitmq:rabbitmq config /etc/rabbitmq/
 
