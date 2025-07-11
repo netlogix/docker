@@ -9,7 +9,7 @@
     "prettier-plugin-nginx": "^1.0.3",
     "prettier-plugin-packagejson": "^2.5.18",
     "prettier-plugin-sh": "^0.18.0",
-    "prettier-plugin-sql": "^0.19.1"
+    "prettier-plugin-sql": "^0.19.2"
   },
   "scripts": {
     "postinstall": "patch-package"
