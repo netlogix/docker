@@ -1,7 +1,7 @@
 {
   "private": true,
   "dependencies": {
-    "@prettier/plugin-php": "^0.22.4",
+    "@prettier/plugin-php": "^0.23.0",
     "@prettier/plugin-xml": "^3.4.2",
     "patch-package": "^8.0.0",
     "php-parser": "^3.2.5",
