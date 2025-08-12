@@ -80,6 +80,7 @@ RUN apt-get update && \
         php${PHP_VERSION}-mysql \
         php${PHP_VERSION}-opcache \
         php${PHP_VERSION}-pgsql \
+        php${PHP_VERSION}-raphf \
         php${PHP_VERSION}-readline \
         php${PHP_VERSION}-redis \
         php${PHP_VERSION}-soap \
