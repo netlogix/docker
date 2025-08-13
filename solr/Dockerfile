@@ -1,8 +1,8 @@
 # syntax=docker/dockerfile:1
-FROM solr:9.7.0 AS builder
+FROM solr:9.9.0 AS builder
 
-ENV TYPO3_SOLR=12.0.3 \
-    TYPO3_SOLR_DOWNLOAD_SHA512="882f24a44d221f5d85a2066ab1235c9aedcd31c8a8f2009f9343b73de2931fd354fed6a8175fe18fa6fa0c284dd07d428c4f547f24875129e5a1d57c5ffd283f"
+ENV TYPO3_SOLR=13.0.3 \
+    TYPO3_SOLR_DOWNLOAD_SHA512="34a9743d5c96b6554eb281fcaa01e4e1946c217f5d1a7c99821b2236dd03c67aada0fb19ef380f64100acb7cabbc62822bddae9d3d0b3131c9ebb4b50f3ff847"
 
 USER root
 
@@ -15,7 +15,7 @@ RUN apt-get update && \
     mkdir -p /tmp/solr && \
     tar -zxvf /tmp/solr.tar.gz -C /tmp/solr --strip-components=1;
 
-FROM solr:9.6.1 AS solr
+FROM solr:9.9.0 AS solr
 ENV TERM=linux \
     SOLR_LOG_LEVEL=WARN \
     SOLR_PORT=8983 \
@@ -29,11 +29,7 @@ RUN rm -fR /opt/solr/server/solr/* \
   && usermod --non-unique --uid "${SOLR_UNIX_UID}" solr \
   && groupmod --non-unique --gid "${SOLR_UNIX_GID}" solr \
   && chown -R solr:solr /var/solr /opt/solr \
-  && apt update && apt upgrade -y && apt install sudo -y \
-  && echo "# EXT:solr relevant changes: " >> /etc/default/solr.in.sh \
-    && echo "SOLR_ENABLE_REMOTE_STREAMING=true" >> /etc/default/solr.in.sh \
-    && echo "SOLR_ENABLE_STREAM_BODY=true" >> /etc/default/solr.in.sh \
-    && echo "# END: EXT:solr" >> /etc/default/solr.in.sh
+  && apt update && apt upgrade -y && apt install sudo -y
 
 USER solr
 
