@@ -20,5 +20,4 @@ COPY --from=builder /out/* /
 # Run as non-root user for secure environments
 USER 59000:59000
 
-EXPOSE 9131
 ENTRYPOINT [ "/varnish_exporter" ]
