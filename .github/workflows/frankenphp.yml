@@ -1,0 +1,142 @@
+name: 'Build franken docker image'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  schedule:
+    - cron: 0 7 * * THU
+  push:
+    branches:
+      - main
+    paths:
+      - frankenphp/**
+  pull_request:
+    branches:
+      - main
+    paths:
+      - frankenphp/**
+  workflow_dispatch:
+    inputs: {}
+
+jobs:
+  build-docker-image:
+    name: 'Build frankenphp-${{ matrix.image.version }} docker image'
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      max-parallel: 10
+      matrix:
+        image:
+        - version: 8.4
+          file: Dockerfile
+          build-args: |
+            PHP_VERSION=8.4
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Setup Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to GHCR
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push (frankenphp)
+        uses: docker/build-push-action@v6
+        with:
+          builder: ${{ steps.buildx.outputs.name }}
+          context: ./frankenphp
+          target: frankenphp
+          file: ./frankenphp/${{ matrix.image.file || 'Dockerfile' }}
+          build-args: ${{ matrix.image.build-args }}
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ghcr.io/netlogix/docker/frankenphp:${{ matrix.image.version }}
+          platforms: linux/amd64,linux/arm64
+          cache-from: type=gha, scope=${{ github.workflow }}-frankenphp
+          cache-to: type=gha, scope=${{ github.workflow }}-frankenphp, mode=max
+
+      - name: Build and push (frankenphp-cli)
+        uses: docker/build-push-action@v6
+        with:
+          builder: ${{ steps.buildx.outputs.name }}
+          context: ./frankenphp
+          target: frankenphp-cli
+          file: ./frankenphp/${{ matrix.image.file || 'Dockerfile' }}
+          build-args: ${{ matrix.image.build-args }}
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ghcr.io/netlogix/docker/frankenphp-cli:${{ matrix.image.version }}
+          platforms: linux/amd64,linux/arm64
+          cache-from: type=gha, scope=${{ github.workflow }}-frankenphp
+          cache-to: type=gha, scope=${{ github.workflow }}-frankenphp, mode=max
+
+  build-docker-dev-image:
+    name: 'Build frankenphp-${{ matrix.image.version }}-dev docker image'
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      max-parallel: 10
+      matrix:
+        image:
+        - version: 8.4
+          file: Dockerfile
+          build-args: |
+            PHP_VERSION=8.4
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Setup Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to GHCR
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push (frankenphp-dev)
+        uses: docker/build-push-action@v6
+        with:
+          builder: ${{ steps.buildx.outputs.name }}
+          context: ./frankenphp
+          target: frankenphp-dev
+          file: ./frankenphp/${{ matrix.image.file || 'Dockerfile' }}
+          build-args: ${{ matrix.image.build-args }}
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ghcr.io/netlogix/docker/frankenphp-dev:${{ matrix.image.version }}
+          platforms: linux/amd64,linux/arm64
+          cache-from: type=gha, scope=${{ github.workflow }}-frankenphp
+          cache-to: type=gha, scope=${{ github.workflow }}-frankenphp, mode=max
+
+      - name: Build and push (frankenphp-cli-dev)
+        uses: docker/build-push-action@v6
+        with:
+          builder: ${{ steps.buildx.outputs.name }}
+          context: ./php
+          target: frankenphp-cli-dev
+          file: ./frankenphp/${{ matrix.image.file || 'Dockerfile' }}
+          build-args: ${{ matrix.image.build-args }}
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ghcr.io/netlogix/docker/frankenphp-cli-dev:${{ matrix.image.version }}
+          platforms: linux/amd64,linux/arm64
+          cache-from: type=gha, scope=${{ github.workflow }}-frankenphp
+          cache-to: type=gha, scope=${{ github.workflow }}-frankenphp, mode=max
