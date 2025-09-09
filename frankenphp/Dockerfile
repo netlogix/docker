@@ -19,20 +19,6 @@ RUN CGO_ENABLED=1 \
 FROM dunglas/frankenphp:php${PHP_VERSION} AS app-frankenphp-base
 RUN <<EOF
     set -e
-    apt-get update
-        apt-get -y install --no-install-suggests --no-install-recommends \
-                libfcgi-bin \
-                ca-certificates \
-                curl \
-                gnupg2 \
-                locales
-EOF
-
-RUN <<EOF
-    set -e
-    echo 'deb [signed-by=/usr/share/keyrings/tideways.gpg] https://packages.tideways.com/apt-packages-main any-version main' | tee /etc/apt/sources.list.d/tideways.list && \
-    curl -L -sS 'https://packages.tideways.com/key.gpg' | gpg --dearmor | tee /usr/share/keyrings/tideways.gpg > /dev/null
-    apt-get update
     apt-get -y install --no-install-suggests --no-install-recommends \
         cron \
         ghostscript \
@@ -44,10 +30,11 @@ RUN <<EOF
         unzip \
         vim \
         webp \
-        zip \
-        tideways-php \
-        tideways-cli
-    apt-get upgrade -y
+        zip
+EOF
+
+RUN <<EOF
+    set -e
     install-php-extensions \
         amqp \
         apcu \
@@ -77,6 +64,13 @@ RUN <<EOF
         zip \
         zstd
     apt-get autoremove
+EOF
+
+RUN <<EOF
+    COPY --from=ghcr.io/tideways/cli:latest /usr/bin/tideways /usr/bin/tideways
+    COPY --from=ghcr.io/tideways/php:latest /tideways/ /tideways/
+    RUN set -ex; \
+        docker-php-ext-enable --ini-name tideways.ini "$(php /tideways/get-ext-path.php)";
 EOF
 
 RUN <<EOF
