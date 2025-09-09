@@ -19,6 +19,7 @@ RUN CGO_ENABLED=1 \
 FROM dunglas/frankenphp:php${PHP_VERSION} AS app-frankenphp-base
 RUN <<EOF
     set -e
+    apt-get update -y
     apt-get -y install --no-install-suggests --no-install-recommends \
         cron \
         ghostscript \
@@ -43,7 +44,6 @@ RUN <<EOF
         curl \
         ffi \
         gd \
-        http \
         igbinary \
         imagick \
         intl \
