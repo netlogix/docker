@@ -129,7 +129,7 @@ ENTRYPOINT [ "frankenphp", "php-cli" ]
 CMD []
 
 
-FROM app-frankenphp-base AS frankenphp-dev-base
+FROM app-frankenphp-base AS frankenphp-base-dev
 
 USER root
 
@@ -161,8 +161,8 @@ ENV PHP_XDEBUG_HOST=host.docker.internal \
 
 USER www-data
 
-FROM frankenphp-dev-base AS frankenphp-dev
+FROM frankenphp-base-dev AS frankenphp-dev
 
-FROM frankenphp-dev-base AS frankenphp-dev-cli
+FROM frankenphp-base-dev AS frankenphp-cli-dev
 ENTRYPOINT [ "frankenphp", "php-cli" ]
 CMD []
