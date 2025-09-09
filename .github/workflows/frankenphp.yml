@@ -58,7 +58,7 @@ jobs:
 
       - name: Build and push (frankenphp)
         uses: docker/build-push-action@v6
-        timeout-minutes: 20
+        timeout-minutes: 60
         with:
           builder: ${{ steps.buildx.outputs.name }}
           context: ./frankenphp
@@ -73,7 +73,7 @@ jobs:
 
       - name: Build and push (frankenphp-cli)
         uses: docker/build-push-action@v6
-        timeout-minutes: 20
+        timeout-minutes: 60
         with:
           builder: ${{ steps.buildx.outputs.name }}
           context: ./frankenphp
@@ -120,7 +120,7 @@ jobs:
 
       - name: Build and push (frankenphp-dev)
         uses: docker/build-push-action@v6
-        timeout-minutes: 20
+        timeout-minutes: 60
         with:
           builder: ${{ steps.buildx.outputs.name }}
           context: ./frankenphp
@@ -135,7 +135,7 @@ jobs:
 
       - name: Build and push (frankenphp-cli-dev)
         uses: docker/build-push-action@v6
-        timeout-minutes: 20
+        timeout-minutes: 60
         with:
           builder: ${{ steps.buildx.outputs.name }}
           context: ./php
