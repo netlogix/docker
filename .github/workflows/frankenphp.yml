@@ -130,8 +130,8 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ghcr.io/netlogix/docker/frankenphp-dev:${{ matrix.image.version }}
           platforms: linux/amd64,linux/arm64
-          cache-from: type=gha, scope=${{ github.workflow }}-frankenphp
-          cache-to: type=gha, scope=${{ github.workflow }}-frankenphp, mode=max
+          cache-from: type=gha, scope=${{ github.workflow }}-frankenphp-dev
+          cache-to: type=gha, scope=${{ github.workflow }}-frankenphp-dev, mode=max
 
       - name: Build and push (frankenphp-cli-dev)
         uses: docker/build-push-action@v6
@@ -145,5 +145,5 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ghcr.io/netlogix/docker/frankenphp-cli-dev:${{ matrix.image.version }}
           platforms: linux/amd64,linux/arm64
-          cache-from: type=gha, scope=${{ github.workflow }}-frankenphp
-          cache-to: type=gha, scope=${{ github.workflow }}-frankenphp, mode=max
+          cache-from: type=gha, scope=${{ github.workflow }}-frankenphp-dev
+          cache-to: type=gha, scope=${{ github.workflow }}-frankenphp-dev, mode=max
