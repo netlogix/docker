@@ -66,12 +66,10 @@ RUN <<EOF
     apt-get autoremove
 EOF
 
-RUN <<EOF
-    COPY --from=ghcr.io/tideways/cli:latest /usr/bin/tideways /usr/bin/tideways
-    COPY --from=ghcr.io/tideways/php:latest /tideways/ /tideways/
-    RUN set -ex; \
-        docker-php-ext-enable --ini-name tideways.ini "$(php /tideways/get-ext-path.php)";
-EOF
+COPY --from=ghcr.io/tideways/cli:latest /usr/bin/tideways /usr/bin/tideways
+COPY --from=ghcr.io/tideways/php:latest /tideways/ /tideways/
+RUN set -ex; \
+    docker-php-ext-enable --ini-name tideways.ini "$(php /tideways/get-ext-path.php)";
 
 RUN <<EOF
   mkdir -p /var/www
