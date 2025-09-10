@@ -33,6 +33,10 @@ jobs:
       max-parallel: 10
       matrix:
         image:
+        - version: 8.3
+          file: Dockerfile
+          build-args: |
+            PHP_VERSION=8.3
         - version: 8.4
           file: Dockerfile
           build-args: |
@@ -95,6 +99,10 @@ jobs:
       max-parallel: 10
       matrix:
         image:
+        - version: 8.3
+          file: Dockerfile
+          build-args: |
+            PHP_VERSION=8.3
         - version: 8.4
           file: Dockerfile
           build-args: |
