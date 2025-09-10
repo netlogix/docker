@@ -138,7 +138,7 @@ jobs:
         timeout-minutes: 120
         with:
           builder: ${{ steps.buildx.outputs.name }}
-          context: ./php
+          context: ./frankenphp
           target: frankenphp-cli-dev
           file: ./frankenphp/${{ matrix.image.file || 'Dockerfile' }}
           build-args: ${{ matrix.image.build-args }}
