@@ -44,6 +44,7 @@ RUN <<EOF
         curl \
         ffi \
         gd \
+        gmp \
         igbinary \
         imagick \
         intl \
