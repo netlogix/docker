@@ -14,12 +14,12 @@ on:
     branches:
       - main
     paths:
-      - frankenphp/**
+      - php/**
   pull_request:
     branches:
       - main
     paths:
-      - frankenphp/**
+      - php/**
   workflow_dispatch:
     inputs: {}
 
@@ -34,11 +34,11 @@ jobs:
       matrix:
         image:
         - version: 8.3
-          file: Dockerfile
+          file: Frankenphp.Dockerfile
           build-args: |
             PHP_VERSION=8.3
         - version: 8.4
-          file: Dockerfile
+          file: Frankenphp.Dockerfile
           build-args: |
             PHP_VERSION=8.4
 
@@ -65,9 +65,9 @@ jobs:
         timeout-minutes: 120
         with:
           builder: ${{ steps.buildx.outputs.name }}
-          context: ./frankenphp
+          context: ./php
           target: frankenphp
-          file: ./frankenphp/${{ matrix.image.file || 'Dockerfile' }}
+          file: ./php/${{ matrix.image.file || 'Dockerfile' }}
           build-args: ${{ matrix.image.build-args }}
           push: ${{ github.event_name != 'pull_request' }}
           tags: ghcr.io/netlogix/docker/frankenphp:${{ matrix.image.version }}
@@ -80,9 +80,9 @@ jobs:
         timeout-minutes: 120
         with:
           builder: ${{ steps.buildx.outputs.name }}
-          context: ./frankenphp
+          context: ./php
           target: frankenphp-cli
-          file: ./frankenphp/${{ matrix.image.file || 'Dockerfile' }}
+          file: ./php/${{ matrix.image.file || 'Dockerfile' }}
           build-args: ${{ matrix.image.build-args }}
           push: ${{ github.event_name != 'pull_request' }}
           tags: ghcr.io/netlogix/docker/frankenphp-cli:${{ matrix.image.version }}
@@ -100,11 +100,11 @@ jobs:
       matrix:
         image:
         - version: 8.3
-          file: Dockerfile
+          file: Frankenphp.Dockerfile
           build-args: |
             PHP_VERSION=8.3
         - version: 8.4
-          file: Dockerfile
+          file: Frankenphp.Dockerfile
           build-args: |
             PHP_VERSION=8.4
 
@@ -131,9 +131,9 @@ jobs:
         timeout-minutes: 120
         with:
           builder: ${{ steps.buildx.outputs.name }}
-          context: ./frankenphp
+          context: ./php
           target: frankenphp-dev
-          file: ./frankenphp/${{ matrix.image.file || 'Dockerfile' }}
+          file: ./php/${{ matrix.image.file || 'Dockerfile' }}
           build-args: ${{ matrix.image.build-args }}
           push: ${{ github.event_name != 'pull_request' }}
           tags: ghcr.io/netlogix/docker/frankenphp-dev:${{ matrix.image.version }}
@@ -146,9 +146,9 @@ jobs:
         timeout-minutes: 120
         with:
           builder: ${{ steps.buildx.outputs.name }}
-          context: ./frankenphp
+          context: ./php
           target: frankenphp-cli-dev
-          file: ./frankenphp/${{ matrix.image.file || 'Dockerfile' }}
+          file: ./php/${{ matrix.image.file || 'Dockerfile' }}
           build-args: ${{ matrix.image.build-args }}
           push: ${{ github.event_name != 'pull_request' }}
           tags: ghcr.io/netlogix/docker/frankenphp-cli-dev:${{ matrix.image.version }}

@@ -103,10 +103,15 @@ docker buildx build -t ghcr.io/netlogix/docker/php-cron:8.4 --build-arg PHP_VERS
 docker buildx build -t ghcr.io/netlogix/docker/php-cron-dev:8.4 --build-arg PHP_VERSION=8.4 --build-arg UBUNTU_VERSION=24.04 -f php/8.x.Dockerfile --target=php-cron-dev php
 docker buildx build -t ghcr.io/netlogix/docker/php-supervisor:8.4 --build-arg PHP_VERSION=8.4 --build-arg UBUNTU_VERSION=24.04 -f php/8.x.Dockerfile --target=php-supervisor php
 
-docker buildx build -t ghcr.io/netlogix/docker/frankenphp:8.4 --build-arg PHP_VERSION=8.4 -f frankenphp/Dockerfile --target=frankenphp frankenphp
-docker buildx build -t ghcr.io/netlogix/docker/frankenphp-dev:8.4 --build-arg PHP_VERSION=8.4 -f frankenphp/Dockerfile --target=frankenphp-dev frankenphp
-docker buildx build -t ghcr.io/netlogix/docker/frankenphp-cli:8.4 --build-arg PHP_VERSION=8.4 -f frankenphp/Dockerfile --target=frankenphp-cli frankenphp
-docker buildx build -t ghcr.io/netlogix/docker/frankenphp-dev-cli:8.4 --build-arg PHP_VERSION=8.4 -f frankenphp/Dockerfile --target=frankenphp-dev-cli frankenphp
+docker buildx build -t ghcr.io/netlogix/docker/frankenphp:8.3 --build-arg PHP_VERSION=8.3 -f php/Frankenphp.Dockerfile --target=frankenphp php
+docker buildx build -t ghcr.io/netlogix/docker/frankenphp-dev:8.3 --build-arg PHP_VERSION=8.3 -f php/Frankenphp.Dockerfile --target=frankenphp-dev php
+docker buildx build -t ghcr.io/netlogix/docker/frankenphp-cli:8.3 --build-arg PHP_VERSION=8.3 -f php/Frankenphp.Dockerfile --target=frankenphp-cli php
+docker buildx build -t ghcr.io/netlogix/docker/frankenphp-cli-dev:8.3 --build-arg PHP_VERSION=8.3 -f php/Frankenphp.Dockerfile --target=frankenphp-cli-dev php
+
+docker buildx build -t ghcr.io/netlogix/docker/frankenphp:8.4 --build-arg PHP_VERSION=8.4 -f php/Frankenphp.Dockerfile --target=frankenphp php
+docker buildx build -t ghcr.io/netlogix/docker/frankenphp-dev:8.4 --build-arg PHP_VERSION=8.4 -f php/Frankenphp.Dockerfile --target=frankenphp-dev php
+docker buildx build -t ghcr.io/netlogix/docker/frankenphp-cli:8.4 --build-arg PHP_VERSION=8.4 -f php/Frankenphp.Dockerfile --target=frankenphp-cli php
+docker buildx build -t ghcr.io/netlogix/docker/frankenphp-cli-dev:8.4 --build-arg PHP_VERSION=8.4 -f php/Frankenphp.Dockerfile --target=frankenphp-cli-dev php
 
 docker buildx build -t ghcr.io/netlogix/docker/node:18 --build-arg NODE_VERSION=18 -f node/Dockerfile node
 docker buildx build -t ghcr.io/netlogix/docker/node:20 --build-arg NODE_VERSION=20 -f node/Dockerfile node
