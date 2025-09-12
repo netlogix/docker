@@ -21,6 +21,7 @@ RUN <<EOF
     set -e
     apt-get update -y
     apt-get -y install --no-install-suggests --no-install-recommends \
+        ca-certificates \
         cron \
         ghostscript \
         imagemagick \
@@ -66,6 +67,10 @@ RUN <<EOF
         zstd
     apt-get autoremove
 EOF
+
+# Install dev certificates
+COPY certs/* /usr/share/ca-certificates/netlogix/
+RUN echo "netlogix/docker-dev-ca.crt" >> /etc/ca-certificates.conf && update-ca-certificates
 
 COPY --from=ghcr.io/tideways/cli:latest /usr/bin/tideways /usr/bin/tideways
 COPY --from=ghcr.io/tideways/php:latest /tideways/ /tideways/
