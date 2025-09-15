@@ -1,1 +1,1 @@
-FROM oliver006/redis_exporter:v1.76.0 AS prometheus-redis-exporter
+FROM oliver006/redis_exporter:v1.77.0 AS prometheus-redis-exporter
