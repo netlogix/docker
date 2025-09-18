@@ -32,7 +32,8 @@ RUN <<EOF
         unzip \
         vim \
         webp \
-        zip
+        zip \
+        libxslt1-dev
 EOF
 
 RUN <<EOF
@@ -64,7 +65,8 @@ RUN <<EOF
         xml \
         yaml \
         zip \
-        zstd
+        zstd \
+        xsl
     apt-get autoremove
 EOF
 
