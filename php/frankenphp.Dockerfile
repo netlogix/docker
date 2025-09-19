@@ -25,6 +25,7 @@ RUN <<EOF
         cron \
         ghostscript \
         imagemagick \
+        libxslt1-dev \
         nano \
         openssl \
         supervisor \
@@ -62,6 +63,7 @@ RUN <<EOF
         sockets \
         sqlite3 \
         xml \
+        xsl \
         yaml \
         zip \
         zstd
