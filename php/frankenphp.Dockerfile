@@ -25,6 +25,7 @@ RUN <<EOF
         cron \
         ghostscript \
         imagemagick \
+        libxslt1-dev \
         nano \
         openssl \
         supervisor \
@@ -32,8 +33,7 @@ RUN <<EOF
         unzip \
         vim \
         webp \
-        zip \
-        libxslt1-dev
+        zip
 EOF
 
 RUN <<EOF
@@ -63,10 +63,10 @@ RUN <<EOF
         sockets \
         sqlite3 \
         xml \
+        xsl \
         yaml \
         zip \
-        zstd \
-        xsl
+        zstd
     apt-get autoremove
 EOF
 
