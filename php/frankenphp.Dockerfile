@@ -1,21 +1,5 @@
 ARG PHP_VERSION=8.4
 
-FROM dunglas/frankenphp:builder-php${PHP_VERSION} AS app-frankenphp-builder
-COPY --from=caddy:builder /usr/bin/xcaddy /usr/bin/xcaddy
-
-RUN CGO_ENABLED=1 \
-    XCADDY_SETCAP=1 \
-    XCADDY_GO_BUILD_FLAGS="-ldflags='-w -s' -tags=nobadger,nomysql,nopgx" \
-    CGO_CFLAGS=$(php-config --includes) \
-    CGO_LDFLAGS="$(php-config --ldflags) $(php-config --libs)" \
-    xcaddy build \
-        --output /usr/local/bin/frankenphp \
-        --with github.com/dunglas/frankenphp=./ \
-        --with github.com/dunglas/frankenphp/caddy=./caddy/ \
-        --with github.com/dunglas/caddy-cbrotli \
-        --with github.com/dunglas/vulcain/caddy \
-        --with github.com/lolPants/caddy-requestid
-
 FROM dunglas/frankenphp:php${PHP_VERSION} AS app-frankenphp-base
 RUN <<EOF
     set -e
@@ -106,10 +90,10 @@ ENV PHP_VERSION=${PHP_VERSION} \
     PHP_OPCACHE_MAX_ACCELERATED_FILES=10000 \
     PHP_OPCACHE_PRELOAD_USER=www-data \
     PHP_OPCACHE_ENABLE_CLI=0 \
-    PHP_OPCACHE_VALIDATE_TIMESTAMPS=0 \
+    PHP_OPCACHE_VALIDATE_TIMESTAMPS=1 \
     PHP_OPCACHE_FILE_CACHE="" \
     PHP_OPCACHE_FILE_CACHE_ONLY=0 \
-    PHP_OPCACHE_REVALIDATE_FREQ=0 \
+    PHP_OPCACHE_REVALIDATE_FREQ=2 \
     PHP_REALPATH_CACHE_TTL=3600 \
     PHP_REALPATH_CACHE_SIZE=4M \
     PHP_XDEBUG_HOST=host.docker.internal \
