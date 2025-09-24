@@ -1,4 +1,4 @@
-FROM debian:bookworm-slim AS chromium
+FROM debian:bookworm-slim AS chromium-base
 
 RUN apt-get update  \
     && apt-get install -y --no-install-recommends \
@@ -31,12 +31,37 @@ RUN apt-get update  \
         /var/tmp/* \
         /tmp/*
 
+FROM chromium-base AS chromium-patcher
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        brotli \
+        git \
+        python3 \
+    && apt-get autoclean \
+    && rm -rf \
+        /config/.cache \
+        /var/lib/apt/lists/* \
+        /var/tmp/* \
+        /tmp/*
+
+RUN git clone https://chromium.googlesource.com/chromium/src/tools/grit /opt/tools/grit
+
+RUN mkdir -p /tmp/chromium-pak/resources/ && \
+    (cd /tmp/chromium-pak/resources/ && /opt/tools/grit/pak_util.py extract /usr/lib/chromium/resources.pak --brotli /usr/bin/brotli) && \
+    sed -i 's|element\.textContent = options\[cssClass\]|element\.textContent = ((cssClass === "pageNumber") ? (parseInt(document\.querySelector("\.pageNumberOffset")?\.textContent ?? 0) + parseInt(options\[cssClass\])) : options\[cssClass\])|' $(grep -rwl '/tmp/chromium-pak/resources/' -e 'setupHeaderFooterTemplate') && \
+    (cd /tmp/chromium-pak/resources/ && /opt/tools/grit/pak_util.py create /usr/lib/chromium/resources.pak)
+
+FROM chromium-base AS chromium
+
 RUN groupadd -r chromium && \
     useradd -r -g chromium chromium && \
     mkdir -p /home/chromium && \
     chown -R chromium:chromium /home/chromium
 
 USER chromium
+
+COPY --from=chromium-patcher /usr/lib/chromium/resources.pak /usr/lib/chromium/resources.pak
 
 ENV REMOTE_DEBUGGING_PORT=9222 \
     ADDITIONAL_ARGS=''
