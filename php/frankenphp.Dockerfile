@@ -121,6 +121,8 @@ RUN frankenphp adapt --config /etc/frankenphp/Caddyfile --pretty --validate
 HEALTHCHECK --interval=2s --timeout=2s --start-period=2s --retries=3 \
   CMD curl --fail --silent http://localhost:8080/health-check || exit 1
 
+LABEL prometheus_port="2020"
+
 FROM app-frankenphp-base AS frankenphp
 COPY --chown=www-data:www-data . /var/www/
 
