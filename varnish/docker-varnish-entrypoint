@@ -16,6 +16,7 @@ if [ "$#" -eq 0 ] || [ "${1#-}" != "$1" ]; then
       -p thread_pool_min=5 \
       -p thread_pool_max=500 \
       -p thread_pool_timeout=300 \
+      -p http_resp_size=64000 \
       "$@"
 fi
 
