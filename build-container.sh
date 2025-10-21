@@ -28,6 +28,7 @@ docker buildx build -t ghcr.io/netlogix/docker/mailpit:${VERSION} -f mailpit/Doc
 docker buildx build -t ghcr.io/netlogix/docker/cfssl:${VERSION} -f cfssl/Dockerfile --target=cfssl cfssl
 docker buildx build -t ghcr.io/netlogix/docker/cfssl-server:${VERSION} -f cfssl/Dockerfile --target=cfssl-server cfssl
 docker buildx build -t ghcr.io/netlogix/docker/tideways-daemon:${VERSION} -f tideways-daemon/Dockerfile tideways-daemon
+docker buildx build -t ghcr.io/netlogix/docker/oauth2-proxy:${VERSION} -f oauth2-proxy/Dockerfile oauth2-proxy
 
 docker buildx build -t ghcr.io/netlogix/docker/prometheus-apache-exporter:${VERSION} -f prometheus-apache-exporter/Dockerfile prometheus-apache-exporter
 docker buildx build -t ghcr.io/netlogix/docker/prometheus-elasticsearch-exporter:${VERSION} -f prometheus-elasticsearch-exporter/Dockerfile prometheus-elasticsearch-exporter
