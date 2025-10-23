@@ -11,6 +11,7 @@ docker buildx build -t ghcr.io/netlogix/docker/mariadb:${VERSION} -f mariadb/Doc
 docker buildx build -t ghcr.io/netlogix/docker/mysql:${VERSION} -f mysql/Dockerfile mysql
 docker buildx build -t ghcr.io/netlogix/docker/postgres:${VERSION} -f postgres/Dockerfile postgres
 docker buildx build -t ghcr.io/netlogix/docker/prettier:${VERSION} -f prettier/Dockerfile prettier
+docker buildx build -t ghcr.io/netlogix/docker/deunhealth:${VERSION} -f deunhealth/Dockerfile deunhealth
 docker buildx build -t ghcr.io/netlogix/docker/nginx:${VERSION} -f nginx/Dockerfile --target=nginx nginx
 docker buildx build -t ghcr.io/netlogix/docker/styleguide:${VERSION} -f nginx/Dockerfile --target=styleguide nginx
 docker buildx build -t ghcr.io/netlogix/docker/rabbitmq:${VERSION} -f rabbitmq/Dockerfile rabbitmq
