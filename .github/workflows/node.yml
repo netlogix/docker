@@ -39,6 +39,9 @@ jobs:
         - version: 22
           build-args: |
             NODE_VERSION=22
+        - version: 24
+          build-args: |
+            NODE_VERSION=24
 
     steps:
       - name: Checkout
