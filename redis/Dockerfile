@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM redis:8.2.2-alpine AS redis
+FROM redis:8.2.3-alpine AS redis
 
 COPY redis.conf /usr/local/etc/redis/redis.conf
 
