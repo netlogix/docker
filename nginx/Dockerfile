@@ -70,6 +70,96 @@ RUN apt-get update \
     done \
     && echo "BUILT_MODULES=\"$BUILT_MODULES\"" > /tmp/packages/modules.env
 
+# Build ModSecurity and ModSecurity-nginx connector for ModSecurity v3
+# SEE: https://github.com/coreruleset/modsecurity-crs-docker/blob/main/nginx/Dockerfile
+FROM nginx:1.29.3 AS modsecurity-builder
+
+ARG MODSECURITY_VERSION="3.0.14"
+ARG MODSECURITY_NGINX_VERSION="1.0.4"
+
+USER root
+
+RUN set -eux; \
+    echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections; \
+    apt-get update -qq; \
+    apt-get install -y -qq --no-install-recommends --no-install-suggests \
+        automake \
+        ca-certificates \
+        cmake \
+        curl \
+        doxygen \
+        g++ \
+        git \
+        gnupg \
+        libcurl4-gnutls-dev \
+        libfuzzy-dev \
+        liblmdb-dev \
+        liblua5.3-dev \
+        libpcre2-dev \
+        libtool \
+        libxml2-dev \
+        libyajl-dev \
+        make \
+        patch \
+        pkg-config \
+        ruby \
+        zlib1g-dev; \
+     apt-get clean; \
+     rm -rf /var/lib/apt/lists/*
+
+WORKDIR /sources
+
+RUN set -eux; \
+    git clone https://github.com/owasp-modsecurity/ModSecurity.git --branch "v${MODSECURITY_VERSION}" --depth 1 --recursive; \
+    cd ModSecurity; \
+    ARCH=$(gcc -print-multiarch); \
+    sed -ie "s/i386-linux-gnu/${ARCH}/g" build/ssdeep.m4; \
+    sed -ie "s/i386-linux-gnu/${ARCH}/g" build/pcre2.m4; \
+    ./build.sh; \
+    ./configure --with-yajl --with-ssdeep --with-lmdb --with-pcre2 --enable-silent-rules; \
+    make -j$(nproc) install; \
+    strip /usr/local/modsecurity/lib/lib*.so*
+
+RUN set -eux; \
+    NGINX_VERSION=$(nginx -v 2>&1 | sed -E 's#.*nginx/([0-9.]+).*#\1#'); \
+    git clone https://github.com/owasp-modsecurity/ModSecurity-nginx.git --branch "v${MODSECURITY_NGINX_VERSION}" --depth 1; \
+    curl -sSL "https://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz" -o nginx-${NGINX_VERSION}.tar.gz; \
+    tar -xzf nginx-${NGINX_VERSION}.tar.gz; \
+    cd ./nginx-${NGINX_VERSION}; \
+    ./configure --with-compat --add-dynamic-module=/sources/ModSecurity-nginx; \
+    make -j$(nproc) modules; \
+    strip objs/*.so; \
+    cp objs/*.so /etc/nginx/modules/; \
+    mkdir /etc/modsecurity.d; \
+    curl -sSL https://raw.githubusercontent.com/owasp-modsecurity/ModSecurity/v3/master/unicode.mapping \
+         -o /etc/modsecurity.d/unicode.mapping
+
+FROM nginx:1.29.3 AS crs-downloader
+
+ARG CRS_RELEASE="4.20.0"
+
+USER root
+
+RUN set -eux; \
+    apt-get update; \
+    apt-get -y install --no-install-recommends \
+      ca-certificates \
+      curl \
+      gnupg; \
+    mkdir -p /etc/modsecurity.d/owasp-crs; \
+    chown nginx:nginx /etc/modsecurity.d/owasp-crs
+
+USER nginx
+WORKDIR /sources
+
+RUN curl -sSL https://github.com/coreruleset/coreruleset/releases/download/v${CRS_RELEASE}/coreruleset-${CRS_RELEASE}-minimal.tar.gz -o v${CRS_RELEASE}-minimal.tar.gz; \
+    curl -sSL https://github.com/coreruleset/coreruleset/releases/download/v${CRS_RELEASE}/coreruleset-${CRS_RELEASE}-minimal.tar.gz.asc -o coreruleset-${CRS_RELEASE}-minimal.tar.gz.asc; \
+    gpg --fetch-key https://coreruleset.org/security.asc; \
+    gpg --verify coreruleset-${CRS_RELEASE}-minimal.tar.gz.asc v${CRS_RELEASE}-minimal.tar.gz; \
+    tar -zxf v${CRS_RELEASE}-minimal.tar.gz --strip-components=1 -C /etc/modsecurity.d/owasp-crs; \
+    rm -f v${CRS_RELEASE}-minimal.tar.gz coreruleset-${CRS_RELEASE}-minimal.tar.gz.asc; \
+    mv -v /etc/modsecurity.d/owasp-crs/crs-setup.conf.example /etc/modsecurity.d/owasp-crs/crs-setup.conf
+
 FROM nginx:1.29.3 AS nginx
 ENV TZ="Europe/Berlin"
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
@@ -86,6 +176,19 @@ RUN curl -L https://github.com/a8m/envsubst/releases/download/v1.4.2/envsubst-Li
 
 COPY etc /etc/
 COPY docker-entrypoint.d /docker-entrypoint.d
+
+RUN apt-get update && apt-get install -y \
+      libcurl4-gnutls-dev \
+      libfuzzy-dev \
+      liblmdb-dev \
+      liblua5.3-dev \
+      libyajl-dev \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+COPY --from=modsecurity-builder /usr/local/modsecurity/lib/ /usr/local/modsecurity/lib/
+COPY --from=modsecurity-builder /etc/nginx/modules/ngx_http_modsecurity_module.so /etc/nginx/modules/
+COPY --from=modsecurity-builder /etc/modsecurity.d/unicode.mapping /etc/modsecurity.d/unicode.mapping
+COPY --from=crs-downloader /etc/modsecurity.d/owasp-crs/ /etc/modsecurity.d/owasp-crs/
 
 # Test nginx config
 RUN nginx -t
