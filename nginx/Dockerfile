@@ -74,8 +74,10 @@ RUN apt-get update \
 # SEE: https://github.com/coreruleset/modsecurity-crs-docker/blob/main/nginx/Dockerfile
 FROM nginx:1.29.3 AS modsecurity-builder
 
-ARG MODSECURITY_VERSION="3.0.14"
-ARG MODSECURITY_NGINX_VERSION="1.0.4"
+# renovate: datasource=github-releases depName=ModSecurity packageName=owasp-modsecurity/ModSecurity
+ARG MODSECURITY_VERSION="v3.0.14"
+# renovate: datasource=github-releases depName=ModSecurity-nginx packageName=owasp-modsecurity/ModSecurity-nginx
+ARG MODSECURITY_NGINX_VERSION="v1.0.4"
 
 USER root
 
@@ -110,7 +112,7 @@ RUN set -eux; \
 WORKDIR /sources
 
 RUN set -eux; \
-    git clone https://github.com/owasp-modsecurity/ModSecurity.git --branch "v${MODSECURITY_VERSION}" --depth 1 --recursive; \
+    git clone https://github.com/owasp-modsecurity/ModSecurity.git --branch "${MODSECURITY_VERSION}" --depth 1 --recursive; \
     cd ModSecurity; \
     ARCH=$(gcc -print-multiarch); \
     sed -ie "s/i386-linux-gnu/${ARCH}/g" build/ssdeep.m4; \
@@ -122,7 +124,7 @@ RUN set -eux; \
 
 RUN set -eux; \
     NGINX_VERSION=$(nginx -v 2>&1 | sed -E 's#.*nginx/([0-9.]+).*#\1#'); \
-    git clone https://github.com/owasp-modsecurity/ModSecurity-nginx.git --branch "v${MODSECURITY_NGINX_VERSION}" --depth 1; \
+    git clone https://github.com/owasp-modsecurity/ModSecurity-nginx.git --branch "${MODSECURITY_NGINX_VERSION}" --depth 1; \
     curl -sSL "https://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz" -o nginx-${NGINX_VERSION}.tar.gz; \
     tar -xzf nginx-${NGINX_VERSION}.tar.gz; \
     cd ./nginx-${NGINX_VERSION}; \

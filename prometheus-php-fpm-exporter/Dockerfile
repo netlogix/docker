@@ -3,6 +3,7 @@ FROM --platform=$BUILDPLATFORM golang:1.25-alpine AS builder
 
 ARG TARGETOS
 ARG TARGETARCH
+# renovate: datasource=github-releases depName=php-fpm_exporter packageName=hipages/php-fpm_exporter
 ARG EXPORTER_VERSION='v2.2.0'
 
 WORKDIR /src
