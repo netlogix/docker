@@ -20,7 +20,6 @@ updates:
       - '/nginx'
       - '/node'
       - '/opensearch'
-      - '/prettier'
       - '/prometheus-apache-exporter'
       - '/prometheus-elasticsearch-exporter'
       - '/prometheus-nginx-exporter'
