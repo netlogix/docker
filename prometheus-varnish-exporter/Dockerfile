@@ -3,6 +3,7 @@ FROM --platform=$BUILDPLATFORM golang:1.25-alpine AS builder
 
 ARG TARGETOS
 ARG TARGETARCH
+# renovate: datasource=github-releases depName=prometheus_varnish_exporter packageName=jonnenauha/prometheus_varnish_exporter
 ARG EXPORTER_VERSION='1.6.1'
 
 WORKDIR /src

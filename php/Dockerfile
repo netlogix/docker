@@ -3,6 +3,7 @@
 ARG UBUNTU_VERSION=24.04
 FROM ubuntu:${UBUNTU_VERSION} AS base
 ARG PHP_VERSION=8.3
+# renovate: datasource=github-releases depName=xdebug packageName=xdebug/xdebug
 ARG XDEBUG_VERSION=3.4.1
 
 ENV DEBIAN_FRONTEND=noninteractive \

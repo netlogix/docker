@@ -6,7 +6,10 @@ ARG TARGETARCH
 
 WORKDIR /src
 
-RUN git clone -b 'v1.6.4' --single-branch --depth 1 https://github.com/cloudflare/cfssl.git .
+# renovate: datasource=github-tags depName=cfssl packageName=cloudflare/cfssl
+ARG CFSSL_VERSION=1.6.4
+
+RUN git clone -b ${CFSSL_VERSION} --single-branch --depth 1 https://github.com/cloudflare/cfssl.git .
 
 RUN CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -ldflags "-s -w -X github.com/cloudflare/cfssl/cli/version.version=1.6.5" -o /out/cfssl ./cmd/cfssl
 RUN CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -ldflags "-s -w -X github.com/cloudflare/cfssl/cli/version.version=1.6.5" -o /out/cfssl-bundle ./cmd/cfssl-bundle
