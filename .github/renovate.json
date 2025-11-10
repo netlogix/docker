@@ -1,7 +1,8 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:recommended"
+    "config:base",
+    ":disableDependencyDashboard"
   ],
   "enabledManagers": [
     "custom.regex"
@@ -18,5 +19,7 @@
         "# renovate: datasource=(?<datasource>[a-z-]+?)(?: depName=(?<depName>.+?))? packageName=(?<packageName>.+?)(?: versioning=(?<versioning>[a-z-]+?))?\\s(?:ENV|ARG) .+?_VERSION=(?<currentValue>.+?)\\s"
       ]
     }
-  ]
+  ],
+  "autoApprove": true,
+  "prHourlyLimit": 0
 }
