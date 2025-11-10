@@ -11,21 +11,15 @@ concurrency:
   group: ${{ github.workflow }}
   cancel-in-progress: true
 
-permissions:
-  contents: write
-  pull-requests: write
-
 jobs:
   renovate:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v5
-
       - name: Self-hosted Renovate
         uses: renovatebot/github-action@v44.0.2
-        with:
-          token: "${{secrets.GITHUB_TOKEN}}"
-          configurationFile: .github/renovate.json
         env:
           LOG_LEVEL: 'debug'
+          RENOVATE_PLATFORM: github
+          RENOVATE_TOKEN: ${{secrets.GH_AUTOMATION_TOKEN}}
+          RENOVATE_AUTODISCOVER: true
+          RENOVATE_AUTODISCOVER_FILTER: 'netlogix/docker'
