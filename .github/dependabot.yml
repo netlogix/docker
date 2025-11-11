@@ -19,6 +19,7 @@ updates:
       - '/mailpit'
       - '/nginx'
       - '/node'
+      - '/oauth2-proxy'
       - '/opensearch'
       - '/prometheus-apache-exporter'
       - '/prometheus-elasticsearch-exporter'
