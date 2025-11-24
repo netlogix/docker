@@ -28,7 +28,7 @@ ENV PHP_VERSION=${PHP_VERSION} \
     PHP_OPCACHE_PRELOAD_USER=www-data \
     PHP_OPCACHE_ENABLE_CLI=0 \
     PHP_OPCACHE_VALIDATE_TIMESTAMPS=1 \
-    PHP_OPCACHE_FILE_CACHE=null \
+    PHP_OPCACHE_FILE_CACHE="/tmp/opcache" \
     PHP_OPCACHE_FILE_CACHE_ONLY=0 \
     PHP_OPCACHE_REVALIDATE_FREQ=2 \
     PHP_REALPATH_CACHE_TTL=120 \
@@ -78,7 +78,6 @@ RUN apt-get update && \
         webp \
         zip \
         php${PHP_VERSION} \
-        php${PHP_VERSION}-amqp \
         php${PHP_VERSION}-apcu \
         php${PHP_VERSION}-bcmath \
         php${PHP_VERSION}-cli \
@@ -92,7 +91,6 @@ RUN apt-get update && \
         php${PHP_VERSION}-intl \
         php${PHP_VERSION}-mbstring \
         php${PHP_VERSION}-mysql \
-        php${PHP_VERSION}-opcache \
         php${PHP_VERSION}-pgsql \
         php${PHP_VERSION}-raphf \
         php${PHP_VERSION}-readline \
@@ -104,6 +102,10 @@ RUN apt-get update && \
         php${PHP_VERSION}-zip \
         tideways-php \
         tideways-cli \
+    # install opcache when php version is not 8.5. Opcache is now part of the php binary \
+    && if [ "${PHP_VERSION}" != "8.5" ]; then \
+        apt-get -y install --no-install-suggests --no-install-recommends php${PHP_VERSION}-amqp php${PHP_VERSION}-opcache; \
+    fi \
     && apt-get autoremove \
     && find /var/log -type f -name "*.log" -delete \
     && rm -rf /var/lib/apt/lists/* /var/cache/ldconfig/aux-cache \
@@ -128,6 +130,8 @@ RUN ln -s /usr/sbin/php-fpm${PHP_VERSION} /usr/sbin/php-fpm
 RUN mkdir -p "/run/php/" \
     && chown -R www-data:www-data /run/php/ \
     && chmod 755 /run/php/ \
+    && mkdir -p ${PHP_OPCACHE_FILE_CACHE} \
+    && chown -R www-data:www-data ${PHP_OPCACHE_FILE_CACHE} \
     && touch /var/log/xdebug.log \
     && chown www-data:www-data /var/log/xdebug.log
 
