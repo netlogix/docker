@@ -105,6 +105,14 @@ docker buildx build -t ghcr.io/netlogix/docker/php-cron:8.4 --build-arg PHP_VERS
 docker buildx build -t ghcr.io/netlogix/docker/php-cron-dev:8.4 --build-arg PHP_VERSION=8.4 --build-arg UBUNTU_VERSION=24.04 -f php/8.x.Dockerfile --target=php-cron-dev php
 docker buildx build -t ghcr.io/netlogix/docker/php-supervisor:8.4 --build-arg PHP_VERSION=8.4 --build-arg UBUNTU_VERSION=24.04 -f php/8.x.Dockerfile --target=php-supervisor php
 
+docker buildx build -t ghcr.io/netlogix/docker/php-fpm:8.5 --build-arg PHP_VERSION=8.5 --build-arg UBUNTU_VERSION=24.04 -f php/8.x.Dockerfile --target=php-fpm php
+docker buildx build -t ghcr.io/netlogix/docker/php-cli:8.5 --build-arg PHP_VERSION=8.5 --build-arg UBUNTU_VERSION=24.04 -f php/8.x.Dockerfile --target=php-cli php
+docker buildx build -t ghcr.io/netlogix/docker/php-fpm-dev:8.5 --build-arg PHP_VERSION=8.5 --build-arg UBUNTU_VERSION=24.04 -f php/8.x.Dockerfile --target=php-fpm-dev php
+docker buildx build -t ghcr.io/netlogix/docker/php-cli-dev:8.5 --build-arg PHP_VERSION=8.5 --build-arg UBUNTU_VERSION=24.04 -f php/8.x.Dockerfile --target=php-cli-dev php
+docker buildx build -t ghcr.io/netlogix/docker/php-cron:8.5 --build-arg PHP_VERSION=8.5 --build-arg UBUNTU_VERSION=24.04 -f php/8.x.Dockerfile --target=php-cron php
+docker buildx build -t ghcr.io/netlogix/docker/php-cron-dev:8.5 --build-arg PHP_VERSION=8.5 --build-arg UBUNTU_VERSION=24.04 -f php/8.x.Dockerfile --target=php-cron-dev php
+docker buildx build -t ghcr.io/netlogix/docker/php-supervisor:8.5 --build-arg PHP_VERSION=8.5 --build-arg UBUNTU_VERSION=24.04 -f php/8.x.Dockerfile --target=php-supervisor php
+
 docker buildx build -t ghcr.io/netlogix/docker/frankenphp:8.3 --build-arg PHP_VERSION=8.3 -f php/frankenphp.Dockerfile --target=frankenphp php
 docker buildx build -t ghcr.io/netlogix/docker/frankenphp-dev:8.3 --build-arg PHP_VERSION=8.3 -f php/frankenphp.Dockerfile --target=frankenphp-dev php
 docker buildx build -t ghcr.io/netlogix/docker/frankenphp-cli:8.3 --build-arg PHP_VERSION=8.3 -f php/frankenphp.Dockerfile --target=frankenphp-cli php
