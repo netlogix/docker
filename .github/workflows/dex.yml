@@ -67,7 +67,6 @@ jobs:
           context: ./dex
           target: dex
           file: ./dex/${{matrix.image.dockerfile}}
-          build-args: ${{ matrix.image.build-args }}
           push: ${{ github.event_name != 'pull_request' }}
           tags: ghcr.io/netlogix/docker/dex:${{ matrix.image.version }},ghcr.io/netlogix/docker/dex:${{ steps.docker.outputs.version }}
           platforms: linux/amd64,linux/arm64
