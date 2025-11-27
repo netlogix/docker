@@ -13,6 +13,7 @@ updates:
     directories:
       - '/cfssl'
       - '/chromium'
+      - '/dex'
       - '/elasticsearch'
       - '/httpd'
       - '/imgproxy'
