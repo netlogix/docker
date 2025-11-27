@@ -1,0 +1,71 @@
+name: 'Build dex docker image'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  schedule:
+    - cron: 0 7 * * THU
+  push:
+    branches:
+      - main
+    paths:
+      - dex/**
+  pull_request:
+    branches:
+      - main
+    paths:
+      - dex/**
+  workflow_dispatch:
+    inputs: { }
+
+jobs:
+  build-docker-image:
+    name: 'Build dex-${{ matrix.image.version }} docker image'
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      max-parallel: 10
+      matrix:
+        image:
+          - version: 2
+            latest: true
+            dockerfile: Dockerfile
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Setup Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Read version from Dockerfile
+        id: docker
+        run: echo "version=$(../extract-version.sh ./dex/Dockerfile)" >> $GITHUB_OUTPUT
+
+      - name: Login to GHCR
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push (dex)
+        uses: docker/build-push-action@v6
+        with:
+          builder: ${{ steps.buildx.outputs.name }}
+          context: ./dex
+          target: dex
+          file: ./dex/${{matrix.image.dockerfile}}
+          build-args: ${{ matrix.image.build-args }}
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ghcr.io/netlogix/docker/dex:${{ matrix.image.version }},ghcr.io/netlogix/docker/dex:${{ steps.docker.outputs.version }}
+          platforms: linux/amd64,linux/arm64
+          cache-from: type=gha, scope=${{ github.workflow }}-dex
+          cache-to: type=gha, scope=${{ github.workflow }}-dex, mode=max

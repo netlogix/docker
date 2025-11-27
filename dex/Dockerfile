@@ -1,0 +1,4 @@
+FROM ghcr.io/dexidp/dex:v2.43.1 AS dex
+
+HEALTHCHECK  --interval=30s --timeout=5s --start-period=10s \
+    CMD wget --no-verbose --tries=1 --spider http://localhost:5556/dex/.well-known/openid-configuration || exit 1
