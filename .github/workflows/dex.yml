@@ -20,6 +20,10 @@ on:
   workflow_dispatch:
     inputs: { }
 
+permissions:
+  contents: read
+  packages: write
+
 jobs:
   build-docker-image:
     name: 'Build dex-${{ matrix.image.version }} docker image'
