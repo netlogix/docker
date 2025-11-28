@@ -4,7 +4,7 @@
     "@prettier/plugin-php": "^0.24.0",
     "@prettier/plugin-xml": "^3.4.2",
     "php-parser": "^3.2.5",
-    "prettier": "^3.7.0",
+    "prettier": "^3.7.1",
     "prettier-plugin-nginx": "^1.0.3",
     "prettier-plugin-packagejson": "^2.5.19",
     "prettier-plugin-sh": "^0.18.0",
