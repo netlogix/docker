@@ -57,20 +57,17 @@ docker buildx build -t ghcr.io/netlogix/docker/php-cron:7.3 --build-arg PHP_VERS
 docker buildx build -t ghcr.io/netlogix/docker/php-cron-dev:7.3 --build-arg PHP_VERSION=7.3 --build-arg UBUNTU_VERSION=24.04 -f php/7.x.Dockerfile --target=php-cron-dev php
 docker buildx build -t ghcr.io/netlogix/docker/php-supervisor:7.3 --build-arg PHP_VERSION=7.3 --build-arg UBUNTU_VERSION=24.04 -f php/7.x.Dockerfile --target=php-supervisor php
 
-docker buildx build -t ghcr.io/netlogix/docker/php-fpm:7.4 --build-arg PHP_VERSION=7.4 --build-arg UBUNTU_VERSION=20.04 -f php/Dockerfile --target=php-fpm php
-docker buildx build -t ghcr.io/netlogix/docker/php-cli:7.4 --build-arg PHP_VERSION=7.4 --build-arg UBUNTU_VERSION=20.04 -f php/Dockerfile --target=php-cli php
-docker buildx build -t ghcr.io/netlogix/docker/php-fpm-dev:7.4 --build-arg PHP_VERSION=7.4 --build-arg UBUNTU_VERSION=20.04 -f php/Dockerfile --target=php-fpm-dev php
-docker buildx build -t ghcr.io/netlogix/docker/php-cli-dev:7.4 --build-arg PHP_VERSION=7.4 --build-arg UBUNTU_VERSION=20.04 -f php/Dockerfile --target=php-cli-dev php
-docker buildx build -t ghcr.io/netlogix/docker/php-cron:7.4 --build-arg PHP_VERSION=7.4 --build-arg UBUNTU_VERSION=20.04 -f php/Dockerfile --target=php-cron php
-docker buildx build -t ghcr.io/netlogix/docker/php-cron-dev:7.4 --build-arg PHP_VERSION=7.4 --build-arg UBUNTU_VERSION=20.04 -f php/Dockerfile --target=php-cron-dev php
-docker buildx build -t ghcr.io/netlogix/docker/php-supervisor:7.4 --build-arg PHP_VERSION=7.4 --build-arg UBUNTU_VERSION=20.04 -f php/Dockerfile --target=php-supervisor php
+docker buildx build -t ghcr.io/netlogix/docker/php-fpm:7.4 --build-arg PHP_VERSION=7.4 --build-arg UBUNTU_VERSION=20.04 -f php/7.x.Dockerfile --target=php-fpm php
+docker buildx build -t ghcr.io/netlogix/docker/php-cli:7.4 --build-arg PHP_VERSION=7.4 --build-arg UBUNTU_VERSION=20.04 -f php/7.x.Dockerfile --target=php-cli php
+docker buildx build -t ghcr.io/netlogix/docker/php-fpm-dev:7.4 --build-arg PHP_VERSION=7.4 --build-arg UBUNTU_VERSION=20.04 -f php/7.x.Dockerfile --target=php-fpm-dev php
+docker buildx build -t ghcr.io/netlogix/docker/php-cli-dev:7.4 --build-arg PHP_VERSION=7.4 --build-arg UBUNTU_VERSION=20.04 -f php/7.x.Dockerfile --target=php-cli-dev php
+docker buildx build -t ghcr.io/netlogix/docker/php-cron:7.4 --build-arg PHP_VERSION=7.4 --build-arg UBUNTU_VERSION=20.04 -f php/7.x.Dockerfile --target=php-cron php
+docker buildx build -t ghcr.io/netlogix/docker/php-cron-dev:7.4 --build-arg PHP_VERSION=7.4 --build-arg UBUNTU_VERSION=20.04 -f php/7.x.Dockerfile --target=php-cron-dev php
+docker buildx build -t ghcr.io/netlogix/docker/php-supervisor:7.4 --build-arg PHP_VERSION=7.4 --build-arg UBUNTU_VERSION=20.04 -f php/7.x.Dockerfile --target=php-supervisor php
 
 docker buildx build -t ghcr.io/netlogix/docker/php-fpm:8.0 --build-arg PHP_VERSION=8.0 --build-arg UBUNTU_VERSION=24.04 -f php/8.x.Dockerfile --target=php-fpm php
 docker buildx build -t ghcr.io/netlogix/docker/php-cli:8.0 --build-arg PHP_VERSION=8.0 --build-arg UBUNTU_VERSION=24.04 -f php/8.x.Dockerfile --target=php-cli php
-docker buildx build -t ghcr.io/netlogix/docker/php-fpm-dev:8.0 --build-arg PHP_VERSION=8.0 --build-arg UBUNTU_VERSION=24.04 -f php/8.x.Dockerfile --target=php-fpm-dev php
-docker buildx build -t ghcr.io/netlogix/docker/php-cli-dev:8.0 --build-arg PHP_VERSION=8.0 --build-arg UBUNTU_VERSION=24.04 -f php/8.x.Dockerfile --target=php-cli-dev php
 docker buildx build -t ghcr.io/netlogix/docker/php-cron:8.0--build-arg PHP_VERSION=8.0 --build-arg UBUNTU_VERSION=24.04 -f php/8.x.Dockerfile --target=php-cron php
-docker buildx build -t ghcr.io/netlogix/docker/php-cron-dev:8.0 --build-arg PHP_VERSION=8.0 --build-arg UBUNTU_VERSION=24.04 -f php/8.x.Dockerfile --target=php-cron-dev php
 docker buildx build -t ghcr.io/netlogix/docker/php-supervisor:8.0 --build-arg PHP_VERSION=8.0 --build-arg UBUNTU_VERSION=24.04 -f php/8.x.Dockerfile --target=php-supervisor php
 
 docker buildx build -t ghcr.io/netlogix/docker/php-fpm:8.1 --build-arg PHP_VERSION=8.1 --build-arg UBUNTU_VERSION=22.04 -f php/Dockerfile --target=php-fpm php
@@ -104,6 +101,14 @@ docker buildx build -t ghcr.io/netlogix/docker/php-cli-dev:8.4 --build-arg PHP_V
 docker buildx build -t ghcr.io/netlogix/docker/php-cron:8.4 --build-arg PHP_VERSION=8.4 --build-arg UBUNTU_VERSION=24.04 -f php/8.x.Dockerfile --target=php-cron php
 docker buildx build -t ghcr.io/netlogix/docker/php-cron-dev:8.4 --build-arg PHP_VERSION=8.4 --build-arg UBUNTU_VERSION=24.04 -f php/8.x.Dockerfile --target=php-cron-dev php
 docker buildx build -t ghcr.io/netlogix/docker/php-supervisor:8.4 --build-arg PHP_VERSION=8.4 --build-arg UBUNTU_VERSION=24.04 -f php/8.x.Dockerfile --target=php-supervisor php
+
+docker buildx build -t ghcr.io/netlogix/docker/php-fpm:8.5 --build-arg PHP_VERSION=8.5 --build-arg UBUNTU_VERSION=24.04 -f php/8.x.Dockerfile --target=php-fpm php
+docker buildx build -t ghcr.io/netlogix/docker/php-cli:8.5 --build-arg PHP_VERSION=8.5 --build-arg UBUNTU_VERSION=24.04 -f php/8.x.Dockerfile --target=php-cli php
+docker buildx build -t ghcr.io/netlogix/docker/php-fpm-dev:8.5 --build-arg PHP_VERSION=8.5 --build-arg UBUNTU_VERSION=24.04 -f php/8.x.Dockerfile --target=php-fpm-dev php
+docker buildx build -t ghcr.io/netlogix/docker/php-cli-dev:8.5 --build-arg PHP_VERSION=8.5 --build-arg UBUNTU_VERSION=24.04 -f php/8.x.Dockerfile --target=php-cli-dev php
+docker buildx build -t ghcr.io/netlogix/docker/php-cron:8.5 --build-arg PHP_VERSION=8.5 --build-arg UBUNTU_VERSION=24.04 -f php/8.x.Dockerfile --target=php-cron php
+docker buildx build -t ghcr.io/netlogix/docker/php-cron-dev:8.5 --build-arg PHP_VERSION=8.5 --build-arg UBUNTU_VERSION=24.04 -f php/8.x.Dockerfile --target=php-cron-dev php
+docker buildx build -t ghcr.io/netlogix/docker/php-supervisor:8.5 --build-arg PHP_VERSION=8.5 --build-arg UBUNTU_VERSION=24.04 -f php/8.x.Dockerfile --target=php-supervisor php
 
 docker buildx build -t ghcr.io/netlogix/docker/frankenphp:8.3 --build-arg PHP_VERSION=8.3 -f php/frankenphp.Dockerfile --target=frankenphp php
 docker buildx build -t ghcr.io/netlogix/docker/frankenphp-dev:8.3 --build-arg PHP_VERSION=8.3 -f php/frankenphp.Dockerfile --target=frankenphp-dev php

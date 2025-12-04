@@ -2,9 +2,9 @@
 # check=skip=SecretsUsedInArgOrEnv
 ARG UBUNTU_VERSION=24.04
 FROM ubuntu:${UBUNTU_VERSION} AS base
-ARG PHP_VERSION=8.3
-# renovate: datasource=github-releases depName=xdebug packageName=xdebug/xdebug
-ARG XDEBUG_VERSION=3.5.0
+ARG PHP_VERSION=8.4
+# renovate: datasource=github-releases depName=php-pie packageName=php/pie
+ARG PHP_PIE_VERSION=1.3.1
 
 ENV DEBIAN_FRONTEND=noninteractive \
     TZ="Europe/Berlin" \
@@ -28,7 +28,7 @@ ENV PHP_VERSION=${PHP_VERSION} \
     PHP_OPCACHE_PRELOAD_USER=www-data \
     PHP_OPCACHE_ENABLE_CLI=0 \
     PHP_OPCACHE_VALIDATE_TIMESTAMPS=1 \
-    PHP_OPCACHE_FILE_CACHE=null \
+    PHP_OPCACHE_FILE_CACHE="/tmp/opcache" \
     PHP_OPCACHE_FILE_CACHE_ONLY=0 \
     PHP_OPCACHE_REVALIDATE_FREQ=2 \
     PHP_REALPATH_CACHE_TTL=120 \
@@ -44,7 +44,7 @@ ENV PHP_VERSION=${PHP_VERSION} \
     PHP_FPM_PM_MIN_SPARE_SERVERS=2 \
     PHP_FPM_PM_MAX_SPARE_SERVERS=4 \
     PHP_FPM_PM_MAX_REQUESTS=1000 \
-    XDEBUG_VERSION=${XDEBUG_VERSION} \
+    PHP_PIE_VERSION=${PHP_PIE_VERSION} \
     TIDEWAYS_APIKEY="" \
     TIDEWAYS_AUTO_START=1 \
     TIDEWAYS_DAEMON="tcp://tideways-daemon:9135" \
@@ -124,6 +124,8 @@ RUN ln -s /usr/sbin/php-fpm${PHP_VERSION} /usr/sbin/php-fpm
 RUN mkdir -p "/run/php/" \
     && chown -R www-data:www-data /run/php/ \
     && chmod 755 /run/php/ \
+    && mkdir -p ${PHP_OPCACHE_FILE_CACHE} \
+    && chown -R www-data:www-data ${PHP_OPCACHE_FILE_CACHE} \
     && touch /var/log/xdebug.log \
     && chown www-data:www-data /var/log/xdebug.log
 
@@ -202,13 +204,12 @@ ENV PHP_IDE_CONFIG="serverName=localhost"
 
 RUN apt-get update && \
     apt-get -y install --no-install-suggests --no-install-recommends \
-      make php${PHP_VERSION}-dev php-pear openssh-client git patch \
-    && mkdir -p /tmp/pear/cache \
-    && pecl channel-update pecl.php.net \
-    && pecl install xdebug-${XDEBUG_VERSION} \
-    && echo "zend_extension=xdebug.so" > /etc/php/${PHP_VERSION}/mods-available/xdebug.ini \
+      make php${PHP_VERSION}-dev openssh-client git patch \
+    && curl -L -sS https://github.com/php/pie/releases/download/${PHP_PIE_VERSION}/pie.phar -o /usr/local/bin/pie \
+    && chmod +x /usr/local/bin/pie \
+    && pie install xdebug/xdebug \
     && phpenmod xdebug \
-    && apt-get -y autoremove --purge make php${PHP_VERSION}-dev php-pear \
+    && apt-get -y autoremove --purge make php${PHP_VERSION}-dev \
     && apt-get autoremove \
     && find /var/log -type f -name "*.log" -delete \
     && rm -rf /root/.pearrc \
@@ -219,6 +220,7 @@ RUN apt-get update && \
     && rm -rf /usr/share/bug/file \
     && rm -rf /usr/share/doc/file \
     && rm -rf /var/lib/apt/lists/* /var/cache/ldconfig/aux-cache \
+    && rm /usr/local/bin/pie \
     && touch /var/log/xdebug.log \
     && chown www-data:www-data /var/log/xdebug.log
 
