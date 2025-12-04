@@ -41,7 +41,7 @@ jobs:
             PHP_VERSION=7.3
             UBUNTU_VERSION=24.04
         - version: 7.4
-          file: Dockerfile
+          file: 7.x.Dockerfile
           build-args: |
             PHP_VERSION=7.4
             UBUNTU_VERSION=20.04
