@@ -20,6 +20,7 @@ on:
       - main
     paths:
       - php/**
+      - .github/workflows/frankenphp.yml
   workflow_dispatch:
     inputs: {}
 
