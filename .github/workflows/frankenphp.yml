@@ -41,6 +41,10 @@ jobs:
           file: frankenphp.Dockerfile
           build-args: |
             PHP_VERSION=8.4
+        - version: 8.5
+          file: frankenphp.Dockerfile
+          build-args: |
+            PHP_VERSION=8.5
 
     steps:
       - name: Checkout
