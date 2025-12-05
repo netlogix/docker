@@ -162,6 +162,8 @@ xdebug.max_nesting_level=1000
 EOL
 EOF
 
+COPY dev/scripts /usr/local/bin/
+
 USER www-data
 
 FROM frankenphp-base-dev AS frankenphp-dev
