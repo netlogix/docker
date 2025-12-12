@@ -4,7 +4,7 @@ FROM --platform=$BUILDPLATFORM golang:1.25-alpine AS builder
 ARG TARGETOS
 ARG TARGETARCH
 # renovate: datasource=github-releases depName=elasticsearch_exporter packageName=prometheus-community/elasticsearch_exporter
-ARG EXPORTER_VERSION=v1.9.0
+ARG EXPORTER_VERSION=v1.10.0
 
 WORKDIR /src
 
