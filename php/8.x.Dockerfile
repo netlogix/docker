@@ -4,7 +4,7 @@ ARG UBUNTU_VERSION=24.04
 FROM ubuntu:${UBUNTU_VERSION} AS base
 ARG PHP_VERSION=8.4
 # renovate: datasource=github-releases depName=php-pie packageName=php/pie
-ARG PHP_PIE_VERSION=1.3.1
+ARG PHP_PIE_VERSION=1.3.2
 
 ENV DEBIAN_FRONTEND=noninteractive \
     TZ="Europe/Berlin" \
