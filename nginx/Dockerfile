@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 # Adding third-party modules to nginx official image
 # SEE https://github.com/nginxinc/docker-nginx/tree/master/modules
-FROM nginx:1.29.4 AS builder
+FROM nginx:1.29.5 AS builder
 
 ENV ENABLED_MODULES="headers-more subs-filter geoip2"
 SHELL ["/bin/bash", "-exo", "pipefail", "-c"]
@@ -72,7 +72,7 @@ RUN apt-get update \
 
 # Build ModSecurity and ModSecurity-nginx connector for ModSecurity v3
 # SEE: https://github.com/coreruleset/modsecurity-crs-docker/blob/main/nginx/Dockerfile
-FROM nginx:1.29.4 AS modsecurity-builder
+FROM nginx:1.29.5 AS modsecurity-builder
 
 # renovate: datasource=github-releases depName=ModSecurity packageName=owasp-modsecurity/ModSecurity
 ARG MODSECURITY_VERSION="v3.0.14"
@@ -136,7 +136,7 @@ RUN set -eux; \
     curl -sSL https://raw.githubusercontent.com/owasp-modsecurity/ModSecurity/v3/master/unicode.mapping \
          -o /etc/modsecurity.d/unicode.mapping
 
-FROM nginx:1.29.4 AS crs-downloader
+FROM nginx:1.29.5 AS crs-downloader
 
 ARG CRS_RELEASE="4.20.0"
 
@@ -162,7 +162,7 @@ RUN curl -sSL https://github.com/coreruleset/coreruleset/releases/download/v${CR
     rm -f v${CRS_RELEASE}-minimal.tar.gz coreruleset-${CRS_RELEASE}-minimal.tar.gz.asc; \
     mv -v /etc/modsecurity.d/owasp-crs/crs-setup.conf.example /etc/modsecurity.d/owasp-crs/crs-setup.conf
 
-FROM nginx:1.29.4 AS nginx
+FROM nginx:1.29.5 AS nginx
 ENV TZ="Europe/Berlin"
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
