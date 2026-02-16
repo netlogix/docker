@@ -18,6 +18,7 @@ touch /run/php/php$PHP_VERSION-fpm.pid
 chown $user:www-data /run/php/php$PHP_VERSION-fpm.pid
 touch /var/log/xdebug.log
 chown $user:www-data /var/log/xdebug.log
+chown -R $user:www-data $PHP_OPCACHE_FILE_CACHE
 cp /root/.bashrc /home/$user/
 
 # Create cache directories
