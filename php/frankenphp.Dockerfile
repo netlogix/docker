@@ -151,6 +151,7 @@ RUN <<EOF
     set -e
     apt-get update
     apt-get upgrade -y
+    apt-get install -y git
     install-php-extensions xdebug
     rm -rf /var/cache/apt/archives /var/lib/apt/lists/*
 EOF
