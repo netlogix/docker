@@ -137,12 +137,21 @@ FROM app-frankenphp-base AS frankenphp-base-dev
 USER root
 
 ENV PHP_XDEBUG_HOST=host.docker.internal \
-    PHP_XDEBUG_MODE=off
+    PHP_XDEBUG_MODE=off \
+    PHP_ASSERT=1 \
+    COMPOSER_CACHE_DIR=/.cache/composer/ \
+    YARN_CACHE_FOLDER=/.cache/yarn/ \
+    npm_config_cache=/.cache/npm/ \
+    TIDEWAYS_DAEMON=""
+
+# enable debugging with PhpStorm
+ENV PHP_IDE_CONFIG="serverName=localhost"
 
 RUN <<EOF
     set -e
     apt-get update
     apt-get upgrade -y
+    apt-get install -y git
     install-php-extensions xdebug
     rm -rf /var/cache/apt/archives /var/lib/apt/lists/*
 EOF
