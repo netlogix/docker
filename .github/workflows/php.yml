@@ -30,21 +30,6 @@ jobs:
       max-parallel: 10
       matrix:
         image:
-        - version: 7.2
-          file: 7.x.Dockerfile
-          build-args: |
-            PHP_VERSION=7.2
-            UBUNTU_VERSION=24.04
-        - version: 7.3
-          file: 7.x.Dockerfile
-          build-args: |
-            PHP_VERSION=7.3
-            UBUNTU_VERSION=24.04
-        - version: 7.4
-          file: 7.x.Dockerfile
-          build-args: |
-            PHP_VERSION=7.4
-            UBUNTU_VERSION=20.04
         - version: 8.0
           file: 8.x.Dockerfile
           build-args: |
@@ -159,23 +144,6 @@ jobs:
       max-parallel: 10
       matrix:
         image:
-        - version: 7.2
-          file: 7.x.Dockerfile
-          build-args: |
-            PHP_VERSION=7.2
-            UBUNTU_VERSION=24.04
-            XDEBUG_VERSION=3.1.6
-        - version: 7.3
-          file: 7.x.Dockerfile
-          build-args: |
-            PHP_VERSION=7.3
-            UBUNTU_VERSION=24.04
-            XDEBUG_VERSION=3.1.6
-        - version: 7.4
-          build-args: |
-            PHP_VERSION=7.4
-            UBUNTU_VERSION=20.04
-            XDEBUG_VERSION=3.1.6
         - version: 8.1
           build-args: |
             PHP_VERSION=8.1
