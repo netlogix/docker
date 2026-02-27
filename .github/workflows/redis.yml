@@ -39,7 +39,7 @@ jobs:
         run: echo '${{ steps.version-matrix.outputs.matrix }}'
 
   build-docker-image:
-    name: 'Build redis docker image'
+    name: 'Build redis docker image - ${{ matrix.image.name }} ()${{ matrix.image.version }})'
     needs: version-matrix
     runs-on: ubuntu-latest
     strategy:
