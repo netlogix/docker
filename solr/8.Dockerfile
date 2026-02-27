@@ -1,5 +1,6 @@
 # syntax=docker/dockerfile:1
-FROM solr:8.11.4 AS builder
+ARG SOLR_VERSION
+FROM solr:${SOLR_VERSION} AS builder
 
 ENV TYPO3_SOLR=11.5.7 \
     TYPO3_SOLR_DOWNLOAD_SHA512="11dadce1b557a00b7b726aa9279120637f49d4377c3d7260eb252f9f4fece8f7e30bbe640df24dbe7e085b7422b3e1b1bdd08d268cf044ea39563288001b78ee"
@@ -18,7 +19,7 @@ RUN sed -i "s|name=core_|name=website-|i" /tmp/solr/Resources/Private/Solr/cores
     && cd /tmp/solr/Resources/Private/Solr/configsets/ext_solr_11_5_0/conf \
     && for f in _schema_analysis_*_core_*.json; do mv "$f" "$(echo "$f" | sed s/core_/website-/)"; done
 
-FROM solr:8.11.4 AS solr
+FROM solr:${SOLR_VERSION} AS solr
 ENV TERM=linux \
     SOLR_LOG_LEVEL=WARN \
     SOLR_PORT=8983 \

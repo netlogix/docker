@@ -1,0 +1,66 @@
+name: 'Find matching Dockerfile'
+
+inputs:
+  path:
+    description: 'the path to search for the dockerfile'
+    required: true
+
+  version:
+    description: 'The version of the service (e.g., 8.1.2)'
+    required: true
+
+outputs:
+  dockerfile:
+    description: 'Dockerfile name'
+    value: ${{ steps.find-dockerfile.outputs.dockerfile }}
+
+runs:
+  using: composite
+  steps:
+    - name: Find Dockerfile
+      id: find-dockerfile
+      shell: bash
+      env:
+        PATH: ${{ inputs.path }}
+        VERSION: ${{ inputs.version }}
+      run: |
+        find_dockerfile() {
+          local search_path="$1"
+          local version="$2"
+          local current="$version"
+        
+          while [[ -n "$current" ]]; do
+            local candidate="${search_path}/${current}.Dockerfile"
+            if [[ -f "$candidate" ]]; then
+              echo "$(basename "$candidate")"
+              return 0
+            fi
+            
+            # Remove last dot-segment (2.1.3 → 2.1 → 2)
+            current="${current%.*}"
+          
+            # If nothing changed, break
+            [[ "$current" == "$version" ]] && break
+            version="$current"
+          done
+        
+          # Fallback to default Dockerfile
+          if [[ -f "${search_path}/Dockerfile" ]]; then
+            echo "Dockerfile"
+            return 0
+          fi
+        
+          return 1
+        }
+        
+        if [[ ! -d "$PATH" ]]; then
+          echo "Error: Directory '$PATH' not found" >&2
+          exit 1
+        fi
+        
+        if DOCKERFILE_NAME=$(find_dockerfile "$PATH" "$VERSION"); then
+          echo "dockerfile=${DOCKERFILE_NAME}" >> $GITHUB_OUTPUT
+        else
+          echo "Error: No matching Dockerfile found" >&2
+          exit 1
+        fi
