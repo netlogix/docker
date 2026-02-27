@@ -1,0 +1,23 @@
+name: 'Get BuildMatrix with active maintained versions for a service'
+
+inputs:
+  product:
+    description: 'product name of the service (https://endoflife.date/)'
+    required: true
+    default: '.'
+
+outputs:
+  matrix:
+    description: 'JSON string of the matrix'
+    value: ${{ steps.fetch-versions.outputs.matrix }}
+
+runs:
+  using: composite
+  steps:
+    - name: Fetch and Filter Versions
+      id: fetch-versions
+      shell: bash
+      run: |
+        curl -s https://endoflife.date/api/v1/products/${{ inputs.product }} | \
+          jq -c '.result.releases | map( select(.isMaintained == true) | { "name": .name, "version": .latest.name} )' | \
+          sed 's/^/matrix=/' >> $GITHUB_OUTPUT

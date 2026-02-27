@@ -21,10 +21,31 @@ on:
     inputs: {}
 
 jobs:
+  version-matrix:
+    name: 'Generate version-matrix'
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.version-matrix.outputs.matrix }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - uses: ./.github/action/endoflife
+        id: version-matrix
+        with:
+          product: 'redis'
+
+      - name: Show matrix output
+        run: echo '${{ steps.version-matrix.outputs.matrix }}'
+
   build-docker-image:
     name: 'Build redis docker image'
+    needs: version-matrix
     runs-on: ubuntu-latest
-
+    strategy:
+      fail-fast: false
+      matrix:
+        image: ${{ fromJson(needs.version-matrix.outputs.matrix) }}
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -34,10 +55,6 @@ jobs:
 
       - name: Setup Docker Buildx
         uses: docker/setup-buildx-action@v3
-
-      - name: Read version from Dockerfile
-        id: docker
-        run: echo "version=$(./extract-version.sh ./redis/Dockerfile)" >> $GITHUB_OUTPUT
 
       - name: Login to GHCR
         if: github.event_name != 'pull_request'
@@ -55,7 +72,9 @@ jobs:
           target: redis
           file: ./redis/Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ghcr.io/netlogix/docker/redis:latest,ghcr.io/netlogix/docker/redis:${{ steps.docker.outputs.version }}
+          tags: ghcr.io/netlogix/docker/redis:latest,ghcr.io/netlogix/docker/redis:${{ matrix.image.name }}
+          build-args: |
+            REDIS_VERSION=${{ matrix.image.version }}
           platforms: linux/amd64,linux/arm64
           cache-from: type=gha
           cache-to: type=gha, mode=max
