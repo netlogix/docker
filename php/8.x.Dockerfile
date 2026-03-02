@@ -86,6 +86,7 @@ RUN apt-get update && \
         php${PHP_VERSION}-curl \
         php${PHP_VERSION}-fpm \
         php${PHP_VERSION}-gd \
+        php${PHP_VERSION}-gmp \
         php${PHP_VERSION}-http \
         php${PHP_VERSION}-igbinary \
         php${PHP_VERSION}-imagick \
