@@ -1,4 +1,4 @@
-FROM quay.io/oauth2-proxy/oauth2-proxy:v7.14.2-alpine AS oauth2-proxy
+FROM quay.io/oauth2-proxy/oauth2-proxy:v7.14.3-alpine AS oauth2-proxy
 
 ENV TZ=Europe/Berlin
 
