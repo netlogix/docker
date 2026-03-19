@@ -18,6 +18,8 @@ if [ "$#" -eq 0 ] || [ "${1#-}" != "$1" ]; then
       -p thread_pool_timeout=300 \
       -p http_resp_size=128000 \
       -p http_resp_hdr_len=16000 \
+      -p workspace_backend=256k \
+      -p workspace_client=256k \
       "$@"
 fi
 
