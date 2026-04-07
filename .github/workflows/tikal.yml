@@ -23,6 +23,9 @@ on:
 jobs:
   build-docker-image:
     name: 'Build tiakl-${{ matrix.image.version }} docker image'
+    permissions:
+      contents: read
+      packages: write
     runs-on: ubuntu-latest
 
     strategy:
