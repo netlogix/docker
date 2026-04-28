@@ -75,7 +75,7 @@ RUN apt-get update \
 FROM nginx:1.29.8 AS modsecurity-builder
 
 # renovate: datasource=github-releases depName=ModSecurity packageName=owasp-modsecurity/ModSecurity
-ARG MODSECURITY_VERSION="v3.0.14"
+ARG MODSECURITY_VERSION=v3.0.15
 # renovate: datasource=github-releases depName=ModSecurity-nginx packageName=owasp-modsecurity/ModSecurity-nginx
 ARG MODSECURITY_NGINX_VERSION="v1.0.4"
 
