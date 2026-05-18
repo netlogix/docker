@@ -1,2 +1,2 @@
 # https://support.tideways.com/documentation/setup/installation/docker-with-compose.html
-FROM ghcr.io/tideways/daemon:1.17.0 AS tideways-daemon
+FROM ghcr.io/tideways/daemon:1.17.2 AS tideways-daemon
