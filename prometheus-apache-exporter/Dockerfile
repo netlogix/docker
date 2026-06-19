@@ -4,7 +4,7 @@ FROM --platform=$BUILDPLATFORM golang:1.26-alpine AS builder
 ARG TARGETOS
 ARG TARGETARCH
 # renovate: datasource=github-releases depName=apache_exporter packageName=Lusitaniae/apache_exporter
-ARG EXPORTER_VERSION=v1.0.12
+ARG EXPORTER_VERSION=v1.1.0
 
 WORKDIR /src
 
