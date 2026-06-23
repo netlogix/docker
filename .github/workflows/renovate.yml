@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Self-hosted Renovate
-        uses: renovatebot/github-action@v46.1.15
+        uses: renovatebot/github-action@v46.1.16
         env:
           LOG_LEVEL: 'debug'
           RENOVATE_PLATFORM: github
