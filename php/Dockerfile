@@ -90,7 +90,7 @@ RUN apt-get update && \
         php${PHP_VERSION}-intl \
         php${PHP_VERSION}-mbstring \
         php${PHP_VERSION}-mysql \
-        php${PHP_VERSION}-opcache \
+        $(if dpkg --compare-versions "${PHP_VERSION}" lt "8.5"; then echo "php${PHP_VERSION}-opcache"; fi) \
         php${PHP_VERSION}-pgsql \
         php${PHP_VERSION}-raphf \
         php${PHP_VERSION}-readline \
