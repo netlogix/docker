@@ -83,6 +83,7 @@ jobs:
 
       - name: Build and push (php-fpm)
         uses: docker/build-push-action@v7
+        timeout-minutes: 120
         with:
           builder: ${{ steps.buildx.outputs.name }}
           context: ./php
@@ -97,6 +98,7 @@ jobs:
 
       - name: Build and push (php-cli)
         uses: docker/build-push-action@v7
+        timeout-minutes: 120
         with:
           builder: ${{ steps.buildx.outputs.name }}
           context: ./php
@@ -111,6 +113,7 @@ jobs:
 
       - name: Build and push (php-cron)
         uses: docker/build-push-action@v7
+        timeout-minutes: 120
         with:
           builder: ${{ steps.buildx.outputs.name }}
           context: ./php
@@ -125,6 +128,7 @@ jobs:
 
       - name: Build and push (php-supervisor)
         uses: docker/build-push-action@v7
+        timeout-minutes: 120
         with:
           builder: ${{ steps.buildx.outputs.name }}
           context: ./php
@@ -190,6 +194,7 @@ jobs:
 
       - name: Build and push (php-fpm-dev)
         uses: docker/build-push-action@v7
+        timeout-minutes: 120
         with:
           builder: ${{ steps.buildx.outputs.name }}
           context: ./php
@@ -204,6 +209,7 @@ jobs:
 
       - name: Build and push (php-cli-dev)
         uses: docker/build-push-action@v7
+        timeout-minutes: 120
         with:
           builder: ${{ steps.buildx.outputs.name }}
           context: ./php
@@ -218,6 +224,7 @@ jobs:
 
       - name: Build and push (php-cron-dev)
         uses: docker/build-push-action@v7
+        timeout-minutes: 120
         with:
           builder: ${{ steps.buildx.outputs.name }}
           context: ./php
