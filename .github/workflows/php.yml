@@ -12,11 +12,13 @@ on:
       - main
     paths:
       - php/**
+      - .github/workflows/php.yml
   pull_request:
     branches:
       - main
     paths:
       - php/**
+      - .github/workflows/php.yml
   workflow_dispatch:
     inputs: {}
 
@@ -163,7 +165,7 @@ jobs:
             PHP_VERSION=8.4
             UBUNTU_VERSION=24.04
         - version: 8.5
-          file: 8.x.Dockerfile
+          file: Dockerfile
           build-args: |
             PHP_VERSION=8.5
             UBUNTU_VERSION=26.04
