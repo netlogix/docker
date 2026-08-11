@@ -12,11 +12,13 @@ on:
       - main
     paths:
       - php/**
+      - .github/workflows/php.yml
   pull_request:
     branches:
       - main
     paths:
       - php/**
+      - .github/workflows/php.yml
   workflow_dispatch:
     inputs: {}
 
@@ -81,6 +83,7 @@ jobs:
 
       - name: Build and push (php-fpm)
         uses: docker/build-push-action@v7
+        timeout-minutes: 120
         with:
           builder: ${{ steps.buildx.outputs.name }}
           context: ./php
@@ -95,6 +98,7 @@ jobs:
 
       - name: Build and push (php-cli)
         uses: docker/build-push-action@v7
+        timeout-minutes: 120
         with:
           builder: ${{ steps.buildx.outputs.name }}
           context: ./php
@@ -109,6 +113,7 @@ jobs:
 
       - name: Build and push (php-cron)
         uses: docker/build-push-action@v7
+        timeout-minutes: 120
         with:
           builder: ${{ steps.buildx.outputs.name }}
           context: ./php
@@ -123,6 +128,7 @@ jobs:
 
       - name: Build and push (php-supervisor)
         uses: docker/build-push-action@v7
+        timeout-minutes: 120
         with:
           builder: ${{ steps.buildx.outputs.name }}
           context: ./php
@@ -163,7 +169,7 @@ jobs:
             PHP_VERSION=8.4
             UBUNTU_VERSION=24.04
         - version: 8.5
-          file: 8.x.Dockerfile
+          file: Dockerfile
           build-args: |
             PHP_VERSION=8.5
             UBUNTU_VERSION=26.04
@@ -188,6 +194,7 @@ jobs:
 
       - name: Build and push (php-fpm-dev)
         uses: docker/build-push-action@v7
+        timeout-minutes: 120
         with:
           builder: ${{ steps.buildx.outputs.name }}
           context: ./php
@@ -202,6 +209,7 @@ jobs:
 
       - name: Build and push (php-cli-dev)
         uses: docker/build-push-action@v7
+        timeout-minutes: 120
         with:
           builder: ${{ steps.buildx.outputs.name }}
           context: ./php
@@ -216,6 +224,7 @@ jobs:
 
       - name: Build and push (php-cron-dev)
         uses: docker/build-push-action@v7
+        timeout-minutes: 120
         with:
           builder: ${{ steps.buildx.outputs.name }}
           context: ./php
