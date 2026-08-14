@@ -4,7 +4,7 @@ FROM --platform=$BUILDPLATFORM golang:1.26-alpine AS builder
 ARG TARGETOS
 ARG TARGETARCH
 # renovate: datasource=github-releases depName=nginx-prometheus-exporter packageName=nginx/nginx-prometheus-exporter
-ARG EXPORTER_VERSION=v1.5.1
+ARG EXPORTER_VERSION=v1.5.3
 
 WORKDIR /src
 
