@@ -124,10 +124,12 @@ HEALTHCHECK NONE
 
 FROM frankenphp-base AS frankenphp
 
+LABEL prometheus_port="2020"
+
 HEALTHCHECK --interval=2s --timeout=2s --start-period=2s --retries=3 \
   CMD curl --fail --silent http://localhost:8080/health-check || exit 1
 
-LABEL prometheus_port="2019"
+EXPOSE 2020
 
 FROM frankenphp-base AS frankenphp-cli
 ENTRYPOINT [ "frankenphp", "php-cli" ]
@@ -190,10 +192,12 @@ USER www-data
 
 FROM frankenphp-base-dev AS frankenphp-dev
 
+LABEL prometheus_port="2020"
+
 HEALTHCHECK --interval=2s --timeout=2s --start-period=2s --retries=3 \
   CMD curl --fail --silent http://localhost:8080/health-check || exit 1
 
-LABEL prometheus_port="2019"
+EXPOSE 2020
 
 FROM frankenphp-base-dev AS frankenphp-cli-dev
 ENTRYPOINT [ "frankenphp", "php-cli" ]
