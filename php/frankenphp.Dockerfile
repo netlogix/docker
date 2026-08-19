@@ -129,9 +129,6 @@ HEALTHCHECK --interval=2s --timeout=2s --start-period=2s --retries=3 \
 LABEL prometheus_port="2019"
 
 FROM frankenphp-base AS frankenphp-cli
-COPY --chown=www-data:www-data . /var/www/
-
-FROM frankenphp AS frankenphp-cli
 ENTRYPOINT [ "frankenphp", "php-cli" ]
 CMD []
 
