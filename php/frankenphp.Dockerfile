@@ -39,6 +39,7 @@ RUN <<EOF
         opcache \
         pcntl \
         pdo_mysql \
+        pdo_pgsql \
         pgsql \
         raphf \
         readline \
