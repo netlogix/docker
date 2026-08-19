@@ -133,6 +133,18 @@ FROM frankenphp-base AS frankenphp-cli
 ENTRYPOINT [ "frankenphp", "php-cli" ]
 CMD []
 
+FROM frankenphp-base AS frankenphp-cron
+
+USER root
+
+ENV CRONTAB_PATH=/var/www/config/crontab
+# cron runs jobs with a minimal PATH (/usr/bin:/bin) that excludes /usr/local/bin, so
+# crontab entries calling plain `php` would fail without this symlink
+RUN ln -s /usr/local/bin/php /usr/bin/php
+
+ENTRYPOINT ["/bin/sh", "-c", "env > /etc/environment && crontab -u www-data - < \"$CRONTAB_PATH\" && exec cron -f"]
+CMD []
+
 FROM frankenphp-base AS frankenphp-base-dev
 
 USER root
@@ -185,4 +197,16 @@ LABEL prometheus_port="2019"
 
 FROM frankenphp-base-dev AS frankenphp-cli-dev
 ENTRYPOINT [ "frankenphp", "php-cli" ]
+CMD []
+
+FROM frankenphp-base-dev AS frankenphp-cron-dev
+
+USER root
+
+ENV CRONTAB_PATH=/var/www/config/crontab
+# cron runs jobs with a minimal PATH (/usr/bin:/bin) that excludes /usr/local/bin, so
+# crontab entries calling plain `php` would fail without this symlink
+RUN ln -s /usr/local/bin/php /usr/bin/php
+
+ENTRYPOINT ["/bin/sh", "-c", "env > /etc/environment && crontab -u www-data - < \"$CRONTAB_PATH\" && exec cron -f"]
 CMD []

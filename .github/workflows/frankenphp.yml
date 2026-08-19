@@ -95,6 +95,21 @@ jobs:
           cache-from: type=gha, scope=${{ github.workflow }}-frankenphp
           cache-to: type=gha, scope=${{ github.workflow }}-frankenphp, mode=max
 
+      - name: Build and push (frankenphp-cron)
+        uses: docker/build-push-action@v7
+        timeout-minutes: 120
+        with:
+          builder: ${{ steps.buildx.outputs.name }}
+          context: ./php
+          target: frankenphp-cron
+          file: ./php/${{ matrix.image.file || 'Dockerfile' }}
+          build-args: ${{ matrix.image.build-args }}
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ghcr.io/netlogix/docker/frankenphp-cron:${{ matrix.image.version }}
+          platforms: linux/amd64,linux/arm64
+          cache-from: type=gha, scope=${{ github.workflow }}-frankenphp
+          cache-to: type=gha, scope=${{ github.workflow }}-frankenphp, mode=max
+
   build-docker-dev-image:
     name: 'Build frankenphp-${{ matrix.image.version }}-dev docker image'
     runs-on: ubuntu-latest
@@ -164,3 +179,18 @@ jobs:
           platforms: linux/amd64,linux/arm64
           cache-from: type=gha, scope=${{ github.workflow }}-frankenphp-dev
           cache-to: type=gha, scope=${{ github.workflow }}-frankenphp-dev, mode=max
+
+      - name: Build and push (frankenphp-cron-dev)
+        uses: docker/build-push-action@v7
+        timeout-minutes: 120
+        with:
+          builder: ${{ steps.buildx.outputs.name }}
+          context: ./php
+          target: frankenphp-cron-dev
+          file: ./php/${{ matrix.image.file || 'Dockerfile' }}
+          build-args: ${{ matrix.image.build-args }}
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ghcr.io/netlogix/docker/frankenphp-cron-dev:${{ matrix.image.version }}
+          platforms: linux/amd64,linux/arm64
+          cache-from: type=gha, scope=${{ github.workflow }}-frankenphp-dev
+          cache-to: type=gha, scope=${{ github.workflow }}-frankenphp-dev, mode=max)
