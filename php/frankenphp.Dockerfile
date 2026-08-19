@@ -126,7 +126,7 @@ FROM frankenphp-base AS frankenphp
 HEALTHCHECK --interval=2s --timeout=2s --start-period=2s --retries=3 \
   CMD curl --fail --silent http://localhost:8080/health-check || exit 1
 
-LABEL prometheus_port="2020"
+LABEL prometheus_port="2019"
 
 FROM frankenphp-base AS frankenphp-cli
 COPY --chown=www-data:www-data . /var/www/
@@ -182,6 +182,8 @@ FROM frankenphp-base-dev AS frankenphp-dev
 
 HEALTHCHECK --interval=2s --timeout=2s --start-period=2s --retries=3 \
   CMD curl --fail --silent http://localhost:8080/health-check || exit 1
+
+LABEL prometheus_port="2019"
 
 FROM frankenphp-base-dev AS frankenphp-cli-dev
 ENTRYPOINT [ "frankenphp", "php-cli" ]
