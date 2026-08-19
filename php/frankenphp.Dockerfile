@@ -119,6 +119,10 @@ USER www-data
 
 RUN frankenphp adapt --config /etc/frankenphp/Caddyfile --pretty --validate
 
+HEALTHCHECK NONE
+
+FROM frankenphp-base AS frankenphp
+
 HEALTHCHECK --interval=2s --timeout=2s --start-period=2s --retries=3 \
   CMD curl --fail --silent http://localhost:8080/health-check || exit 1
 
@@ -175,6 +179,9 @@ COPY dev/scripts /usr/local/bin/
 USER www-data
 
 FROM frankenphp-base-dev AS frankenphp-dev
+
+HEALTHCHECK --interval=2s --timeout=2s --start-period=2s --retries=3 \
+  CMD curl --fail --silent http://localhost:8080/health-check || exit 1
 
 FROM frankenphp-base-dev AS frankenphp-cli-dev
 ENTRYPOINT [ "frankenphp", "php-cli" ]
