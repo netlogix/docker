@@ -1,6 +1,6 @@
 ARG PHP_VERSION=8.4
 
-FROM dunglas/frankenphp:php${PHP_VERSION} AS app-frankenphp-base
+FROM dunglas/frankenphp:php${PHP_VERSION} AS frankenphp-base
 RUN <<EOF
     set -e
     apt-get update -y
@@ -39,6 +39,7 @@ RUN <<EOF
         opcache \
         pcntl \
         pdo_mysql \
+        pdo_pgsql \
         pgsql \
         raphf \
         readline \
@@ -119,20 +120,34 @@ USER www-data
 
 RUN frankenphp adapt --config /etc/frankenphp/Caddyfile --pretty --validate
 
-HEALTHCHECK --interval=2s --timeout=2s --start-period=2s --retries=3 \
-  CMD curl --fail --silent http://localhost:8080/health-check || exit 1
+HEALTHCHECK NONE
+
+FROM frankenphp-base AS frankenphp
 
 LABEL prometheus_port="2020"
 
-FROM app-frankenphp-base AS frankenphp
-COPY --chown=www-data:www-data . /var/www/
+HEALTHCHECK --interval=2s --timeout=2s --start-period=2s --retries=3 \
+  CMD curl --fail --silent http://localhost:8080/health-check || exit 1
 
-FROM frankenphp AS frankenphp-cli
+EXPOSE 2020
+
+FROM frankenphp-base AS frankenphp-cli
 ENTRYPOINT [ "frankenphp", "php-cli" ]
 CMD []
 
+FROM frankenphp-base AS frankenphp-cron
 
-FROM app-frankenphp-base AS frankenphp-base-dev
+USER root
+
+ENV CRONTAB_PATH=/var/www/config/crontab
+# cron runs jobs with a minimal PATH (/usr/bin:/bin) that excludes /usr/local/bin, so
+# crontab entries calling plain `php` would fail without this symlink
+RUN ln -s /usr/local/bin/php /usr/bin/php
+
+ENTRYPOINT ["/bin/sh", "-c", "env > /etc/environment && crontab -u www-data - < \"$CRONTAB_PATH\" && exec cron -f"]
+CMD []
+
+FROM frankenphp-base AS frankenphp-base-dev
 
 USER root
 
@@ -177,6 +192,25 @@ USER www-data
 
 FROM frankenphp-base-dev AS frankenphp-dev
 
+LABEL prometheus_port="2020"
+
+HEALTHCHECK --interval=2s --timeout=2s --start-period=2s --retries=3 \
+  CMD curl --fail --silent http://localhost:8080/health-check || exit 1
+
+EXPOSE 2020
+
 FROM frankenphp-base-dev AS frankenphp-cli-dev
 ENTRYPOINT [ "frankenphp", "php-cli" ]
+CMD []
+
+FROM frankenphp-base-dev AS frankenphp-cron-dev
+
+USER root
+
+ENV CRONTAB_PATH=/var/www/config/crontab
+# cron runs jobs with a minimal PATH (/usr/bin:/bin) that excludes /usr/local/bin, so
+# crontab entries calling plain `php` would fail without this symlink
+RUN ln -s /usr/local/bin/php /usr/bin/php
+
+ENTRYPOINT ["/bin/sh", "-c", "env > /etc/environment && crontab -u www-data - < \"$CRONTAB_PATH\" && exec cron -f"]
 CMD []
