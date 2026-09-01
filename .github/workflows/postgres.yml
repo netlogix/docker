@@ -34,6 +34,7 @@ jobs:
         image:
           - file: 12.Dockerfile
           - file: 14.Dockerfile
+          - file: 16.Dockerfile
           - file: Dockerfile
 
     steps:
