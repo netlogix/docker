@@ -7,7 +7,7 @@ ARG TARGETARCH
 WORKDIR /src
 
 # renovate: datasource=github-tags depName=cfssl packageName=cloudflare/cfssl
-ARG CFSSL_VERSION=v1.6.5
+ARG CFSSL_VERSION=v1.7.0
 
 RUN git clone -b ${CFSSL_VERSION} --single-branch --depth 1 https://github.com/cloudflare/cfssl.git .
 
