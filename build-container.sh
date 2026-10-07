@@ -26,8 +26,6 @@ docker buildx build -t ghcr.io/netlogix/docker/httpd-typo3:${VERSION} -f httpd/D
 docker buildx build -t ghcr.io/netlogix/docker/httpd-shopware:${VERSION} -f httpd/Dockerfile --target=httpd-shopware httpd
 docker buildx build -t ghcr.io/netlogix/docker/chromium:${VERSION} -f chromium/Dockerfile chromium
 docker buildx build -t ghcr.io/netlogix/docker/mailpit:${VERSION} -f mailpit/Dockerfile mailpit
-docker buildx build -t ghcr.io/netlogix/docker/cfssl:${VERSION} -f cfssl/Dockerfile --target=cfssl cfssl
-docker buildx build -t ghcr.io/netlogix/docker/cfssl-server:${VERSION} -f cfssl/Dockerfile --target=cfssl-server cfssl
 docker buildx build -t ghcr.io/netlogix/docker/tideways-daemon:${VERSION} -f tideways-daemon/Dockerfile tideways-daemon
 docker buildx build -t ghcr.io/netlogix/docker/oauth2-proxy:${VERSION} -f oauth2-proxy/Dockerfile oauth2-proxy
 
