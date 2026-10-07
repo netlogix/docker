@@ -22,7 +22,7 @@ RUN apt-get update  \
         fonts-thai-tlwg \
         fonts-ubuntu \
         fonts-wqy-zenhei \
-        socat \
+        nginx \
         ttf-mscorefonts-installer \
      && apt-get autoclean\
      && rm -rf \
@@ -59,21 +59,28 @@ RUN groupadd -r chromium && \
     mkdir -p /home/chromium && \
     chown -R chromium:chromium /home/chromium
 
+RUN mkdir -p /var/lib/nginx /run && \
+    chown -R chromium:chromium /var/lib/nginx /run && \
+    ln -sf /dev/stdout /var/log/nginx/access.log && \
+    ln -sf /dev/stderr /var/log/nginx/error.log
+
+COPY nginx.conf /etc/nginx/sites-available/default
+COPY index.html /var/lib/nginx/www/index.html
+
 USER chromium
 
 COPY --from=chromium-patcher /usr/lib/chromium/resources.pak /usr/lib/chromium/resources.pak
 
-ENV REMOTE_DEBUGGING_PORT=9222 \
-    ADDITIONAL_ARGS=''
+ENV ADDITIONAL_ARGS=''
 
 CMD /usr/bin/chromium \
         --disable-dev-shm-usage \
         --disable-gpu \
         --headless \
         --no-sandbox \
-        --remote-allow-origins=http://127.0.0.1 \
+        --remote-allow-origins=* \
         --remote-debugging-port=9221 \
         ${ADDITIONAL_ARGS} & \
-    socat TCP-LISTEN:${REMOTE_DEBUGGING_PORT},fork,reuseaddr TCP:127.0.0.1:9221
+    nginx -g "daemon off;"
 
-HEALTHCHECK --interval=2s --timeout=20s --retries=10 CMD curl --silent --fail --header "Host: 127.0.0.1" http://127.0.0.1:${REMOTE_DEBUGGING_PORT}/json/version || exit 1
+HEALTHCHECK --interval=2s --timeout=20s --retries=10 CMD curl --silent --fail http://127.0.0.1:9222/json/version || exit 1

@@ -1,10 +1,10 @@
 # syntax=docker/dockerfile:1
-FROM --platform=$BUILDPLATFORM golang:1.26-alpine AS builder
+FROM --platform=$BUILDPLATFORM golang:1.27-alpine AS builder
 
 ARG TARGETOS
 ARG TARGETARCH
 # renovate: datasource=github-releases depName=elasticsearch_exporter packageName=prometheus-community/elasticsearch_exporter
-ARG EXPORTER_VERSION=v1.10.0
+ARG EXPORTER_VERSION=v1.11.0
 
 WORKDIR /src
 
@@ -13,7 +13,7 @@ RUN git clone -b $EXPORTER_VERSION --single-branch --depth 1 https://github.com/
 
 RUN CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -o /out/elasticsearch_exporter
 
-FROM alpine:3.23 AS prometheus-elasticsearch-exporter
+FROM alpine:3.24 AS prometheus-elasticsearch-exporter
 
 COPY --from=builder /out/* /
 

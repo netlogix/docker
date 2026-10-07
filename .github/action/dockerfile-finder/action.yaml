@@ -1,4 +1,5 @@
 name: 'Find matching Dockerfile'
+description: 'Finds the most specific <version>.Dockerfile (8.1.2 -> 8.1 -> 8) and falls back to Dockerfile'
 
 inputs:
   path:
@@ -21,45 +22,40 @@ runs:
       id: find-dockerfile
       shell: bash
       env:
-        PATH: ${{ inputs.path }}
+        SEARCH_PATH: ${{ inputs.path }}
         VERSION: ${{ inputs.version }}
       run: |
         find_dockerfile() {
           local search_path="$1"
-          local version="$2"
-          local current="$version"
-        
+          local current="$2"
+
           while [[ -n "$current" ]]; do
-            local candidate="${search_path}/${current}.Dockerfile"
-            if [[ -f "$candidate" ]]; then
-              echo "$(basename "$candidate")"
+            if [[ -f "${search_path}/${current}.Dockerfile" ]]; then
+              echo "${current}.Dockerfile"
               return 0
             fi
-            
-            # Remove last dot-segment (2.1.3 → 2.1 → 2)
+
+            # Remove last dot-segment (2.1.3 -> 2.1 -> 2)
+            [[ "$current" == *.* ]] || break
             current="${current%.*}"
-          
-            # If nothing changed, break
-            [[ "$current" == "$version" ]] && break
-            version="$current"
           done
-        
+
           # Fallback to default Dockerfile
           if [[ -f "${search_path}/Dockerfile" ]]; then
             echo "Dockerfile"
             return 0
           fi
-        
+
           return 1
         }
-        
-        if [[ ! -d "$PATH" ]]; then
-          echo "Error: Directory '$PATH' not found" >&2
+
+        if [[ ! -d "$SEARCH_PATH" ]]; then
+          echo "Error: Directory '$SEARCH_PATH' not found" >&2
           exit 1
         fi
-        
-        if DOCKERFILE_NAME=$(find_dockerfile "$PATH" "$VERSION"); then
-          echo "dockerfile=${DOCKERFILE_NAME}" >> $GITHUB_OUTPUT
+
+        if DOCKERFILE_NAME=$(find_dockerfile "$SEARCH_PATH" "$VERSION"); then
+          echo "dockerfile=${DOCKERFILE_NAME}" >> "$GITHUB_OUTPUT"
         else
           echo "Error: No matching Dockerfile found" >&2
           exit 1

@@ -1,10 +1,10 @@
 # syntax=docker/dockerfile:1
-FROM --platform=$BUILDPLATFORM golang:1.26-alpine AS builder
+FROM --platform=$BUILDPLATFORM golang:1.27-alpine AS builder
 
 ARG TARGETOS
 ARG TARGETARCH
 # renovate: datasource=github-releases depName=apache_exporter packageName=Lusitaniae/apache_exporter
-ARG EXPORTER_VERSION=v1.0.12
+ARG EXPORTER_VERSION=v1.1.1
 
 WORKDIR /src
 
@@ -13,7 +13,7 @@ RUN git clone -b $EXPORTER_VERSION --single-branch --depth 1 https://github.com/
 
 RUN CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -o /out/apache_exporter
 
-FROM alpine:3.23 AS prometheus-apache-exporter
+FROM alpine:3.24 AS prometheus-apache-exporter
 
 COPY --from=builder /out/* /
 

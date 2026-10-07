@@ -4,7 +4,6 @@ inputs:
   product:
     description: 'product name of the service (https://endoflife.date/)'
     required: true
-    default: '.'
 
 outputs:
   matrix:

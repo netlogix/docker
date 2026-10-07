@@ -4,7 +4,7 @@ ARG UBUNTU_VERSION=24.04
 FROM ubuntu:${UBUNTU_VERSION} AS base
 ARG PHP_VERSION=8.4
 # renovate: datasource=github-releases depName=php-pie packageName=php/pie
-ARG PHP_PIE_VERSION=1.3.8
+ARG PHP_PIE_VERSION=1.4.10
 
 ENV DEBIAN_FRONTEND=noninteractive \
     TZ="Europe/Berlin" \
@@ -35,6 +35,7 @@ ENV PHP_VERSION=${PHP_VERSION} \
     PHP_REALPATH_CACHE_SIZE=4M \
     PHP_XDEBUG_HOST=host.docker.internal \
     PHP_XDEBUG_MODE=off \
+    PHP_XDEBUG_PATH_MAPPING=0 \
     PHP_SESSION_COOKIE_LIFETIME=0 \
     PHP_SESSION_HANDLER=files \
     PHP_SESSION_SAVE_PATH="" \
@@ -86,6 +87,7 @@ RUN apt-get update && \
         php${PHP_VERSION}-curl \
         php${PHP_VERSION}-fpm \
         php${PHP_VERSION}-gd \
+        php${PHP_VERSION}-gmp \
         php${PHP_VERSION}-http \
         php${PHP_VERSION}-igbinary \
         php${PHP_VERSION}-imagick \

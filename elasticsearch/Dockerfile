@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM elasticsearch:9.3.0 AS elasticsearch
+FROM elasticsearch:9.5.3 AS elasticsearch
 
 ENV discovery.type=single-node
 ENV bootstrap.memory_lock=true
@@ -7,4 +7,4 @@ ENV ES_JAVA_OPTS="-Xms1g -Xmx1g"
 ENV logger.level=WARN
 
 ADD analysis /usr/share/elasticsearch/config/analysis/
-HEALTHCHECK --interval=2s --timeout=20s --retries=10 CMD curl --silent --fail localhost:9200/_cluster/health || exit 1
+HEALTHCHECK --interval=2s --timeout=20s --start-period=30s --retries=10 CMD curl --silent --fail localhost:9200/_cluster/health || exit 1

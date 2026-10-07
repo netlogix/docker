@@ -72,7 +72,7 @@ updates:
         versions: ["8.0.x", "8.4.x"]
         update-types: ["version-update:semver-major"]
       - dependency-name: "postgres"
-        versions: ["12.x", "14.x"]
+        versions: ["12.x", "14.x", "16.x"]
         update-types: ["version-update:semver-major"]
       - dependency-name: "solr"
         versions: ["8.x"]
