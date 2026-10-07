@@ -13,7 +13,7 @@ if [ "$#" -eq 0 ] || [ "${1#-}" != "$1" ]; then
       -p feature=+http2 \
       -s malloc,${VARNISH_SIZE:-1G} \
       -t 120 \
-      -p thread_pool_min=5 \
+      -p thread_pool_min=100 \
       -p thread_pool_max=500 \
       -p thread_pool_timeout=300 \
       -p http_resp_size=128000 \
