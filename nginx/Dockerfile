@@ -115,8 +115,7 @@ RUN set -eux; \
     git clone https://github.com/owasp-modsecurity/ModSecurity.git --branch "${MODSECURITY_VERSION}" --depth 1 --recursive; \
     cd ModSecurity; \
     ARCH=$(gcc -print-multiarch); \
-    sed -ie "s/i386-linux-gnu/${ARCH}/g" build/ssdeep.m4; \
-    sed -ie "s/i386-linux-gnu/${ARCH}/g" build/pcre2.m4; \
+    sed -i "s/i386-linux-gnu/${ARCH}/g" build/*.m4; \
     ./build.sh; \
     ./configure --with-yajl --with-ssdeep --with-lmdb --with-pcre2 --enable-silent-rules; \
     make -j$(nproc) install; \
