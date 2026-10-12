@@ -312,7 +312,7 @@ sub vcl_backend_error {
     # ESI requests returning an error should not return the error page (possibly containing esi tags in the error document)
     if (bereq.http.X-Varnish-Esi-Level && std.integer(bereq.http.X-Varnish-Esi-Level, 0) > 0) {
         set beresp.http.Content-Type = "text/html; charset=utf-8";
-        synthetic("");
+        set beresp.body = "";
         set beresp.ttl = 0s;
         return (deliver);
     }
@@ -321,7 +321,7 @@ sub vcl_backend_error {
 sub vcl_synth {
     if (req.http.X-Varnish-Esi-Level && std.integer(req.http.X-Varnish-Esi-Level, 0) > 0) {
         set resp.http.Content-Type = "text/html; charset=utf-8";
-        synthetic("");
+        set resp.body = "";
         return (deliver);
     }
 
