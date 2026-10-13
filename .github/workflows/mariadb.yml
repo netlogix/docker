@@ -34,6 +34,8 @@ jobs:
             file: 10.6.Dockerfile
           - version: 10.11
             file: 10.11.Dockerfile
+          - version: 12.3
+            file: 12.3.Dockerfile
           - version: latest
             file: Dockerfile
 
