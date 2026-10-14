@@ -3,12 +3,23 @@ vcl 4.1;
 import std;
 import xkey;
 import cookie;
+import digest;
+import str;
 
 include "includes/imports.vcl";
 include "includes/backends.vcl";
 include "includes/acls.vcl";
+include "includes/cache_refresh.vcl";
 
 sub vcl_recv {
+    if (std.getenv("VARNISH_PASS_PATHS") ~ ".") {
+        set req.http.pass-paths = regsuball(std.getenv("VARNISH_PASS_PATHS"), "\s", "");
+    } else {
+        set req.http.pass-paths = "theme,media,thumbnail,bundles";
+    }
+    set req.http.is-pass-path = str.token_intersect(regsub(req.url, "^/([^/?]*).*$", "\1"), req.http.pass-paths, ",");
+    unset req.http.pass-paths;
+
     if (req.url == "/health") {
         return(synth(200, "health"));
     }
@@ -42,9 +53,11 @@ sub vcl_recv {
         req.method != "PUT" &&
         req.method != "POST" &&
         req.method != "PATCH" &&
+        req.method != "QUERY" &&
         req.method != "TRACE" &&
         req.method != "OPTIONS" &&
         req.method != "DELETE") {
+          unset req.http.is-pass-path;
           return (pipe);
     }
 
@@ -58,12 +71,12 @@ sub vcl_recv {
     }
 
     # Always pass these paths directly to php without caching
-    if (req.url ~  "^/(theme|media|thumbnail|bundles)/") {
+    if (req.http.is-pass-path == "true") {
         return (pass);
     }
 
     # Always pass these paths directly to php without caching
-    if (req.url ~  "^/([a-z]{2}/)?(checkout|account|admin|api|store-api)(/.*)?$") {
+    if (req.url ~  "^/([a-z]{2}/)?(checkout|account|admin|api)(/.*)?$") {
         return (pass);
     }
 
@@ -78,6 +91,8 @@ sub vcl_recv {
     }
 
     include "includes/cache_hitrate_booster.vcl";
+
+    call nlx_cache_refresh;
 
     # Set a header announcing Surrogate Capability to the origin
     set req.http.Surrogate-Capability = "shopware=ESI/1.0";
@@ -126,6 +141,7 @@ sub vcl_backend_fetch {
     unset bereq.http.cache-hash;
     unset bereq.http.currency;
     unset bereq.http.states;
+    unset bereq.http.is-pass-path;
 
     # Varnish can only gunzip/re-gzip for ESI parsing, not brotli. Force the
     # backend to never respond with Content-Encoding: br, otherwise ESI tags
@@ -170,8 +186,8 @@ sub vcl_backend_response {
 sub vcl_deliver {
     include "includes/deliver.vcl";
 
-    ## we don't want the client to cache
-    if (resp.http.Cache-Control !~ "private" && req.url !~ "^/(theme|media|thumbnail|bundles)/") {
+    ## we don't want the client to cache anything except assets and store-api responses
+    if (resp.http.Cache-Control !~ "private" && req.http.is-pass-path != "true") {
         set resp.http.Pragma = "no-cache";
         set resp.http.Expires = "-1";
         set resp.http.Cache-Control = "no-store, no-cache, must-revalidate, max-age=0";
