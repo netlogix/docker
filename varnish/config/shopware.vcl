@@ -186,7 +186,7 @@ sub vcl_backend_response {
 sub vcl_deliver {
     include "includes/deliver.vcl";
 
-    ## we don't want the client to cache anything except assets and store-api responses
+    ## we don't want the client to cache
     if (resp.http.Cache-Control !~ "private" && req.http.is-pass-path != "true") {
         set resp.http.Pragma = "no-cache";
         set resp.http.Expires = "-1";
