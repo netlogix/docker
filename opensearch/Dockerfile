@@ -4,6 +4,7 @@ ENV discovery.type=single-node
 ENV bootstrap.memory_lock=true
 ENV ES_JAVA_OPTS="-Xms1g -Xmx1g"
 ENV logger.level=WARN
+ENV plugins.security.audit.type=noop
 ENV plugins.security.ssl.http.enabled=false
 
 # renovate: datasource=github-releases depName=jq packageName=jqlang/jq
