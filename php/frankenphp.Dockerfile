@@ -1,7 +1,7 @@
 # FrankenPHP is pinned: the moving php<version> tag served v1.13.0, where `frankenphp php-cli script`
 # shifts $argv (script in argv[1]) and breaks Symfony's bin/console (php/frankenphp#2690, fixed in 1.13.1).
 # renovate: datasource=docker depName=dunglas/frankenphp packageName=dunglas/frankenphp versioning=semver
-ARG FRANKENPHP_VERSION=1.13.1
+ARG FRANKENPHP_VERSION=1.13.4
 ARG PHP_VERSION=8.4
 
 FROM dunglas/frankenphp:${FRANKENPHP_VERSION}-php${PHP_VERSION} AS frankenphp-base
