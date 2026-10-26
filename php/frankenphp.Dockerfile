@@ -191,6 +191,7 @@ EOL
 EOF
 
 COPY dev/scripts /usr/local/bin/
+COPY ./config/dev/conf.d/ /usr/local/etc/php/conf.d/
 
 USER www-data
 

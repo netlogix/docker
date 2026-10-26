@@ -236,6 +236,8 @@ RUN apt-get update && \
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 COPY dev/scripts /usr/local/bin/
+COPY config/dev/conf.d /etc/php/${PHP_VERSION}/cli/conf.d/
+COPY config/dev/conf.d /etc/php/${PHP_VERSION}/fpm/conf.d/
 
 # Dev PHP cli
 FROM php-fpm-dev AS php-cli-dev
