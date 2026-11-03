@@ -1,0 +1,62 @@
+name: 'Build telegraf docker image'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  schedule:
+    - cron: 0 7 * * THU
+  push:
+    branches:
+      - main
+    paths:
+      - telegraf/**
+  pull_request:
+    branches:
+      - main
+    paths:
+      - telegraf/**
+  workflow_dispatch:
+    inputs: {}
+
+jobs:
+  build-docker-image:
+    name: 'Build telegraf docker image'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup QEMU
+        uses: docker/setup-qemu-action@v4
+
+      - name: Setup Docker Buildx
+        uses: docker/setup-buildx-action@v4
+
+      - name: Read version from Dockerfile
+        id: docker
+        run: echo "version=$(./extract-version.sh ./telegraf/Dockerfile)" >> $GITHUB_OUTPUT
+
+      - name: Login to GHCR
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v4.7.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push (telegraf)
+        uses: docker/build-push-action@v7
+        with:
+          builder: ${{ steps.buildx.outputs.name }}
+          context: ./telegraf
+          target: telegraf
+          file: ./telegraf/Dockerfile
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ghcr.io/netlogix/docker/telegraf:latest,ghcr.io/netlogix/docker/telegraf:${{ steps.docker.outputs.version }}
+          platforms: linux/amd64,linux/arm64
+          cache-from: type=gha
+          cache-to: type=gha, mode=max
+

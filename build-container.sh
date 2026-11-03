@@ -28,6 +28,7 @@ docker buildx build -t ghcr.io/netlogix/docker/chromium:${VERSION} -f chromium/D
 docker buildx build -t ghcr.io/netlogix/docker/mailpit:${VERSION} -f mailpit/Dockerfile mailpit
 docker buildx build -t ghcr.io/netlogix/docker/tideways-daemon:${VERSION} -f tideways-daemon/Dockerfile tideways-daemon
 docker buildx build -t ghcr.io/netlogix/docker/oauth2-proxy:${VERSION} -f oauth2-proxy/Dockerfile oauth2-proxy
+docker buildx build -t ghcr.io/netlogix/docker/telegraf:${VERSION} -f telegraf/Dockerfile telegraf
 
 docker buildx build -t ghcr.io/netlogix/docker/prometheus-apache-exporter:${VERSION} -f prometheus-apache-exporter/Dockerfile prometheus-apache-exporter
 docker buildx build -t ghcr.io/netlogix/docker/prometheus-elasticsearch-exporter:${VERSION} -f prometheus-elasticsearch-exporter/Dockerfile prometheus-elasticsearch-exporter
