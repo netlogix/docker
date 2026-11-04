@@ -128,7 +128,8 @@ HEALTHCHECK NONE
 
 FROM frankenphp-base AS frankenphp
 
-LABEL prometheus_port="2020"
+# collect frankenphp_* and caddy_http_* metrics on :2020 (scraped by telegraf); projects overriding CADDY_GLOBAL_OPTIONS must keep "metrics"
+ENV CADDY_GLOBAL_OPTIONS=metrics
 
 HEALTHCHECK --interval=2s --timeout=2s --start-period=2s --retries=3 \
   CMD curl --fail --silent http://localhost:8080/health-check || exit 1
@@ -196,7 +197,8 @@ USER www-data
 
 FROM frankenphp-base-dev AS frankenphp-dev
 
-LABEL prometheus_port="2020"
+# collect frankenphp_* and caddy_http_* metrics on :2020 (scraped by telegraf); projects overriding CADDY_GLOBAL_OPTIONS must keep "metrics"
+ENV CADDY_GLOBAL_OPTIONS=metrics
 
 HEALTHCHECK --interval=2s --timeout=2s --start-period=2s --retries=3 \
   CMD curl --fail --silent http://localhost:8080/health-check || exit 1
