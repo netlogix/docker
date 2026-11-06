@@ -12,40 +12,66 @@ on:
       - main
     paths:
       - solr/**
+      - .github/workflows/solr.yml
+      - .github/action/dockerfile-finder/**
   pull_request:
     branches:
       - main
     paths:
       - solr/**
+      - .github/workflows/solr.yml
+      - .github/action/dockerfile-finder/**
   workflow_dispatch:
     inputs: {}
 
 jobs:
+  version-matrix:
+    name: 'Generate version-matrix'
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.version-matrix.outputs.matrix }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - uses: ./.github/action/endoflife
+        id: version-matrix
+        with:
+          product: 'solr'
+
+      - name: Show matrix output
+        env:
+          MATRIX: ${{ steps.version-matrix.outputs.matrix }}
+        run: echo "$MATRIX"
+
   build-docker-image:
-    name: 'Build solr-${{ matrix.image.version }} docker image'
+    name: 'Build solr-${{ matrix.image.name }} docker image'
+    needs: version-matrix
     runs-on: ubuntu-latest
 
     strategy:
       fail-fast: false
       max-parallel: 10
       matrix:
-        image:
-          - file: 8.Dockerfile
-          - file: Dockerfile
+        image: ${{ fromJson(needs.version-matrix.outputs.matrix) }}
 
     steps:
       - name: Checkout
         uses: actions/checkout@v7
 
+      - name: find Dockerfile
+        uses: ./.github/action/dockerfile-finder
+        id: dockerfile
+        with:
+          path: ./solr
+          version: ${{ matrix.image.version }}
+
       - name: Setup QEMU
         uses: docker/setup-qemu-action@v4
 
       - name: Setup Docker Buildx
+        id: buildx
         uses: docker/setup-buildx-action@v4
-
-      - name: Read version from Dockerfile
-        id: docker
-        run: echo "version=$(./extract-version.sh ./solr/${{ matrix.image.file || 'Dockerfile' }})" >> $GITHUB_OUTPUT
 
       - name: Login to GHCR
         if: github.event_name != 'pull_request'
@@ -61,10 +87,13 @@ jobs:
           builder: ${{ steps.buildx.outputs.name }}
           context: ./solr
           target: solr
-          file: ./solr/${{ matrix.image.file || 'Dockerfile' }}
+          file: ./solr/${{ steps.dockerfile.outputs.dockerfile }}
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ghcr.io/netlogix/docker/solr:${{ steps.docker.outputs.version }}
+          tags: |
+            ghcr.io/netlogix/docker/solr:${{ matrix.image.name }}
+            ghcr.io/netlogix/docker/solr:${{ matrix.image.version }}
+          build-args: |
+            SOLR_VERSION=${{ matrix.image.version }}
           platforms: linux/amd64,linux/arm64
-          cache-from: type=gha, scope=${{ github.workflow }}-solr
-          cache-to: type=gha, scope=${{ github.workflow }}-solr, mode=max
-
+          cache-from: type=gha, scope=${{ github.workflow }}-solr-${{ matrix.image.name }}
+          cache-to: type=gha, scope=${{ github.workflow }}-solr-${{ matrix.image.name }}, mode=max
