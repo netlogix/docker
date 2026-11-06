@@ -5,5 +5,7 @@ FROM telegraf:1.40 AS telegraf
 COPY defaults.d/ /etc/telegraf/defaults.d/
 
 EXPOSE 9273
+# the base image also exposes 8094, so tell prometheus docker discovery which port to scrape
+LABEL prometheus_port="9273"
 
 CMD ["telegraf", "--config-directory", "/etc/telegraf/defaults.d", "--config-directory", "/etc/telegraf/telegraf.d"]
