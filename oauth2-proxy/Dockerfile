@@ -1,4 +1,4 @@
-FROM quay.io/oauth2-proxy/oauth2-proxy:v7.15.5-alpine AS oauth2-proxy
+FROM quay.io/oauth2-proxy/oauth2-proxy:v7.15.6-alpine AS oauth2-proxy
 
 ENV TZ=Europe/Berlin
 # expose prometheus metrics on :44180/metrics (scraped by telegraf)
