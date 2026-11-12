@@ -8,7 +8,7 @@ RUN echo "Include conf/http_custom.conf" >> /usr/local/apache2/conf/httpd.conf
 # Port for prometheus exporter
 EXPOSE 90
 
-HEALTHCHECK --interval=2s --timeout=20s --retries=10 CMD wget -qO- http://localhost:90/health | grep -q 'health'
+HEALTHCHECK --interval=30s --timeout=20s --start-period=60s --start-interval=2s --retries=3 CMD wget -qO- http://localhost:90/health | grep -q 'health'
 
 FROM base AS httpd-typo3
 COPY config/typo3 /usr/local/apache2/vhosts

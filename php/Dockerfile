@@ -157,7 +157,7 @@ COPY fpm /usr/local/bin/
 STOPSIGNAL SIGTERM
 EXPOSE 9000
 
-HEALTHCHECK --interval=2s --timeout=5s --retries=10 CMD php-fpm-healthcheck || exit 1
+HEALTHCHECK --interval=30s --timeout=5s --start-period=60s --start-interval=2s --retries=3 CMD php-fpm-healthcheck || exit 1
 ENTRYPOINT ["docker-php-entrypoint"]
 CMD ["php-fpm"]
 

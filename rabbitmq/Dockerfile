@@ -3,4 +3,4 @@ FROM rabbitmq:4.4.0-management AS rabbitmq
 
 COPY --chown=rabbitmq:rabbitmq config /etc/rabbitmq/
 
-HEALTHCHECK --interval=2s --timeout=20s --retries=10 CMD rabbitmq-diagnostics check_port_connectivity
+HEALTHCHECK --interval=30s --timeout=20s --start-period=60s --start-interval=2s --retries=3 CMD rabbitmq-diagnostics check_port_connectivity

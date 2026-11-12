@@ -131,7 +131,7 @@ FROM frankenphp-base AS frankenphp
 # collect frankenphp_* and caddy_http_* metrics on :2020 (scraped by telegraf); projects overriding CADDY_GLOBAL_OPTIONS must keep "metrics"
 ENV CADDY_GLOBAL_OPTIONS=metrics
 
-HEALTHCHECK --interval=2s --timeout=2s --start-period=2s --retries=3 \
+HEALTHCHECK --interval=30s --timeout=2s --start-period=60s --start-interval=2s --retries=3 \
   CMD curl --fail --silent http://localhost:8080/health-check || exit 1
 
 EXPOSE 2020
@@ -200,7 +200,7 @@ FROM frankenphp-base-dev AS frankenphp-dev
 # collect frankenphp_* and caddy_http_* metrics on :2020 (scraped by telegraf); projects overriding CADDY_GLOBAL_OPTIONS must keep "metrics"
 ENV CADDY_GLOBAL_OPTIONS=metrics
 
-HEALTHCHECK --interval=2s --timeout=2s --start-period=2s --retries=3 \
+HEALTHCHECK --interval=30s --timeout=2s --start-period=60s --start-interval=2s --retries=3 \
   CMD curl --fail --silent http://localhost:8080/health-check || exit 1
 
 EXPOSE 2020

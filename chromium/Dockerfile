@@ -83,4 +83,4 @@ CMD /usr/bin/chromium \
         ${ADDITIONAL_ARGS} & \
     nginx -g "daemon off;"
 
-HEALTHCHECK --interval=2s --timeout=20s --retries=10 CMD curl --silent --fail http://127.0.0.1:9222/json/version || exit 1
+HEALTHCHECK --interval=30s --timeout=20s --start-period=60s --start-interval=2s --retries=3 CMD curl --silent --fail http://127.0.0.1:9222/json/version || exit 1
