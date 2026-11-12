@@ -14,4 +14,4 @@ COPY config /etc/varnish/
 COPY docker-varnish-entrypoint /usr/local/bin/
 
 USER varnish
-HEALTHCHECK --interval=2s --timeout=20s --retries=10 CMD wget -qO- http://localhost:80/health | grep -q 'health'
+HEALTHCHECK --interval=10s --timeout=3s --start-period=60s --start-interval=2s --retries=3 CMD wget -qO- http://localhost:80/health | grep -q 'health'

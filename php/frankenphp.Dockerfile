@@ -1,3 +1,4 @@
+# syntax=docker/dockerfile:1
 # FrankenPHP is pinned: the moving php<version> tag served v1.13.0, where `frankenphp php-cli script`
 # shifts $argv (script in argv[1]) and breaks Symfony's bin/console (php/frankenphp#2690, fixed in 1.13.1).
 # renovate: datasource=docker depName=dunglas/frankenphp packageName=dunglas/frankenphp versioning=semver
@@ -131,7 +132,7 @@ FROM frankenphp-base AS frankenphp
 # collect frankenphp_* and caddy_http_* metrics on :2020 (scraped by telegraf); projects overriding CADDY_GLOBAL_OPTIONS must keep "metrics"
 ENV CADDY_GLOBAL_OPTIONS=metrics
 
-HEALTHCHECK --interval=2s --timeout=2s --start-period=2s --retries=3 \
+HEALTHCHECK --interval=10s --timeout=2s --start-period=60s --start-interval=2s --retries=3 \
   CMD curl --fail --silent http://localhost:8080/health-check || exit 1
 
 EXPOSE 2020
@@ -200,7 +201,7 @@ FROM frankenphp-base-dev AS frankenphp-dev
 # collect frankenphp_* and caddy_http_* metrics on :2020 (scraped by telegraf); projects overriding CADDY_GLOBAL_OPTIONS must keep "metrics"
 ENV CADDY_GLOBAL_OPTIONS=metrics
 
-HEALTHCHECK --interval=2s --timeout=2s --start-period=2s --retries=3 \
+HEALTHCHECK --interval=10s --timeout=2s --start-period=60s --start-interval=2s --retries=3 \
   CMD curl --fail --silent http://localhost:8080/health-check || exit 1
 
 EXPOSE 2020

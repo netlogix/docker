@@ -1,3 +1,4 @@
+# syntax=docker/dockerfile:1
 FROM debian:bookworm-slim AS chromium-base
 
 RUN apt-get update  \
@@ -83,4 +84,4 @@ CMD /usr/bin/chromium \
         ${ADDITIONAL_ARGS} & \
     nginx -g "daemon off;"
 
-HEALTHCHECK --interval=2s --timeout=20s --retries=10 CMD curl --silent --fail http://127.0.0.1:9222/json/version || exit 1
+HEALTHCHECK --interval=10s --timeout=5s --start-period=60s --start-interval=2s --retries=3 CMD curl --silent --fail http://127.0.0.1:9222/json/version || exit 1
