@@ -5,4 +5,4 @@ ENV TZ="Europe/Berlin"
 
 COPY config /etc/postgresql
 
-HEALTHCHECK --interval=30s --timeout=5s --start-period=60s --start-interval=2s --retries=3 CMD pg_isready -U $POSTGRES_USER -d $POSTGRES_DB
+HEALTHCHECK --interval=10s --timeout=3s --start-period=60s --start-interval=2s --retries=3 CMD pg_isready -U $POSTGRES_USER -d $POSTGRES_DB

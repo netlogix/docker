@@ -4,5 +4,5 @@ FROM redis:${REDIS_VERSION}-alpine AS redis
 
 COPY redis.conf /usr/local/etc/redis/redis.conf
 
-HEALTHCHECK --interval=30s --timeout=20s --start-period=60s --start-interval=2s --retries=3 CMD redis-cli ping
+HEALTHCHECK --interval=10s --timeout=2s --start-period=60s --start-interval=2s --retries=3 CMD redis-cli ping
 CMD [ "redis-server", "/usr/local/etc/redis/redis.conf" ]
