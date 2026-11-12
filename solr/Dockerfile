@@ -1,5 +1,6 @@
 # syntax=docker/dockerfile:1
-FROM solr:9.10.1 AS builder
+ARG SOLR_VERSION
+FROM solr:${SOLR_VERSION} AS builder
 
 ENV TYPO3_SOLR=13.1.1 \
     TYPO3_SOLR_DOWNLOAD_SHA512="5c5721aa385c73668ef1c40f047eb218eea06a6d0dbb45cfe91ee41f9d6c16b3923d5f3a5cc842e7a62a0342292ff9aea1fa294b6ffbac4a4ef96f8dc6137148"
@@ -15,7 +16,7 @@ RUN apt-get update && \
     mkdir -p /tmp/solr && \
     tar -zxvf /tmp/solr.tar.gz -C /tmp/solr --strip-components=1;
 
-FROM solr:9.10.1 AS solr
+FROM solr:${SOLR_VERSION} AS solr
 ENV TERM=linux \
     SOLR_LOG_LEVEL=WARN \
     SOLR_PORT=8983 \
