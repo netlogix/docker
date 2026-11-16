@@ -35,6 +35,11 @@ jobs:
       - name: Setup Docker Buildx
         uses: docker/setup-buildx-action@v4
 
+      - name: Read version from Dockerfile
+        id: docker
+        # Go-built exporters: the first version in the Dockerfile is golang's, so read EXPORTER_VERSION instead of using extract-version.sh
+        run: echo "version=$(sed -nE "s/^ARG EXPORTER_VERSION=['\"]?v?([0-9][0-9.]*)['\"]?$/\1/p" ./prometheus-nginx-exporter/Dockerfile)" >> $GITHUB_OUTPUT
+
       - name: Login to GHCR
         if: github.event_name != 'pull_request'
         uses: docker/login-action@v4.8.0
@@ -51,7 +56,7 @@ jobs:
           target: prometheus-nginx-exporter
           file: ./prometheus-nginx-exporter/Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ghcr.io/netlogix/docker/prometheus-nginx-exporter:latest,ghcr.io/netlogix/docker/prometheus-nginx-exporter:1.2.0
+          tags: ghcr.io/netlogix/docker/prometheus-nginx-exporter:latest,ghcr.io/netlogix/docker/prometheus-nginx-exporter:${{ steps.docker.outputs.version }}
           platforms: linux/amd64,linux/arm64
           cache-from: type=gha
           cache-to: type=gha, mode=max
