@@ -87,7 +87,7 @@ sub vcl_recv {
     set req.http.states = cookie.get("sw-states");
 
     # Shopware no longer sets sw-states with CACHE_REWORK (default since 6.8), but a filled cart always sets sw-cache-hash
-    if (req.url == "/widgets/checkout/info" && !req.http.states ~ "cart-filled" && req.http.cache-hash == "") {
+    if (req.url ~ "/widgets/checkout/info(\?|$)" && !req.http.states ~ "cart-filled" && req.http.cache-hash == "") {
         return (synth(204, ""));
     }
 
