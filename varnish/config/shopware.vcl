@@ -86,8 +86,15 @@ sub vcl_recv {
     set req.http.currency = cookie.get("sw-currency");
     set req.http.states = cookie.get("sw-states");
 
-    if (req.url == "/widgets/checkout/info" && !req.http.states ~ "cart-filled") {
+    # Shopware no longer sets sw-states with CACHE_REWORK (default since 6.8), but a filled cart always sets sw-cache-hash
+    if (req.url ~ "/widgets/checkout/info(\?|$)" && !req.http.states ~ "cart-filled" && req.http.cache-hash == "") {
         return (synth(204, ""));
+    }
+
+    # A Store-API client with a context token but without its context hash may be logged in.
+    # Shopware only detects the hash mismatch on the backend, a cache hit would skip that check.
+    if (req.url ~ "^/store-api/" && req.http.sw-context-token && !req.http.sw-cache-hash && req.http.cache-hash == "") {
+        return (pass);
     }
 
     include "includes/cache_hitrate_booster.vcl";
