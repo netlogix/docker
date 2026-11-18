@@ -16,7 +16,16 @@ runs:
     - name: Fetch and Filter Versions
       id: fetch-versions
       shell: bash
+      env:
+        PRODUCT: ${{ inputs.product }}
       run: |
-        curl -s https://endoflife.date/api/v1/products/${{ inputs.product }} | \
-          jq -c '.result.releases | map( select(.isMaintained == true) | { "name": .name, "version": .latest.name} )' | \
+        # endoflife.date lists releases newest first, so index 0 is the latest release
+        curl -fsS --retry 3 "https://endoflife.date/api/v1/products/${PRODUCT}" | \
+          jq -c '
+            [.result.releases | map(select(.isMaintained == true)) | to_entries[]
+              | (.value.latest.name | split(".")) as $v
+              | { "name": .value.name, "version": .value.latest.name, "major": $v[0], "minor": ($v[0:2] | join(".")), "isLatest": (.key == 0) }]
+            | . as $all
+            | map(. as $r | . + { "isLatestInMajor": (($all | map(select(.major == $r.major)) | first | .name) == $r.name) })
+          ' | \
           sed 's/^/matrix=/' >> $GITHUB_OUTPUT
