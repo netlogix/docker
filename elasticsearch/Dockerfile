@@ -1,5 +1,6 @@
 # syntax=docker/dockerfile:1
-FROM elasticsearch:9.5.5 AS elasticsearch
+ARG ELASTICSEARCH_VERSION
+FROM elasticsearch:${ELASTICSEARCH_VERSION} AS elasticsearch
 
 ENV discovery.type=single-node
 ENV bootstrap.memory_lock=true

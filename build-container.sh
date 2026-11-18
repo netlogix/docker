@@ -19,7 +19,7 @@ docker buildx build -t ghcr.io/netlogix/docker/redis:${VERSION} -f redis/Dockerf
 docker buildx build -t ghcr.io/netlogix/docker/solr:${VERSION} -f solr/Dockerfile solr
 docker buildx build -t ghcr.io/netlogix/docker/solr:8.11 -f solr/8.Dockerfile solr
 docker buildx build -t ghcr.io/netlogix/docker/varnish:${VERSION} -f varnish/Dockerfile varnish
-docker buildx build -t ghcr.io/netlogix/docker/elasticsearch:${VERSION} -f elasticsearch/Dockerfile elasticsearch
+docker buildx build -t ghcr.io/netlogix/docker/elasticsearch:${VERSION} --build-arg ELASTICSEARCH_VERSION=9.5.6 -f elasticsearch/Dockerfile elasticsearch
 docker buildx build -t ghcr.io/netlogix/docker/httpd-neos:${VERSION} -f httpd/Dockerfile --target=httpd-neos httpd
 docker buildx build -t ghcr.io/netlogix/docker/httpd-static:${VERSION} -f httpd/Dockerfile --target=httpd-static httpd
 docker buildx build -t ghcr.io/netlogix/docker/httpd-typo3:${VERSION} -f httpd/Dockerfile --target=httpd-typo3 httpd
