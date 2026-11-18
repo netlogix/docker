@@ -15,7 +15,7 @@ docker buildx build -t ghcr.io/netlogix/docker/deunhealth:${VERSION} -f deunheal
 docker buildx build -t ghcr.io/netlogix/docker/nginx:${VERSION} -f nginx/Dockerfile --target=nginx nginx
 docker buildx build -t ghcr.io/netlogix/docker/styleguide:${VERSION} -f nginx/Dockerfile --target=styleguide nginx
 docker buildx build -t ghcr.io/netlogix/docker/rabbitmq:${VERSION} -f rabbitmq/Dockerfile rabbitmq
-docker buildx build -t ghcr.io/netlogix/docker/redis:${VERSION} -f redis/Dockerfile redis
+docker buildx build -t ghcr.io/netlogix/docker/redis:${VERSION} --build-arg REDIS_VERSION=8.10 -f redis/Dockerfile redis
 docker buildx build -t ghcr.io/netlogix/docker/solr:${VERSION} -f solr/Dockerfile solr
 docker buildx build -t ghcr.io/netlogix/docker/solr:8.11 -f solr/8.Dockerfile solr
 docker buildx build -t ghcr.io/netlogix/docker/varnish:${VERSION} -f varnish/Dockerfile varnish
