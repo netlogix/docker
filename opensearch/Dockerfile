@@ -5,6 +5,10 @@ ENV discovery.type=single-node
 ENV bootstrap.memory_lock=true
 ENV ES_JAVA_OPTS="-Xms1g -Xmx1g"
 ENV logger.level=WARN
+# Mitigation for CVE-2026-114938 (Java4Shell), remove once the bundled JDK is patched; JAVA_TOOL_OPTIONS is ignored here
+COPY <<EOF /usr/share/opensearch/config/jvm.options.d/java4shell.options
+-XX:-UseBASE64Intrinsics
+EOF
 ENV plugins.security.audit.type=noop
 ENV plugins.security.ssl.http.enabled=false
 
