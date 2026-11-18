@@ -1,5 +1,6 @@
 # syntax=docker/dockerfile:1
-FROM opensearchproject/opensearch:3.9.0 AS opensearch
+ARG OPENSEARCH_VERSION
+FROM opensearchproject/opensearch:${OPENSEARCH_VERSION} AS opensearch
 
 ENV discovery.type=single-node
 ENV bootstrap.memory_lock=true

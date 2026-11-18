@@ -13,48 +13,52 @@ on:
     paths:
       - opensearch/**
       - .github/workflows/opensearch.yml
+      - .github/action/endoflife/**
   pull_request:
     branches:
       - main
     paths:
       - opensearch/**
       - .github/workflows/opensearch.yml
+      - .github/action/endoflife/**
   workflow_dispatch:
     inputs: {}
 
 jobs:
-  build-docker-image:
-    name: 'Build opensearch-${{ matrix.image.version }} docker image'
+  version-matrix:
+    name: 'Generate version-matrix'
     runs-on: ubuntu-latest
-    env:
-      imageRegistry: ghcr.io/netlogix/docker/opensearch
-
-    strategy:
-      fail-fast: false
-      max-parallel: 10
-      matrix:
-        image:
-          # additional Docker files for example V 3.x can be added here
-          - version: 2
-            dockerFile: ./opensearch/Dockerfile
-            context: ./opensearch
-            target: opensearch
-
+    outputs:
+      matrix: ${{ steps.version-matrix.outputs.matrix }}
     steps:
       - name: Checkout
         uses: actions/checkout@v7
 
-      - name: Read version from Dockerfile
-        id: docker
-        run: |
-          VERSION="$(./extract-version.sh ${{ matrix.image.dockerFile }})"
-          echo "minor_version=$VERSION" >> $GITHUB_OUTPUT
-          echo "major_version=${VERSION%%.*}" >> $GITHUB_OUTPUT
+      - uses: ./.github/action/endoflife
+        id: version-matrix
+        with:
+          product: 'opensearch'
+
+      - name: Show matrix output
+        run: echo '${{ steps.version-matrix.outputs.matrix }}'
+
+  build-docker-image:
+    name: 'Build opensearch docker image - ${{ matrix.image.name }} (${{ matrix.image.version }})'
+    needs: version-matrix
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        image: ${{ fromJson(needs.version-matrix.outputs.matrix) }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
 
       - name: Setup QEMU
         uses: docker/setup-qemu-action@v4
 
       - name: Setup Docker Buildx
+        id: buildx
         uses: docker/setup-buildx-action@v4
 
       - name: Login to GHCR
@@ -65,18 +69,21 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and push
+      - name: Build and push (opensearch)
         uses: docker/build-push-action@v7
         with:
           builder: ${{ steps.buildx.outputs.name }}
-          context: ${{ matrix.image.context }}
-          target: ${{ matrix.image.target }}
-          file: ${{ matrix.image.dockerFile }}
+          context: ./opensearch
+          target: opensearch
+          file: ./opensearch/Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
           tags: |
-            ${{ env.imageRegistry }}:latest
-            ${{ env.imageRegistry }}:${{ steps.docker.outputs.minor_version }}
-            ${{ env.imageRegistry }}:${{ steps.docker.outputs.major_version }}
+            ${{ matrix.image.isLatest && 'ghcr.io/netlogix/docker/opensearch:latest' || '' }}
+            ${{ matrix.image.isLatestInMajor && format('ghcr.io/netlogix/docker/opensearch:{0}', matrix.image.major) || '' }}
+            ghcr.io/netlogix/docker/opensearch:${{ matrix.image.minor }}
+            ghcr.io/netlogix/docker/opensearch:${{ matrix.image.version }}
+          build-args: |
+            OPENSEARCH_VERSION=${{ matrix.image.version }}
           platforms: linux/amd64,linux/arm64
-          cache-from: type=gha, scope=${{ github.workflow }}-${{ matrix.image.target }}-${{ steps.docker.outputs.major_version }}
-          cache-to: type=gha, scope=${{ github.workflow }}-${{ matrix.image.target }}-${{ steps.docker.outputs.major_version }}, mode=max
+          cache-from: type=gha, scope=${{ github.workflow }}-${{ matrix.image.name }}
+          cache-to: type=gha, scope=${{ github.workflow }}-${{ matrix.image.name }}, mode=max
