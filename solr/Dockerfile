@@ -16,6 +16,12 @@ RUN apt-get update && \
     tar -zxvf /tmp/solr.tar.gz -C /tmp/solr --strip-components=1;
 
 FROM solr:9.10.1 AS solr
+
+# Mitigation for Java4Shell (CVE-2026-114938, AVX-512 Base64 decode intrinsic heap overflow).
+# JAVA_TOOL_OPTIONS reaches every JVM started in the container, including those spawned by bin/solr.
+# Remove once the base image ships JDK >= 17.0.21.1.
+ENV JAVA_TOOL_OPTIONS="-XX:-UseBASE64Intrinsics"
+
 ENV TERM=linux \
     SOLR_LOG_LEVEL=WARN \
     SOLR_PORT=8983 \
