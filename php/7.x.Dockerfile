@@ -44,26 +44,18 @@ ENV PHP_VERSION=${PHP_VERSION} \
     PHP_FPM_PM_MIN_SPARE_SERVERS=2 \
     PHP_FPM_PM_MAX_SPARE_SERVERS=4 \
     PHP_FPM_PM_MAX_REQUESTS=1000 \
-    XDEBUG_VERSION=${XDEBUG_VERSION} \
-    TIDEWAYS_APIKEY="" \
-    TIDEWAYS_AUTO_START=1 \
-    TIDEWAYS_DAEMON="tcp://tideways-daemon:9135" \
-    TIDEWAYS_SAMPLERATE=25
+    XDEBUG_VERSION=${XDEBUG_VERSION}
 
 RUN apt-get update && \
     apt-get -y install --no-install-suggests --no-install-recommends \
-        software-properties-common \
-        apt-transport-https \
         libfcgi-bin \
         ca-certificates \
         curl \
         gnupg2 \
         locales
 
-RUN echo 'deb [signed-by=/usr/share/keyrings/tideways.gpg] https://packages.tideways.com/apt-packages-main any-version main' | tee /etc/apt/sources.list.d/tideways.list && \
-    curl -L -sS 'https://packages.tideways.com/key.gpg' | gpg --dearmor | tee /usr/share/keyrings/tideways.gpg > /dev/null
-
-RUN add-apt-repository ppa:ondrej/php -y
+RUN curl -L -sS 'https://packages.sury.org/php/apt.gpg' -o /usr/share/keyrings/deb.sury.org-php.gpg && \
+    echo "deb [signed-by=/usr/share/keyrings/deb.sury.org-php.gpg] https://packages.sury.org/php/ $(. /etc/os-release && echo ${VERSION_CODENAME}) main" | tee /etc/apt/sources.list.d/php.list
 
 RUN apt-get update && \
     apt-get -y install --no-install-suggests --no-install-recommends \
@@ -86,8 +78,6 @@ RUN apt-get update && \
         php${PHP_VERSION}-curl \
         php${PHP_VERSION}-fpm \
         php${PHP_VERSION}-gd \
-        php${PHP_VERSION}-gmp \
-        php${PHP_VERSION}-http \
         php${PHP_VERSION}-igbinary \
         php${PHP_VERSION}-imagick \
         php${PHP_VERSION}-intl \
@@ -95,8 +85,6 @@ RUN apt-get update && \
         php${PHP_VERSION}-mysql \
         php${PHP_VERSION}-opcache \
         php${PHP_VERSION}-pgsql \
-        php${PHP_VERSION}-propro \
-        php${PHP_VERSION}-raphf \
         php${PHP_VERSION}-readline \
         php${PHP_VERSION}-redis \
         php${PHP_VERSION}-soap \
@@ -104,8 +92,6 @@ RUN apt-get update && \
         php${PHP_VERSION}-xml \
         php${PHP_VERSION}-yaml \
         php${PHP_VERSION}-zip \
-        tideways-php \
-        tideways-cli \
     && apt-get autoremove \
     && find /var/log -type f -name "*.log" -delete \
     && rm -rf /var/lib/apt/lists/* /var/cache/ldconfig/aux-cache \
