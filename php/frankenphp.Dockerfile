@@ -117,6 +117,8 @@ ENV PHP_VERSION=${PHP_VERSION} \
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 COPY ./config/conf.d/ /usr/local/etc/php/conf.d/
+# Fail the build if the GHSA-8mjj-2r7p-4hg2 mitigation gets lost.
+RUN php -r 'exit(ini_get("zend.exception_ignore_args") === "1" ? 0 : 1);'
 
 WORKDIR /var/www
 
