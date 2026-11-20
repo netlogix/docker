@@ -40,7 +40,7 @@ jobs:
           file: 7.x.Dockerfile
           build-args: |
             PHP_VERSION=7.4
-        - version: 8.0
+        - version: "8.0"
           file: 8.x.Dockerfile
           build-args: |
             PHP_VERSION=8.0

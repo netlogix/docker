@@ -30,7 +30,7 @@ jobs:
       max-parallel: 10
       matrix:
         image:
-          - version: 8.0
+          - version: "8.0"
             file: 8.0.Dockerfile
           - version: 8.4
             file: 8.4.Dockerfile
