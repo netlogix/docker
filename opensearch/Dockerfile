@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM opensearchproject/opensearch:3.9.0 AS opensearch
+FROM opensearchproject/opensearch:3.10.0 AS opensearch
 
 ENV discovery.type=single-node
 ENV bootstrap.memory_lock=true
